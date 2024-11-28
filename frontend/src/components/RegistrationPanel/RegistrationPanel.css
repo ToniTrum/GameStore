@@ -1,0 +1,84 @@
+main {
+    position: relative;
+}
+
+.registration-form {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 4rem;
+    background-color: black;
+    border-radius: 5%;
+
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
+.form-title {
+    text-align: center;
+    font-weight: bold;
+
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.form-input {
+    color: rgb(255, 255, 255);
+    background-color: #242424;
+    background-clip: padding-box;
+
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    width: 50vw;
+    line-height: 2.5rem;
+}
+
+.form-input:invalid {
+    border-color: rgba(214, 10, 10, 0.87);
+    color: rgba(214, 10, 10, 0.87);
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(23%) sepia(77%) saturate(5905%) hue-rotate(357deg) brightness(96%) contrast(94%);
+}
+
+.form-buttons {
+    display: flex;
+    gap: 3rem;
+    align-self: flex-end;
+}
+
+.registration-button {
+    color: rgb(255, 255, 255);
+    background-color: #242424;
+    background-clip: padding-box;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+
+    line-height: 2rem;
+}
+
+.registration-button:hover {
+    cursor: pointer;
+    color: rgba(214, 10, 10, 0.87);
+    border-color: rgba(214, 10, 10, 0.87);
+}

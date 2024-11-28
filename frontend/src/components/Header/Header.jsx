@@ -16,7 +16,7 @@ const Header = () => {
                     className="header-logo"
                     src={gameStoreLogo} 
                     alt="gameStoreLogo" />
-                <h1 className="header-text">Game Store</h1>
+                <h1 className="header-text">GAME STORE</h1>
             </div>
 
             <AnimatePresence mode="wait">
