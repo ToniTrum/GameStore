@@ -1,0 +1,33 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: black;
+    position: fixed;
+    width: 100vw;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 6rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+
+.header-text {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.side-menu-button {
+    width: 3rem;
+    margin-right: 2rem;
+    cursor: pointer;
+}
