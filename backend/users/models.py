@@ -24,3 +24,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+models.signals.post_save.connect(create_user_profile, sender=User)
+models.signals.post_save.connect(save_user_profile, sender=User)
