@@ -3,6 +3,8 @@ import './RegistrationPanel.css'
 import { API_URL } from '../../main.jsx'
 
 const RegistrationPanel = () => {
+    
+
     return (
         <main>
             <form className="registration-form" action='' method="post">
