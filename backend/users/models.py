@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=64, validators=[MinValueValidator(3)], unique=True)
+    username = models.CharField(max_length=64, unique=True)
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'username'
@@ -17,8 +17,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=124)
-    birth_day = models.DateField(null=False)
-    country = models.PositiveIntegerField(null=False)
+    birth_day = models.DateField(null=True)
+    country = models.PositiveIntegerField(default=1)
     image = models.ImageField(upload_to='media', default='default.svg')
     verified = models.BooleanField(default=False)
 
@@ -31,7 +31,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
 
 models.signals.post_save.connect(create_user_profile, sender=User)
 models.signals.post_save.connect(save_user_profile, sender=User)
