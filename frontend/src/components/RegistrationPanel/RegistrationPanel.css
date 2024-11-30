@@ -1,5 +1,7 @@
 main {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
 
 .registration-form {
@@ -10,11 +12,6 @@ main {
     padding: 4rem;
     background-color: black;
     border-radius: 5%;
-
-    position: absolute;
-    top: 50vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
 }
 
 .form-title {

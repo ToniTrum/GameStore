@@ -19,26 +19,26 @@ const registrationData = [
         "label": "Подтвердите пароль",
         "type": "password"
     },
-    // {
-    //     "name": "first_name",
-    //     "label": "Имя",
-    //     "type": "text"
-    // },
-    // {
-    //     "name": "last_name",
-    //     "label": "Фамилия",
-    //     "type": "text"
-    // },
-    // {
-    //     "name": "country",
-    //     "label": "Страна",
-    //     "type": "text"
-    // },
-    // {
-    //     "name": "birth_date",
-    //     "label": "Дата рождения",
-    //     "type": "date"
-    // },
+    {
+        "name": "first_name",
+        "label": "Имя",
+        "type": "text"
+    },
+    {
+        "name": "last_name",
+        "label": "Фамилия",
+        "type": "text"
+    },
+    {
+        "name": "country",
+        "label": "Страна",
+        "type": "text"
+    },
+    {
+        "name": "birth_date",
+        "label": "Дата рождения",
+        "type": "date"
+    },
 ]
 
 export default registrationData
