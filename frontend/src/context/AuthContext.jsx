@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import {useHistory} from "react-router-dom";
 
 
-const swal = require('sweetalert2')
+const sweetAlert = require('sweetalert2')
 
 const AuthContext = createContext();
 
@@ -14,22 +14,18 @@ export const AuthProvider = ({ children }) => {
         localStorage.getItem("authTokens")
             ? JSON.parse(localStorage.getItem("authTokens"))
             : null
-    );
-    
-
+    )
     const [user, setUser] = useState(() => 
         localStorage.getItem("authTokens")
             ? jwt_decode(localStorage.getItem("authTokens"))
             : null
-    );
-
-
+    )
     const [loading, setLoading] = useState(true);
 
     const history = useHistory();
 
     const loginUser = async (email, password) => {
-        const response = await fetch("http://127.0.0.1:8000/api/token/", {
+        const response = await fetch("http://127.0.0.1:8000/users/token/", {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
@@ -41,13 +37,14 @@ export const AuthProvider = ({ children }) => {
         const data = await response.json()
         console.log(data);
 
-        if(response.status === 200){
+        if(response.status === 200)
+        {
             console.log("Logged In");
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
             history.push("/")
-            swal.fire({
+            sweetAlert.fire({
                 title: "Login Successful",
                 icon: "success",
                 toast: true,
@@ -56,12 +53,13 @@ export const AuthProvider = ({ children }) => {
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
-
-        } else {    
+        } 
+        else 
+        {    
             console.log(response.status);
             console.log("there was a server issue");
-            swal.fire({
-                title: "Username or passowrd does not exists",
+            sweetAlert.fire({
+                title: "Username or password does not exists",
                 icon: "error",
                 toast: true,
                 timer: 6000,
@@ -72,19 +70,21 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const registerUser = async (email, username, password, password2) => {
-        const response = await fetch("http://127.0.0.1:8000/api/register/", {
+    const registerUser = async (email, username, password, password2, first_name, last_name, country, birthdate) => {
+        const response = await fetch("http://127.0.0.1:8000/users/register/", {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
             },
             body: JSON.stringify({
-                email, username, password, password2
+                email, username, password, password2, first_name, last_name, country, birthdate
             })
         })
-        if(response.status === 201){
+
+        if(response.status === 201)
+        {
             history.push("/login")
-            swal.fire({
+            sweetAlert.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
                 toast: true,
@@ -93,10 +93,12 @@ export const AuthProvider = ({ children }) => {
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
-        } else {
+        } 
+        else 
+        {
             console.log(response.status);
             console.log("there was a server issue");
-            swal.fire({
+            sweetAlert.fire({
                 title: "An Error Occured " + response.status,
                 icon: "error",
                 toast: true,
@@ -113,7 +115,7 @@ export const AuthProvider = ({ children }) => {
         setUser(null)
         localStorage.removeItem("authTokens")
         history.push("/login")
-        swal.fire({
+        sweetAlert.fire({
             title: "YOu have been logged out...",
             icon: "success",
             toast: true,
