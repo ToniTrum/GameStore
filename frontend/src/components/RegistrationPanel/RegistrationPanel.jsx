@@ -1,6 +1,6 @@
 import registrationData from "./registrationData"
 import './RegistrationPanel.css'
-import { API_URL } from '../../main.jsx'
+
 
 const RegistrationPanel = () => {
     
