@@ -1,13 +1,13 @@
 import registrationData from "./registrationData"
-import './RegistrationPanel.css'
+
+import '../Authorization.css'
+import './RegisterPanel.css'
 
 
-const RegistrationPanel = () => {
-    
-
+const RegisterPanel = () => {
     return (
         <main>
-            <form className="registration-form" action='' method="post">
+            <form className="authorization-form" action='' method="post">
                 <h1 className="form-title">Регистрация</h1>
 
                 {registrationData.map((item) => {
@@ -21,11 +21,11 @@ const RegistrationPanel = () => {
 
                 <div className="form-buttons">
                     <button className="registration-button" type="submit">Назад</button>
-                    <button className="registration-button" type="submit">Далее</button>
+                    <button className="registration-button" type="submit">Зарегистрироваться</button>
                 </div>
             </form>
         </main>
     )
 }
 
-export default RegistrationPanel
+export default RegisterPanel

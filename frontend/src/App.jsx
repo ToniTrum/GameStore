@@ -5,7 +5,9 @@ import { AuthProvider } from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
 
 import Header from './components/Header/Header'
-import RegistrationPanel from './components/RegistrationPanel/RegistrationPanel'
+import RegisterPanel from './components/Authorization/RegisterPanel/RegisterPanel'
+import LoginPanel from './components/Authorization/LoginPanel/LoginPanel'
+
 
 function App() {
 	return (
@@ -13,10 +15,10 @@ function App() {
 			<AuthProvider>
 				<Header />
 				<Routes>
-                    <Route path="/login" element={<div>Login Page</div>} />
+                    <Route path="/login" element={<LoginPanel />} />
 
                     <Route element={<PrivateRoutes />}>
-                        <Route path="/registration" element={<RegistrationPanel />} />
+                        <Route path="/register" element={<RegisterPanel />} />
                     </Route>
                 </Routes>
 			</AuthProvider>
