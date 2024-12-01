@@ -1,11 +1,11 @@
 import requests
 from django.utils.timezone import now
-from .models import CurrencyRate
-
-API_KEY = '0a5cf70bd1e7c0dd7306f278f4a6f829'
-API_URL = 'https://api.currencylayer.com/live'
+from .models import CurrencyRate, Country
 
 def fetch_currency_data():
+    API_KEY = '0a5cf70bd1e7c0dd7306f278f4a6f829'
+    API_URL = 'https://api.currencylayer.com/live'
+
     response = requests.get(API_URL, params={'access_key': API_KEY})
 
     if response.status_code != 200:
@@ -31,3 +31,28 @@ def fetch_currency_data():
         currency_code=base_currency,
         defaults={'rate': 1, 'updated_at': now()},
     )
+
+def fetch_country_data():
+    API_URL = "https://restcountries.com/v3.1/all"
+
+    response = requests.get(API_URL)
+    response.raise_for_status()
+    countries = response.json()
+
+    for country in countries:
+        name_ru = country['translations'].get('rus', {}).get('common', country['name']['common'])
+        numeric_code = country.get('ccn3', None)
+        currencies = country.get('currencies', {})
+
+        if currencies is None or numeric_code is None or not list(currencies):
+            continue
+
+        currency_code = list(currencies)[0]
+        currency_symbol = list(currencies.values())[0]['symbol']
+
+        obj, created = Country.objects.update_or_create(
+            numeric_code=int(numeric_code),
+            defaults={"name_ru": name_ru, "currency": currency_code, "currency_symbol": currency_symbol},
+        )
+
+        print(f"{'Created' if created else 'Updated'}: {numeric_code} -> {name_ru} {currency_code} {currency_symbol}")
