@@ -26,3 +26,8 @@ def fetch_currency_data():
             defaults={'rate': rate, 'updated_at': now()},
         )
         print(f"{'Created' if created else 'Updated'}: {currency_code} -> {rate}")
+
+    CurrencyRate.objects.update_or_create(
+        currency_code=base_currency,
+        defaults={'rate': 1, 'updated_at': now()},
+    )
