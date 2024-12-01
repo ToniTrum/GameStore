@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CurrencyRate
+from .models import CurrencyRate, Country
 
 
 @admin.register(CurrencyRate)
