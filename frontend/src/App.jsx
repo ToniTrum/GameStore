@@ -1,14 +1,26 @@
 import './App.css'
-import { Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
+import { AuthProvider } from './context/AuthContext'
+import PrivateRoutes from './utils/PrivateRoutes'
 
 import Header from './components/Header/Header'
 import RegistrationPanel from './components/RegistrationPanel/RegistrationPanel'
 
 function App() {
 	return (
-		<>
-			<RegistrationPanel />
-		</>
+		<BrowserRouter>
+			<AuthProvider>
+				<Header />
+				<Routes>
+                    <Route path="/login" element={<div>Login Page</div>} />
+
+                    <Route element={<PrivateRoutes />}>
+                        <Route path="/registration" element={<RegistrationPanel />} />
+                    </Route>
+                </Routes>
+			</AuthProvider>
+		</BrowserRouter>
 	)
 }
 

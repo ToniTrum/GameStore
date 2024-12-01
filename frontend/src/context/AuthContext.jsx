@@ -1,9 +1,7 @@
 import {createContext, useState, useEffect} from "react";
-import jwt_decode from "jwt-decode";
-import {useHistory} from "react-router-dom";
-
-
-const sweetAlert = require('sweetalert2')
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import sweetAlert from 'sweetalert2';
 
 const AuthContext = createContext();
 
@@ -17,12 +15,12 @@ export const AuthProvider = ({ children }) => {
     )
     const [user, setUser] = useState(() => 
         localStorage.getItem("authTokens")
-            ? jwt_decode(localStorage.getItem("authTokens"))
+            ? jwtDecode(localStorage.getItem("authTokens"))
             : null
     )
     const [loading, setLoading] = useState(true);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const loginUser = async (email, password) => {
         const response = await fetch("http://127.0.0.1:8000/users/token/", {
@@ -41,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         {
             console.log("Logged In");
             setAuthTokens(data)
-            setUser(jwt_decode(data.access))
+            setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
             history.push("/")
             sweetAlert.fire({
@@ -138,7 +136,7 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         if (authTokens) {
-            setUser(jwt_decode(authTokens.access))
+            setUser(jwtDecode(authTokens.access))
         }
         setLoading(false)
     }, [authTokens, loading])
