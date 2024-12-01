@@ -16,10 +16,7 @@ function App() {
 				<Header />
 				<Routes>
                     <Route path="/login" element={<LoginPanel />} />
-
-                    <Route element={<PrivateRoutes />}>
-                        <Route path="/register" element={<RegisterPanel />} />
-                    </Route>
+                    <Route path="/register" element={<RegisterPanel />} />
                 </Routes>
 			</AuthProvider>
 		</BrowserRouter>

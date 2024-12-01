@@ -1,3 +1,5 @@
+import {useNavigate} from "react-router-dom"
+
 import registrationData from "./registrationData"
 
 import '../Authorization.css'
@@ -5,6 +7,12 @@ import './RegisterPanel.css'
 
 
 const RegisterPanel = () => {
+    const navigate = useNavigate();
+
+    const onClick = (ref) => {
+        navigate(ref)
+    }
+
     return (
         <main>
             <form className="authorization-form" action='' method="post">
@@ -20,8 +28,13 @@ const RegisterPanel = () => {
                 })}
 
                 <div className="form-buttons">
-                    <button className="registration-button" type="submit">Назад</button>
-                    <button className="registration-button" type="submit">Зарегистрироваться</button>
+                    <button 
+                        type="button" 
+                        className="form-button" 
+                        onClick={() => onClick('/login')}>
+                            Назад
+                    </button>
+                    <button className="form-button">Зарегистрироваться</button>
                 </div>
             </form>
         </main>
