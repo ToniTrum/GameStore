@@ -8,10 +8,14 @@ class CurrencyRate(models.Model):
     def __str__(self):
         return f"{self.currency_code}: {self.rate}"
     
+    def get_source_currency(self):
+        source = "USD"
+        return CurrencyRate.objects.get(currency_code=source)
+    
 class Country(models.Model):
     numeric_code = models.PositiveIntegerField(primary_key=True, serialize=True)
     name_ru = models.CharField(max_length=64)
-    currency = models.ForeignKey(CurrencyRate, on_delete=models.SET_NULL, null=True, related_name="countries")
+    currency = models.ForeignKey(CurrencyRate, on_delete=models.SET_DEFAULT, related_name="countries", default=CurrencyRate.get_source_currency)
     currency_symbol = models.CharField(max_length=6)
 
     def __str__(self):
