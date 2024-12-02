@@ -50,9 +50,22 @@ def fetch_country_data():
         currency_code = list(currencies)[0]
         currency_symbol = list(currencies.values())[0]['symbol']
 
+        try:
+            currency = CurrencyRate.objects.get(currency_code=currency_code)
+        except CurrencyRate.DoesNotExist:
+            print(f"----Currency {currency_code} does not exist for country {name_ru}----")
+            currency = None
+
+        defaults = {
+            "name_ru": name_ru, 
+            "currency_symbol": currency_symbol
+        }
+        if currency is not None:
+            defaults["currency"] = currency
+
         obj, created = Country.objects.update_or_create(
             numeric_code=int(numeric_code),
-            defaults={"name_ru": name_ru, "currency": currency_code, "currency_symbol": currency_symbol},
+            defaults=defaults,
         )
 
-        print(f"{'Created' if created else 'Updated'}: {numeric_code} -> {name_ru} {currency_code} {currency_symbol}")
+        print(f"{'Created' if created else 'Updated'}: {numeric_code} -> {name_ru} {currency.currency_code if currency else None} {currency_symbol}")
