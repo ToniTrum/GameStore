@@ -5,3 +5,8 @@ class CurrencyRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CurrencyRate
         fields = ['currency_code', 'rate', 'updated_at']
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = ['numeric_code', 'name_ru', 'currency_symbol', 'currency']
