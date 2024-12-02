@@ -30,11 +30,6 @@ const registrationData = [
         "type": "text"
     },
     {
-        "name": "country",
-        "label": "Страна",
-        "type": "text"
-    },
-    {
         "name": "birth_date",
         "label": "Дата рождения",
         "type": "date"
