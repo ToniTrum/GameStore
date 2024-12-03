@@ -17,7 +17,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=124)
     birth_day = models.DateField(null=True)
-    country = models.ForeignKey(Country, on_delete=models.SET_DEFAULT, default=Country.get_default_country)
+    country = models.ForeignKey(Country, on_delete=models.SET_DEFAULT, default=Country.get_default_country, related_name="users")
     image = models.ImageField(upload_to='media', default='default.svg')
     verified = models.BooleanField(default=False)
 
