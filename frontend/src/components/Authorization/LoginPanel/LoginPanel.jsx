@@ -1,17 +1,31 @@
 import {useNavigate} from "react-router-dom"
+import { useContext } from "react";
+import AuthContext from "../../../context/AuthContext";
 
 import '../Authorization.css'
 
 const LoginPanel = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const {loginUser} = useContext(AuthContext)
 
     const onClick = (ref) => {
         navigate(ref)
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        if (email.length > 0 && loginUser(email, password)) {
+            console.log("Logged In")
+            console.log(email, password)
+        }
+    }
+
     return (
         <main>
-            <form className="authorization-form" action='' method="post">
+            <form className="authorization-form" action='' method="post" onSubmit={handleSubmit}>
                 <h1 className="form-title">Вход</h1>
 
                 <div className="form-item">
@@ -31,7 +45,11 @@ const LoginPanel = () => {
                         onClick={() => onClick('/register')}>
                             Зарегистрироваться
                     </button>
-                    <button className="form-button">Войти</button>
+                    <button 
+                        className="form-button"
+                        type="submit">
+                            Войти
+                    </button>
                 </div>
             </form>
         </main>
