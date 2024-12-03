@@ -18,5 +18,8 @@ class Country(models.Model):
     currency = models.ForeignKey(CurrencyRate, on_delete=models.SET_DEFAULT, related_name="countries", default=CurrencyRate.get_source_currency)
     currency_symbol = models.CharField(max_length=6)
 
+    def get_default_country(self):
+        return Country.objects.get(name_ru="Россия")
+
     def __str__(self):
-        return f"{self.name_ru} ({self.currency.currency_code if self.currency else None}: {self.currency_symbol})"
+        return f"{self.name_ru} ({self.currency.currency_code}: {self.currency_symbol})"
