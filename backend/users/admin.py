@@ -7,5 +7,5 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'first_name', 'last_name', 'birth_day', 'country', 'image', 'verified')
+    list_display = ('user', 'first_name', 'last_name', 'birthdate', 'country', 'image', 'verified')
     list_editable = ['verified']

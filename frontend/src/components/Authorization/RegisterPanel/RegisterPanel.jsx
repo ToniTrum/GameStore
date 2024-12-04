@@ -95,9 +95,7 @@ const RegisterPanel = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        // registerUser(email, username, password, password2, firstName, lastName, country, birthdate)
-
-        console.log(country)
+        registerUser(email, username, password, password2, firstName, lastName, country, birthdate)
     }
 
     return (

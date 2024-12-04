@@ -16,7 +16,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=124)
-    birth_day = models.DateField(null=True)
+    birthdate = models.DateField(null=True)
     country = models.ForeignKey(Country, on_delete=models.SET_DEFAULT, default=Country.get_default_country, related_name="users")
     image = models.ImageField(upload_to='media', default='default.svg')
     verified = models.BooleanField(default=False)
