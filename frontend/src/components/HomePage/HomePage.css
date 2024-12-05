@@ -8,6 +8,7 @@
 .home-title {
     font-weight: 600;
     text-align: center;
+
     animation: fade-in 0.7s ease-in 1;
     animation: scale-up 0.7s ease-in-out 1;
 }

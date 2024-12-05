@@ -1,0 +1,31 @@
+.side-menu-button {
+    width: 3rem;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+nav {
+    position: absolute;
+    top: 6rem;
+    left: 100vw;
+
+    padding: 1.5rem;
+
+    height: 100vh;
+    width: calc(40vw - 3rem);
+
+    background-color: black;
+    transition: all 0.3s ease-in;
+}
+
+nav.open {
+    left: 60vw;
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    list-style: none;
+}

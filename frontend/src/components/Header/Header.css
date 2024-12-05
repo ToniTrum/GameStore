@@ -11,6 +11,7 @@ header {
 .header-title {
     display: flex;
     align-items: center;
+    font-family: "Sclate";
 }
 
 .header-logo {
@@ -24,10 +25,4 @@ header {
     font-size: 2rem;
     font-weight: bold;
     font-style: italic;
-}
-
-.side-menu-button {
-    width: 3rem;
-    margin-right: 2rem;
-    cursor: pointer;
 }

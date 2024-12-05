@@ -1,14 +1,9 @@
-import {useState} from "react";
-import {motion, AnimatePresence} from "framer-motion";
-
 import gameStoreLogo from '../../assets/img/game-store-logo.png';
-import sideMenuButton from '../../assets/img/side-menu.svg';
-import xMarkButton from '../../assets/img/x-mark.svg';
+
+import Navbar from '../Navbar/Navbar.jsx'
 import './Header.css'
 
 const Header = () => {
-    const [isOpen, setIsOpen] = useState(false)
-
     return (
         <header>
             <div className="header-title">
@@ -19,33 +14,7 @@ const Header = () => {
                 <h1 className="header-text"><span className="white">GAME</span> STORE</h1>
             </div>
 
-            <AnimatePresence mode="wait">
-                {isOpen ? (
-                    <motion.img
-                        key="open"
-                        className="side-menu-button"
-                        src={xMarkButton}
-                        alt="Side menu"
-                        onClick={() => setIsOpen(!isOpen)}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.15 }}
-                    />
-                ) : (
-                    <motion.img
-                        key="close"
-                        className="side-menu-button"
-                        src={sideMenuButton}
-                        alt="Side menu"
-                        onClick={() => setIsOpen(!isOpen)}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        transition={{ duration: 0.15 }}
-                    />
-                )}
-            </AnimatePresence>
+            <Navbar />
         </header>
     )
 }

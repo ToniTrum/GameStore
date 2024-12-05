@@ -1,0 +1,33 @@
+.navbar-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.7rem;
+
+    text-align: center;
+}
+
+.navbar-link {
+    outline: none;
+    text-decoration: none;
+
+    color: whitesmoke;
+    font-size: 1.5rem;
+}
+
+.navbar-item-underline {
+    height: 0.2rem;
+    width: 0%;
+    background-color: rgb(214, 10, 10);
+    transition: all 0.3s ease-in;
+}
+
+.navbar-item:hover .navbar-item-underline {
+    width: 80%;
+}
+
+.navbar-item:hover .navbar-link {
+    color: rgb(214, 10, 10);
+    font-weight: 500;
+}

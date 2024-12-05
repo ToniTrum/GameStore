@@ -21,6 +21,8 @@ const HomePage = () => {
                 <h1 className="home-title">
                     Добро пожаловать, <span className="white">{user.username}</span>
                 </h1>
+
+                
             </section>
         </main>
     )
