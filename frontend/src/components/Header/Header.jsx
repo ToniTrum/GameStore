@@ -1,9 +1,9 @@
 import {useState} from "react";
 import {motion, AnimatePresence} from "framer-motion";
 
-import gameStoreLogo from '../../assets/game-store-logo.png';
-import sideMenuButton from '../../assets/side-menu.svg';
-import xMarkButton from '../../assets/x-mark.svg';
+import gameStoreLogo from '../../assets/img/game-store-logo.png';
+import sideMenuButton from '../../assets/img/side-menu.svg';
+import xMarkButton from '../../assets/img/x-mark.svg';
 import './Header.css'
 
 const Header = () => {

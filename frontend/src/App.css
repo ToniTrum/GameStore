@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Sclate";
+    src: url('./assets/fonts/Sclate.ttf');
+}
+
 body {
 	color: rgba(214, 10, 10, 0.87);
 	background-color: #242424;

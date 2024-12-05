@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }) => {
 
         if(response.status === 201)
         {
-            history("/")
+            history("/login")
             sweetAlert.fire({
                 title: "Registration Successful, Login Now",
                 icon: "success",
