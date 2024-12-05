@@ -2,8 +2,6 @@ main {
     display: flex;
     justify-content: center;
     align-content: center;
-
-    padding-top: 7.5rem;
 }
 
 .authorization-form {

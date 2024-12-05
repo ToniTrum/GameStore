@@ -1,0 +1,24 @@
+.home-section {
+    background-color: black;
+    width: 100%;
+
+    border-radius: 2rem;
+}
+
+.home-title {
+    font-weight: 600;
+    text-align: center;
+    animation: fade-in 0.7s ease-in 1;
+    animation: scale-up 0.7s ease-in-out 1;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scale-up {
+    0% { transform: scale(0.5); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}

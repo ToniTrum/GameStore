@@ -18,8 +18,7 @@ const LoginPanel = () => {
         const password = event.target.password.value;
 
         if (email.length > 0 && loginUser(email, password)) {
-            console.log("Logged In")
-            console.log(email, password)
+            console.log(email)
         }
     }
 

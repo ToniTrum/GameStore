@@ -6,4 +6,9 @@ body {
 
 main {
 	padding: 3rem;
+	padding-top: 8rem;
+}
+
+span.white {
+	color: whitesmoke;
 }

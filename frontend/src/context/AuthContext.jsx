@@ -41,7 +41,8 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-            history("/")
+            const userID = jwtDecode(data.access).user_id
+            history(`/user/id/${userID}`)
             sweetAlert.fire({
                 title: "Login Successful",
                 icon: "success",
