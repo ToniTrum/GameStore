@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Platform
+from .models import Platform, ESRBRating
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
     list_display = ('name', 'icon')
+
+@admin.register(ESRBRating)
+class ESRBRatingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name_en', 'name_ru', 'image')
