@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from .models import Genre
 
 API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
 API_URL = "https://api.rawg.io/api/"
@@ -44,19 +45,28 @@ def fetch_genres_data():
     endpoint = "genres"
     params = {
         "key": API_KEY,
+        "page_size": 40,
+        "page": 1
     }
 
-    try:
-        response = requests.get(API_URL + endpoint, params=params)
-        response.raise_for_status()
-        data = response.json()
-        genres = data.get("results", [])
+    while True:
+        try:
+            
+            response = requests.get(API_URL + endpoint, params=params)
+            response.raise_for_status()
+            data = response.json()
+            genres = data.get("results", [])
 
-        for genre in genres:
-            print(genre)
-            print("=" * 40)
+            for genre in genres:
+                obj, created = Genre.objects.update_or_create(
+                    id=genre["id"], 
+                    name=genre["name"]
+                )
 
-        return genres
-    except requests.exceptions.RequestException as e:
-        print(f"Ошибка запроса: {e}")
-        return []
+                print(f"{'Created' if created else 'Updated'}: {genre['name']}")
+            
+            params["page"] += 1
+
+        except requests.exceptions.RequestException as e:
+            print(f"Ошибка запроса: {e}")
+            break
