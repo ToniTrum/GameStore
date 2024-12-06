@@ -16,11 +16,15 @@ function App() {
 			<AuthProvider>
 				<Header />
 				<Routes>
+					{/* Публичные роуты */}
 					<Route path="/" element={<Navigate to="/login" />} />
                     <Route path="/login" element={<LoginPanel />} />
                     <Route path="/register" element={<RegisterPanel />} />
 
-					<Route path="/user/id/:id" element={<HomePage />} />
+					{/* Приватные роуты */}
+					<Route element={<PrivateRoutes />}>
+						<Route path="/user/id/:id" element={<HomePage />} />
+					</Route>
                 </Routes>
 			</AuthProvider>
 		</BrowserRouter>

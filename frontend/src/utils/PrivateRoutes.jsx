@@ -1,12 +1,13 @@
-import {Outlet, Navigate} from 'react-router-dom'
-import {useContext} from 'react'
+import { Outlet, Navigate, useParams } from 'react-router-dom'
+import { useContext } from 'react'
 import AuthContext from '../context/AuthContext.jsx'
 
 
-const PrivateRoutes = ({children, ...rest}) => {
+const PrivateRoutes = () => {
     let { user } = useContext(AuthContext)
+    const { id } = useParams()
 
-    return user ? <Outlet /> : <Navigate to="/login" />;
+    return user && id == user.user_id ? <Outlet /> : <Navigate to="/login" />;
 }
 
 export default PrivateRoutes
