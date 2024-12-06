@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import status, generics
 from rest_framework.response import Response
 
-from .models import Game, Platform
+from .models import Platform
 from .serializer import PlatformSerializer
 
 class PlatformView(generics.ListAPIView):

@@ -19,8 +19,6 @@ def fetch_games_data():
         "page_size": 40,
     }
 
-    count = 0
-
     try:
         for page in range(1, 2):
             params["page"] = page
@@ -32,16 +30,9 @@ def fetch_games_data():
             
             for game in games:
                 print(f"Название: {game['name']}")
-                print(f"Дата выхода: {game['released']}")
-                print(f"Платформы: {[platform['platform']['name'] for platform in game['platforms']]}")
-                print(f"Жанры: {[genre['name'] for genre in game['genres']]}")
                 print(f"Рейтинг: {game['esrb_rating']}")
                 print("=" * 40)
-                print(game)
 
-                count += 1
-
-        print(f"Обработано игр: {count}")
         return games
 
     except requests.exceptions.RequestException as e:
