@@ -7,11 +7,11 @@ HEADERS = {
     "User-Agent": "Django+React Web App",
 }
 
-def fetch_all_games():
+def fetch_games_data():
     endpoint = f"{API_URL}games/"
     games = []
     page = 1
-    limit = 100
+    limit = 1
 
     while True:
         params = {
@@ -27,6 +27,7 @@ def fetch_all_games():
         if "results" in data:
             games.extend(data["results"])
             print(data["results"])
+            break
 
             # Если текущая страница меньше количества доступных страниц, продолжать запросы
             if page * limit >= data["number_of_total_results"]:
