@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import { AuthProvider } from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
+import StartRoute from './utils/StartRoute'
 
 import Header from './components/Header/Header'
 import RegisterPanel from './components/Authorization/RegisterPanel/RegisterPanel'
@@ -17,7 +18,7 @@ function App() {
 				<Header />
 				<Routes>
 					{/* Публичные роуты */}
-					<Route path="/" element={<Navigate to="/login" />} />
+					<Route path="/" element={<StartRoute />} />
                     <Route path="/login" element={<LoginPanel />} />
                     <Route path="/register" element={<RegisterPanel />} />
 

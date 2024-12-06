@@ -1,9 +1,13 @@
-import gameStoreLogo from '../../assets/img/game-store-logo.png';
+import { useLocation } from 'react-router-dom';
 
-import Navbar from '../Navbar/Navbar.jsx'
+import gameStoreLogo from '../../assets/img/game-store-logo.png';
 import './Header.css'
 
+import Navbar from '../Navbar/Navbar.jsx'
+
 const Header = () => {
+    const location = useLocation()
+
     return (
         <header>
             <div className="header-title">
@@ -14,7 +18,7 @@ const Header = () => {
                 <h1 className="header-text"><span className="white">GAME</span> STORE</h1>
             </div>
 
-            <Navbar />
+            {location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
         </header>
     )
 }
