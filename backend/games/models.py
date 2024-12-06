@@ -19,6 +19,7 @@ class ESRBRating(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name_en = models.CharField(max_length=32)
     name_ru = models.CharField(max_length=32)
+    image = models.ImageField(upload_to='static/img')
 
     def __str__(self):
         return self.name_en
