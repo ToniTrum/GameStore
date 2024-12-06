@@ -1,40 +1,49 @@
 import requests
+from datetime import datetime
 
-API_KEY = "687a4614fe63ca4b2134d041b1f40db99c3dc0c4"
-API_URL = "https://www.giantbomb.com/api/"
-
-HEADERS = {
-    "User-Agent": "Django+React Web App",
-}
+API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
+API_URL = "https://api.rawg.io/api/games"
 
 def fetch_games_data():
-    endpoint = f"{API_URL}games/"
-    games = []
-    page = 1
-    limit = 1
+    platforms = {
+        "PC": 4,
+        "MacOS": 5,
+        "Linux": 6
+    }
+    date_now = datetime.now().strftime("%Y-%m-%d")
 
-    while True:
-        params = {
-            "api_key": API_KEY,
-            "format": "json",
-            "limit": limit,
-            "offset": (page - 1) * limit,
-        }
+    params = {
+        "key": API_KEY,
+        "dates": f"2000-01-01,{date_now}",
+        "platforms": f"{','.join(map(str, platforms.values()))}",
+        "page_size": 40,
+    }
 
-        response = requests.get(endpoint, headers=HEADERS, params=params)
-        data = response.json()
+    count = 0
 
-        if "results" in data:
-            games.extend(data["results"])
-            print(data["results"])
-            break
+    try:
+        for page in range(1, 2):
+            params["page"] = page
 
-            # Если текущая страница меньше количества доступных страниц, продолжать запросы
-            if page * limit >= data["number_of_total_results"]:
-                break
-            page += 1
-        else:
-            print("Ошибка:", data)
-            break
+            response = requests.get(API_URL, params=params)
+            response.raise_for_status()
+            data = response.json()
+            games = data.get("results", [])
+            
+            for game in games:
+                print(f"Название: {game['name']}")
+                print(f"Дата выхода: {game['released']}")
+                print(f"Платформы: {[platform['platform']['name'] for platform in game['platforms']]}")
+                print(f"Жанры: {[genre['name'] for genre in game['genres']]}")
+                print(f"Рейтинг: {game['esrb_rating']}")
+                print("=" * 40)
+                print(game)
 
-    return games
+                count += 1
+
+        print(f"Обработано игр: {count}")
+        return games
+
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка запроса: {e}")
+        return []
