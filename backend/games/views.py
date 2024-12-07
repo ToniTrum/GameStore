@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status, generics
 from rest_framework.response import Response
 
-from .models import Platform, ESRBRating, Genre
-from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer
+from .models import Platform, ESRBRating, Genre, Tag
+from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer
 
 class PlatformView(generics.ListAPIView):
     queryset = Platform.objects.all()
@@ -16,3 +16,7 @@ class ESRBRatingView(generics.ListAPIView):
 class GenreView(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+
+class TagView(generics.ListAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
