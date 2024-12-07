@@ -30,3 +30,10 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+
+# class Tag(models.Model):
+#     id = models.PositiveIntegerField(primary_key=True)
+#     name = models.CharField(max_length=128)
+
+#     def __str__(self):
+#         return self.name

@@ -1,6 +1,6 @@
 {
-    'slug': 'half-life-2-episode-one', 
-    'name': 'Half-Life 2: Episode One', 
+    'slug': 'half-life-2-episode-one',
+    'name': 'Half-Life 2: Episode One',
     'playtime': 4, 
     'platforms': [
         {

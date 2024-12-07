@@ -70,3 +70,32 @@ def fetch_genres_data():
         except requests.exceptions.RequestException as e:
             print(f"Ошибка запроса: {e}")
             break
+
+def fetch_tags_data():
+    endpoint = "tags"
+    params = {
+        "key": API_KEY,
+        "page_size": 40,
+        "page": 1,
+        "language": "rus"
+    }
+
+    while True:
+        try:
+            response = requests.get(API_URL + endpoint, params=params)
+            response.raise_for_status()
+            data = response.json()
+            tags = data.get("results", [])
+
+            for tag in tags:
+                print(f"Название: {tag['name']}")
+                print(f"Id: {tag['id']}")
+                print("=" * 40)
+
+            params["page"] += 1
+            if params["page"] == 3:
+                break
+
+        except requests.exceptions.RequestException as e:
+            print(f"Ошибка запроса: {e}")
+            break
