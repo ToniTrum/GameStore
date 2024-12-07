@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 
 API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
 API_URL = "https://api.rawg.io/api/"
@@ -22,8 +22,10 @@ def fetch_games_data():
     }
 
     try:
-        for page in range(1, 51):
+        for page in range(194, 201):
             params["page"] = page
+            print(f"Page {page}:")
+            print("-" * 40)
 
             response = requests.get(API_URL + endpoint, params=params)
             response.raise_for_status()
@@ -32,86 +34,133 @@ def fetch_games_data():
             
             for game in games:
                 game_id = game["id"]
+                print(f"Game ID: {game_id}")
+
                 name = game["name"]
+                print(f"Title: {name}")
+
                 background_image = game["background_image"]
-                description = ''
-                esrb_rating = ESRBRating.objects.get(id=game["esrb_rating"]["id"])
+                print(f"Background Image: {background_image}")
+
                 release_date = game["released"]
-                platforms = game["platforms"]
+                print(f"Release Date: {release_date}")
+
+                description = ''
+                esrb_rating = None
+                platforms = []
                 genres = []
                 tags = []
                 developers = []
-
                 screenshots = []
+
                 requirements = []
 
+                esrb_rating_list = game["esrb_rating"]
+                if esrb_rating_list:
+                    esrb_rating = ESRBRating.objects.get(id=esrb_rating_list["id"])
+                print(f"ESRB Rating: {esrb_rating}")
+
+                print("Genres:")
                 genres_list = game["genres"]
                 for genre in genres_list:
                     object_genre = Genre.objects.get(id=genre["id"])
                     if object_genre:
                         genres.append(object_genre)
-                
+                        print(f"- {object_genre}")
+
+                print("Tags:")
                 tags_list = game["tags"]
                 for tag in tags_list:
-                    object_tag = Tag.objects.get(id=tag["id"])
-                    if object_tag:
-                        tags.append(object_tag)
+                    try:
+                        object_tag = Tag.objects.get(id=tag["id"])
+                        if object_tag:
+                            tags.append(object_tag)
+                            print(f"- {object_tag}")
+                    except Tag.DoesNotExist:
+                        pass
+
+                print("Screenshots:")
+                screenshots_list = game["short_screenshots"]
+                for screenshot in screenshots_list:
+                    if screenshot["id"] != -1:
+                        object_screenshot, created = Screenshot.objects.update_or_create(
+                            id=screenshot["id"],
+                            image=screenshot["image"]
+                        )
+                        screenshots.append(object_screenshot)
+                        print(f"- {object_screenshot}")
 
                 game_details = fetch_game_data_by_id(game_id)
                 if game_details:
                     description = game_details["description"]
 
+                    print("Platforms:")
                     platforms_list = game_details["platforms"]
                     for platform in platforms_list:
-                        object_platform = Platform.objects.get(id=platform["platform"]["id"])
-                        if object_platform:
-                            platforms.append(object_platform)
+                        try:
+                            object_platform = Platform.objects.get(id=platform["platform"]["id"])
+                            if object_platform:
+                                platforms.append(object_platform)
+                                print(f"- {object_platform}")
 
-                            object_requirement = platform["requirements"]
-                            if object_requirement:
-                                requirement = {
-                                    "platform": object_platform,
-                                    "game": game_id,
-                                    "minimal": object_requirement["minimum"],
-                                    "recommended": object_requirement["recommended"]
-                                }
-                                requirements.append(requirement)
+                                object_requirement = platform["requirements"]
+                                if object_requirement:
+                                    requirement = {
+                                        "platform": object_platform,
+                                        "minimum": object_requirement.get("minimum", "There are no minimum requirements"),
+                                        "recommended": object_requirement.get("recommended", "There are no recommended requirements"),
+                                    }
+                                    requirements.append(requirement)
+                        except Platform.DoesNotExist:
+                            pass
 
+                    print(f"Description: {True if description != '' else 'N/A'}")
+
+                    print("Developers:")
                     developers_list = game_details["developers"]
                     for developer in developers_list:
-                        object_developer = Developer.objects.get(id=developer["id"])
-                        if not object_developer:
-                            object_developer, created = Developer.objects.update_or_create(
-                                id=developer["id"],
-                                name=developer["name"]
-                            )
+                        object_developer, created = Developer.objects.update_or_create(
+                            id=developer["id"],
+                            name=developer["name"]
+                        )
                         developers.append(object_developer)
+                        print(f"- {object_developer}")
 
-                    screenshots_list = game["short_screenshots"]
-                    for screenshot in screenshots_list:
-                        if screenshot["id"] != -1:
-                            object_screenshot = {
-                                "id": screenshot["id"],
-                                "image": screenshot["image"],
-                                "game": game_id
-                            }
-                            screenshots.append(object_screenshot)
-
-                obj, created = Game.objects.update_or_create(
-                    id=game["id"],
-                    name=game["name"],
-                    release_date=game["released"],
-                    background_image=game["background_image"],
-                    rating=game["rating"],
-                    platforms=[Platform.objects.get(id=platforms_filter[platform]) for platform in game["platforms"]],
-                    genres=[Genre.objects.get(id=genre["id"]) for genre in game["genres"]],
-                    tags=[Tag.objects.get(id=tag["id"]) for tag in game["tags"]],
-                    developers=[Developer.objects.get(id=developer["id"]) for developer in game["developers"]],
+                object_game, created = Game.objects.update_or_create(
+                    id=game_id,
+                    name=name,
+                    background_image=background_image,
+                    description=description,
+                    release_date=release_date,
                 )
+
+                if esrb_rating:
+                    object_game.esrb_rating = esrb_rating
+
+                object_game.platforms.set(platforms)
+                object_game.genres.set(genres)
+                object_game.tags.set(tags)
+                object_game.screenshots.set(screenshots)
+                object_game.developers.set(developers)
+
+                print(f"{'Created' if created else 'Updated'} -> {object_game}")
+
+                print("Requirements:")
+                for requirement in requirements:
+                    object_requirement, created = Requirement.objects.update_or_create(
+                        game=object_game,
+                        platform=requirement["platform"],
+                        minimum=requirement["minimum"],
+                        recommended=requirement["recommended"]
+                    )
+                    print(f"{'Created' if created else 'Updated'} -> {object_requirement}")
+
+                print("\n" + ("=" * 40) + "\n")
+
+            print("-" * 40)
 
     except requests.exceptions.RequestException as e:
         print(f"Ошибка запроса: {e}")
-        return []
     
 def fetch_game_data_by_id(game_id):
     endpoint = f"games/{game_id}"

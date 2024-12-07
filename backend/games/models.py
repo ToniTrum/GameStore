@@ -47,7 +47,7 @@ class Screenshot(models.Model):
     image = models.ImageField(upload_to='media')
 
     def __str__(self):
-        return f"{self.game}: {self.image}"
+        return f"{self.image}"
     
 class Game(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
@@ -70,3 +70,6 @@ class Requirement(models.Model):
     recommended = models.TextField()
     platform = models.ForeignKey(Platform, on_delete=models.CASCADE, related_name='requirements')
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='requirements')
+
+    def __str__(self):
+        return f"{self.game}: {self.platform}"
