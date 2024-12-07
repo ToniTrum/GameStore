@@ -77,7 +77,6 @@ def fetch_tags_data():
         "key": API_KEY,
         "page_size": 40,
         "page": 1,
-        "language": "rus"
     }
 
     while True:
@@ -88,13 +87,12 @@ def fetch_tags_data():
             tags = data.get("results", [])
 
             for tag in tags:
-                print(f"Название: {tag['name']}")
-                print(f"Id: {tag['id']}")
-                print("=" * 40)
+                if (tag["language"] == "rus"):
+                    print(f"Название: {tag['name']}")
+                    print(f"Id: {tag['id']}")
+                    print("=" * 40)
 
             params["page"] += 1
-            if params["page"] == 3:
-                break
 
         except requests.exceptions.RequestException as e:
             print(f"Ошибка запроса: {e}")
