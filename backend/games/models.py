@@ -47,7 +47,7 @@ class Game(models.Model):
     name = models.CharField(max_length=256)
     background_image = models.ImageField(upload_to='media', default='default.svg')
     description = models.TextField()
-    rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_rating)
+    esrb_rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_rating)
     release_date = models.DateField()
     platforms = models.ManyToManyField(Platform)
     genres = models.ManyToManyField(Genre)
@@ -63,3 +63,9 @@ class Screenshot(models.Model):
 
     def __str__(self):
         return f"{self.game}: {self.image}"
+    
+class Requirement(models.Model):
+    minimal = models.TextField()
+    recommended = models.TextField()
+    platform = models.ForeignKey(Platform, on_delete=models.CASCADE, related_name='requirements')
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='requirements')

@@ -7,7 +7,8 @@ urlpatterns = [
     path("esrb_rating/", views.ESRBRatingView.as_view(), name="esrb_rating"),
     path("genre/", views.GenreView.as_view(), name="genre"),
     path("tag/", views.TagView.as_view(), name="tag"),
+    path("developer/", views.DeveloperView.as_view(), name="developer"),
     path("game/", views.GameView.as_view(), name="game"),
     path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),
-    path("developer/", views.DeveloperView.as_view(), name="developer"),
+    path("requirement/", views.RequirementView.as_view(), name="requirement"),
 ]

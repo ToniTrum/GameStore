@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from .models import Genre, Tag
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot
 
 API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
 API_URL = "https://api.rawg.io/api/"
@@ -18,11 +18,11 @@ def fetch_games_data():
         "key": API_KEY,
         "dates": f"2000-01-01,{date_now}",
         "platforms": f"{','.join(map(str, platforms.values()))}",
-        "page_size": 1,
+        "page_size": 40,
     }
 
     try:
-        for page in range(1, 2):
+        for page in range(1, 51):
             params["page"] = page
 
             response = requests.get(API_URL + endpoint, params=params)
@@ -31,12 +31,24 @@ def fetch_games_data():
             games = data.get("results", [])
             
             for game in games:
-                print(f"Название: {game['name']}")
-                print(f"Рейтинг: {game['esrb_rating']}")
-                print("=" * 40)
-                print(game)
+                game_id = game["id"]
+                name = game["name"]
+                background_image = game["background_image"]
+                release_date = game["released"]
+                esrb_rating = ESRBRating.objects.get(id=game["esrb_rating"]["id"])
+                
 
-        return games
+                obj, created = Game.objects.update_or_create(
+                    id=game["id"],
+                    name=game["name"],
+                    release_date=game["released"],
+                    background_image=game["background_image"],
+                    rating=game["rating"],
+                    platforms=[Platform.objects.get(id=platforms[platform]) for platform in game["platforms"]],
+                    genres=[Genre.objects.get(id=genre["id"]) for genre in game["genres"]],
+                    tags=[Tag.objects.get(id=tag["id"]) for tag in game["tags"]],
+                    developers=[Developer.objects.get(id=developer["id"]) for developer in game["developers"]],
+                )
 
     except requests.exceptions.RequestException as e:
         print(f"Ошибка запроса: {e}")

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot, Requirement
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
@@ -23,7 +23,7 @@ class DeveloperAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'background_image', 'description', 'rating', 'release_date', 'get_platforms', 'get_genres', 'get_tags', 'get_developers')
+    list_display = ('id', 'name', 'background_image', 'description', 'esrb_rating', 'release_date', 'get_platforms', 'get_genres', 'get_tags', 'get_developers')
 
     def get_platforms(self, obj):
         return ", ".join([platform.name for platform in obj.platforms.all()])
@@ -44,3 +44,7 @@ class GameAdmin(admin.ModelAdmin):
 @admin.register(Screenshot)
 class ScreenshotAdmin(admin.ModelAdmin):
     list_display = ('id', 'image', 'game')
+
+@admin.register(Requirement)
+class RequirementAdmin(admin.ModelAdmin):
+    list_display = ('id', 'platform', 'game')

@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 
-from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot
-from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer, DeveloperSerializer, GameSerializer, ScreenshotSerializer
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot, Requirement
+from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer, DeveloperSerializer, GameSerializer, ScreenshotSerializer, RequirementSerializer
 
 class PlatformView(generics.ListAPIView):
     queryset = Platform.objects.all()
@@ -32,3 +32,7 @@ class GameView(generics.ListAPIView):
 class ScreenshotView(generics.ListAPIView):
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
+
+class RequirementView(generics.ListAPIView):
+    queryset = Requirement.objects.all()
+    serializer_class = RequirementSerializer
