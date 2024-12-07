@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Platform, ESRBRating, Genre
+from .models import Platform, ESRBRating, Genre, Tag
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
@@ -11,4 +11,8 @@ class ESRBRatingAdmin(admin.ModelAdmin):
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
