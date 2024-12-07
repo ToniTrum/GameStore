@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Platform, ESRBRating, Genre, Tag, Game
+from .models import Platform, ESRBRating, Genre, Tag, Game, Screenshot
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
@@ -20,3 +20,7 @@ class TagAdmin(admin.ModelAdmin):
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'background_image', 'description', 'rating', 'platforms', 'genres', 'tags')
+
+@admin.register(Screenshot)
+class ScreenshotAdmin(admin.ModelAdmin):
+    list_display = ('id', 'image', 'game')

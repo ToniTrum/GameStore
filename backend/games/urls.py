@@ -8,4 +8,5 @@ urlpatterns = [
     path("genre/", views.GenreView.as_view(), name="genre"),
     path("tag/", views.TagView.as_view(), name="tag"),
     path("game/", views.GameView.as_view(), name="game"),
+    path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),
 ]

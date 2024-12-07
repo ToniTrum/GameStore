@@ -46,9 +46,9 @@ class Game(models.Model):
     def __str__(self):
         return self.name
     
-# class Screenshot(models.Model):
-#     image = models.ImageField(upload_to='media')
-#     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='screenshots')
+class Screenshot(models.Model):
+    image = models.ImageField(upload_to='media')
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='screenshots')
 
-#     def __str__(self):
-#         return f"{self.game}: {self.image}"
+    def __str__(self):
+        return f"{self.game}: {self.image}"
