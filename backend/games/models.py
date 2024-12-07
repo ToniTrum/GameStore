@@ -42,6 +42,13 @@ class Developer(models.Model):
     def __str__(self):
         return self.name
     
+class Screenshot(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    image = models.ImageField(upload_to='media')
+
+    def __str__(self):
+        return f"{self.game}: {self.image}"
+    
 class Game(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=256)
@@ -52,20 +59,14 @@ class Game(models.Model):
     platforms = models.ManyToManyField(Platform)
     genres = models.ManyToManyField(Genre)
     tags = models.ManyToManyField(Tag)
+    screenshots = models.ManyToManyField(Screenshot)
     developers = models.ManyToManyField(Developer)
 
     def __str__(self):
         return self.name
     
-class Screenshot(models.Model):
-    image = models.ImageField(upload_to='media')
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='screenshots')
-
-    def __str__(self):
-        return f"{self.game}: {self.image}"
-    
 class Requirement(models.Model):
-    minimal = models.TextField()
+    minimum = models.TextField()
     recommended = models.TextField()
     platform = models.ForeignKey(Platform, on_delete=models.CASCADE, related_name='requirements')
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='requirements')

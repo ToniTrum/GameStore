@@ -7,7 +7,7 @@ API_URL = "https://api.rawg.io/api/"
 
 def fetch_games_data():
     endpoint = "games"
-    platforms = {
+    platforms_filter = {
         "PC": 4,
         "MacOS": 5,
         "Linux": 6
@@ -17,7 +17,7 @@ def fetch_games_data():
     params = {
         "key": API_KEY,
         "dates": f"2000-01-01,{date_now}",
-        "platforms": f"{','.join(map(str, platforms.values()))}",
+        "platforms": f"{','.join(map(str, platforms_filter.values()))}",
         "page_size": 40,
     }
 
@@ -34,9 +34,68 @@ def fetch_games_data():
                 game_id = game["id"]
                 name = game["name"]
                 background_image = game["background_image"]
-                release_date = game["released"]
+                description = ''
                 esrb_rating = ESRBRating.objects.get(id=game["esrb_rating"]["id"])
+                release_date = game["released"]
+                platforms = game["platforms"]
+                genres = []
+                tags = []
+                developers = []
+
+                screenshots = []
+                requirements = []
+
+                genres_list = game["genres"]
+                for genre in genres_list:
+                    object_genre = Genre.objects.get(id=genre["id"])
+                    if object_genre:
+                        genres.append(object_genre)
                 
+                tags_list = game["tags"]
+                for tag in tags_list:
+                    object_tag = Tag.objects.get(id=tag["id"])
+                    if object_tag:
+                        tags.append(object_tag)
+
+                game_details = fetch_game_data_by_id(game_id)
+                if game_details:
+                    description = game_details["description"]
+
+                    platforms_list = game_details["platforms"]
+                    for platform in platforms_list:
+                        object_platform = Platform.objects.get(id=platform["platform"]["id"])
+                        if object_platform:
+                            platforms.append(object_platform)
+
+                            object_requirement = platform["requirements"]
+                            if object_requirement:
+                                requirement = {
+                                    "platform": object_platform,
+                                    "game": game_id,
+                                    "minimal": object_requirement["minimum"],
+                                    "recommended": object_requirement["recommended"]
+                                }
+                                requirements.append(requirement)
+
+                    developers_list = game_details["developers"]
+                    for developer in developers_list:
+                        object_developer = Developer.objects.get(id=developer["id"])
+                        if not object_developer:
+                            object_developer, created = Developer.objects.update_or_create(
+                                id=developer["id"],
+                                name=developer["name"]
+                            )
+                        developers.append(object_developer)
+
+                    screenshots_list = game["short_screenshots"]
+                    for screenshot in screenshots_list:
+                        if screenshot["id"] != -1:
+                            object_screenshot = {
+                                "id": screenshot["id"],
+                                "image": screenshot["image"],
+                                "game": game_id
+                            }
+                            screenshots.append(object_screenshot)
 
                 obj, created = Game.objects.update_or_create(
                     id=game["id"],
@@ -44,7 +103,7 @@ def fetch_games_data():
                     release_date=game["released"],
                     background_image=game["background_image"],
                     rating=game["rating"],
-                    platforms=[Platform.objects.get(id=platforms[platform]) for platform in game["platforms"]],
+                    platforms=[Platform.objects.get(id=platforms_filter[platform]) for platform in game["platforms"]],
                     genres=[Genre.objects.get(id=genre["id"]) for genre in game["genres"]],
                     tags=[Tag.objects.get(id=tag["id"]) for tag in game["tags"]],
                     developers=[Developer.objects.get(id=developer["id"]) for developer in game["developers"]],
@@ -64,7 +123,6 @@ def fetch_game_data_by_id(game_id):
         response = requests.get(API_URL + endpoint, params=params)
         response.raise_for_status()
         data = response.json()
-        print(data)
         return data
 
     except requests.exceptions.RequestException as e:

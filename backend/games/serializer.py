@@ -1,4 +1,4 @@
-from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot, Requirement
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 from rest_framework import serializers
 
 class PlatformSerializer(serializers.ModelSerializer):
@@ -26,15 +26,15 @@ class DeveloperSerializer(serializers.ModelSerializer):
         model = Developer
         fields = ['id', 'name']
 
-class GameSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Game
-        fields = ['id', 'name', 'background_image', 'description', 'esrb_rating', 'release_date', 'platforms', 'genres', 'tags', 'developers']
-
 class ScreenshotSerializer(serializers.ModelSerializer):
     class Meta:
         model = Screenshot
-        fields = ['id', 'image', 'game']
+        fields = ['id', 'image']
+
+class GameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ['id', 'name', 'background_image', 'description', 'esrb_rating', 'release_date', 'platforms', 'genres', 'tags', 'screenshots', 'developers']
 
 class RequirementSerializer(serializers.ModelSerializer):
     class Meta:
