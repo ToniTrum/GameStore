@@ -201,7 +201,7 @@
             'image_background': 'https://media.rawg.io/media/games/8a0/8a02f84a5916ede2f923b88d5f8217ba.jpg'
         }, 
         {
-            'id': 42428, 
+            'id': 42428,
             'name': 'Шутер', 
             'slug': 'shuter', 
             'language': 'rus', 

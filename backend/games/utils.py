@@ -1,6 +1,6 @@
 import requests
 from datetime import datetime
-from .models import Genre
+from .models import Genre, Tag
 
 API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
 API_URL = "https://api.rawg.io/api/"
@@ -75,7 +75,7 @@ def fetch_tags_data():
     endpoint = "tags"
     params = {
         "key": API_KEY,
-        "page_size": 40,
+        "page_size": 1,
         "page": 1,
     }
 
@@ -87,10 +87,12 @@ def fetch_tags_data():
             tags = data.get("results", [])
 
             for tag in tags:
-                if (tag["language"] == "rus"):
-                    print(f"Название: {tag['name']}")
-                    print(f"Id: {tag['id']}")
-                    print("=" * 40)
+                obj, created = Tag.objects.update_or_create(
+                    id=tag["id"], 
+                    name=tag["name"]
+                )
+
+                print(f"{'Created' if created else 'Updated'}: {tag['name']}")
 
             params["page"] += 1
 
