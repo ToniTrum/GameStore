@@ -9,4 +9,5 @@ urlpatterns = [
     path("tag/", views.TagView.as_view(), name="tag"),
     path("game/", views.GameView.as_view(), name="game"),
     path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),
+    path("developer/", views.DeveloperView.as_view(), name="developer"),
 ]

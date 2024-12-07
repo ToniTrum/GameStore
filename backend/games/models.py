@@ -35,6 +35,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
     
+class Developer(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
+    name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.name
+    
 class Game(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=256)
@@ -45,6 +52,7 @@ class Game(models.Model):
     platforms = models.ManyToManyField(Platform)
     genres = models.ManyToManyField(Genre)
     tags = models.ManyToManyField(Tag)
+    developers = models.ManyToManyField(Developer)
 
     def __str__(self):
         return self.name

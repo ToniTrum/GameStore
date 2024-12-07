@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Platform, ESRBRating, Genre, Tag, Game, Screenshot
+from .models import Platform, ESRBRating, Genre, Tag, Developer, Game, Screenshot
 
 @admin.register(Platform)
 class PlatformAdmin(admin.ModelAdmin):
@@ -17,9 +17,13 @@ class GenreAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
+@admin.register(Developer)
+class DeveloperAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'background_image', 'description', 'rating', 'release_date', 'get_platforms', 'get_genres', 'get_tags')
+    list_display = ('id', 'name', 'background_image', 'description', 'rating', 'release_date', 'get_platforms', 'get_genres', 'get_tags', 'get_developers')
 
     def get_platforms(self, obj):
         return ", ".join([platform.name for platform in obj.platforms.all()])
@@ -32,6 +36,10 @@ class GameAdmin(admin.ModelAdmin):
     def get_tags(self, obj):
         return ", ".join([tag.name for tag in obj.tags.all()])
     get_tags.short_description = "Tags"
+
+    def get_developers(self, obj):
+        return ", ".join([developer.name for developer in obj.developers.all()])
+    get_developers.short_description = "Developers"
 
 @admin.register(Screenshot)
 class ScreenshotAdmin(admin.ModelAdmin):
