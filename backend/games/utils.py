@@ -42,7 +42,7 @@ def fetch_games_data():
         print(f"Ошибка запроса: {e}")
         return []
     
-def fetch_game_data(game_id):
+def fetch_game_data_by_id(game_id):
     endpoint = f"games/{game_id}"
     params = {
         "key": API_KEY

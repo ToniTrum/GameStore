@@ -1,6 +1,7 @@
 from django.db import models
     
 class Platform(models.Model):
+    id = models.SmallIntegerField(primary_key=True)
     name = models.CharField(max_length=64)
     icon = models.ImageField(upload_to='static/icons')
 
