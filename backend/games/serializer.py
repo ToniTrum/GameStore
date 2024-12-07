@@ -24,7 +24,7 @@ class TagSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ['id', 'name', 'background_image', 'description', 'rating', 'platforms', 'genres', 'tags']
+        fields = ['id', 'name', 'background_image', 'description', 'rating', 'release_date', 'platforms', 'genres', 'tags']
 
 class ScreenshotSerializer(serializers.ModelSerializer):
     class Meta:

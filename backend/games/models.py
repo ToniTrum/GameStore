@@ -17,7 +17,7 @@ class ESRBRating(models.Model):
         return self.name_en
     
     @staticmethod
-    def get_default_ratings():
+    def get_default_rating():
         return ESRBRating.objects.get(id=6)
     
 class Genre(models.Model):
@@ -35,10 +35,12 @@ class Tag(models.Model):
         return self.name
     
 class Game(models.Model):
+    id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=256)
     background_image = models.ImageField(upload_to='media', default='default.svg')
     description = models.TextField()
-    rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_ratings)
+    rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_rating)
+    release_date = models.DateField()
     platforms = models.ManyToManyField(Platform)
     genres = models.ManyToManyField(Genre)
     tags = models.ManyToManyField(Tag)

@@ -18,7 +18,7 @@ def fetch_games_data():
         "key": API_KEY,
         "dates": f"2000-01-01,{date_now}",
         "platforms": f"{','.join(map(str, platforms.values()))}",
-        "page_size": 40,
+        "page_size": 1,
     }
 
     try:
@@ -34,12 +34,30 @@ def fetch_games_data():
                 print(f"Название: {game['name']}")
                 print(f"Рейтинг: {game['esrb_rating']}")
                 print("=" * 40)
+                print(game)
 
         return games
 
     except requests.exceptions.RequestException as e:
         print(f"Ошибка запроса: {e}")
         return []
+    
+def fetch_game_data(game_id):
+    endpoint = f"games/{game_id}"
+    params = {
+        "key": API_KEY
+    }
+
+    try:
+        response = requests.get(API_URL + endpoint, params=params)
+        response.raise_for_status()
+        data = response.json()
+        print(data)
+        return data
+
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка запроса: {e}")
+        return None
     
 def fetch_genres_data():
     endpoint = "genres"
