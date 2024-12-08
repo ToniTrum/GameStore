@@ -202,6 +202,7 @@ def fetch_games_price_data():
                     game.price_in_cents = price
                     game.save()
                     print(f"{game.id} {game.name} -> {price}")
+                    break
     
 def fetch_genres_data():
     API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
