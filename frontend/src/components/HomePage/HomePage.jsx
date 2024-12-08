@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { jwtDecode } from "jwt-decode"
-import {Link} from "react-router-dom"
+import {Link, Outlet} from "react-router-dom"
 
 import AuthContext from "../../context/AuthContext"
 import './HomePage.css'
@@ -16,7 +16,7 @@ const HomePage = () => {
                     Добро пожаловать, <span className="white">{user.username}</span>
                 </h1>
 
-                
+                <Outlet />
             </section>
         </main>
     )

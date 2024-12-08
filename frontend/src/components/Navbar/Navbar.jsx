@@ -9,9 +9,10 @@ import NavbarItem from "../NavbarItem/NavbarItem";
 import AuthContext from "../../context/AuthContext";
 
 import './Navbar.css'
+import { use } from "react";
 
 const Navbar = () => {
-    const {logoutUser} = useContext(AuthContext)
+    const {user, logoutUser} = useContext(AuthContext)
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -47,7 +48,7 @@ const Navbar = () => {
 
             <nav className={isOpen ? "open" : ""}>
                 <ul className="navbar-list">
-                    <NavbarItem text="Профиль" link="/profile" />
+                    <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} />
 
                     <li className="navbar-item">
                         <Link className="navbar-link" onClick={() => logoutUser()}>Выйти</Link>
