@@ -9,7 +9,6 @@ import NavbarItem from "../NavbarItem/NavbarItem";
 import AuthContext from "../../context/AuthContext";
 
 import './Navbar.css'
-import { use } from "react";
 
 const Navbar = () => {
     const {user, logoutUser} = useContext(AuthContext)

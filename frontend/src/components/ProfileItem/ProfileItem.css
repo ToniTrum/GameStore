@@ -1,0 +1,11 @@
+.profile-item {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.profile-item__text {
+    font-size: 1.5rem;
+    display: inline;
+}
