@@ -1,5 +1,9 @@
 import {useNavigate} from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
+import dayjs from "dayjs"
+import isSameOrBefore  from "dayjs/plugin/isSameOrBefore"
+import sweetAlert from "sweetalert2"
+import XRegExp from "xregexp"
 
 import { API_URL } from "../../../main"
 import AuthContext from "../../../context/AuthContext"
@@ -9,20 +13,20 @@ import './RegisterPanel.css'
 
 
 const RegisterPanel = () => {
+    dayjs.extend(isSameOrBefore)
     const navigate = useNavigate();
     const {registerUser} = useContext(AuthContext)
 
     const [countryList, setCountryList] = useState([])
-    const [defaultCountry, setDefaultCountry] = useState("")
 
-    const [email, setEmail] = useState("")
     const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
+    const [birthdate, setBirthdate] = useState("")
     const [country, setCountry] = useState("")
-    const [birthdate, setBirthdate] = useState(new Date())
 
     const registrationData = [
         {
@@ -80,9 +84,65 @@ const RegisterPanel = () => {
         responseData.sort((a, b) => a.name_ru > b.name_ru ? 1 : -1)
 
         setCountryList(responseData)
+    }
 
-        const defaultValue = responseData.find((item) => item.name_ru === "Россия")
-        setDefaultCountry(defaultValue.numeric_code)
+    const sendErrorMessage = (message) => {
+        sweetAlert.fire({
+            title: message,
+            icon: "error",
+            toast: true,
+            timer: 6000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
+    }
+
+    const validateForm = () => {
+        const usernameRegExp = /^[a-zA-Z0-9_]{4,}$/i
+        if (!usernameRegExp.test(username)) {
+            sendErrorMessage("Имя пользователя должно состоять из букв латинского алфавита, цифр или знака \"_\", а также иметь длину от 4 символов")
+            return false
+        }
+
+        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,3}$/i
+        if (!emailRegExp.test(email)) {
+            sendErrorMessage("Некорректная электронная почта")
+            return false
+        }
+
+        const passwordRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9_]{8,}$/i
+        if (!passwordRegExp.test(password)) {
+            sendErrorMessage("Пароль должен состоять из букв латинского алфавита, цифр и знака \"_\", а также иметь длину от 8 символов")
+            return false
+        }
+        
+        if (password !== password2) {
+            sendErrorMessage("Пароли не совпадают")
+            return false
+        }
+
+        const nameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,}$", "ui")
+        if (!nameRegExp.test(firstName)) {
+            sendErrorMessage("Имя может состоять только из букв, пробела или символов \"-\" и \"\'\"")
+            return false
+        }
+        if (!nameRegExp.test(lastName)) {
+            sendErrorMessage("Фамилия должна состоять только из букв, пробела и символов \"-\" и \"\'\"")
+            return false
+        }
+
+        if (!birthdate) {
+            sendErrorMessage("Дата рождения не указана")
+            return false
+        }
+        const date = dayjs(birthdate)
+        if (!date.isSameOrBefore(dayjs())) {
+            sendErrorMessage("Дата рождения не может быть в будущем")
+            return false
+        }
+
+        return true
     }
 
     useEffect(() => {
@@ -95,7 +155,9 @@ const RegisterPanel = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        registerUser(email, username, password, password2, firstName, lastName, country, birthdate)
+        if (validateForm()) {
+            registerUser(email, username, password, password2, firstName, lastName, country, birthdate)
+        }
     }
 
     return (

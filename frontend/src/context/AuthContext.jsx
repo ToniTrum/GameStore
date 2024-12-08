@@ -83,22 +83,13 @@ export const AuthProvider = ({ children }) => {
         if(response.status === 201)
         {
             history("/login")
-            sweetAlert.fire({
-                title: "Registration Successful, Login Now",
-                icon: "success",
-                toast: true,
-                timer: 6000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
         } 
         else 
         {
-            console.log(response.status);
-            console.log("there was a server issue");
+            console.log(response)
+            console.log(response.status)
             sweetAlert.fire({
-                title: "An Error Occured " + response.status,
+                title: "Ошибка с статусом " + response.status,
                 icon: "error",
                 toast: true,
                 timer: 6000,
