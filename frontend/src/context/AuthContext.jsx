@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
         if(response.status === 200)
         {
-            console.log("Logged In");
+            console.log("Logged In")
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
@@ -56,9 +56,8 @@ export const AuthProvider = ({ children }) => {
         else 
         {    
             console.log(response.status);
-            console.log("there was a server issue");
             sweetAlert.fire({
-                title: "Username or password does not exists",
+                title: "Неправильные почта или пароль",
                 icon: "error",
                 toast: true,
                 timer: 6000,
@@ -86,10 +85,18 @@ export const AuthProvider = ({ children }) => {
         } 
         else 
         {
+            const errorData = await response.json();
+            console.log(errorData)
+
+            const errorMessage = Object.entries(errorData)
+                .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+                .join("\n");
+
             console.log(response)
             console.log(response.status)
             sweetAlert.fire({
-                title: "Ошибка с статусом " + response.status,
+                title: "Ошибка регистрации",
+                text: errorMessage,
                 icon: "error",
                 toast: true,
                 timer: 6000,

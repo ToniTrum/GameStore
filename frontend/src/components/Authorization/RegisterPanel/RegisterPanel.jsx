@@ -26,7 +26,7 @@ const RegisterPanel = () => {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [birthdate, setBirthdate] = useState("")
-    const [country, setCountry] = useState("")
+    const [country, setCountry] = useState("36")
 
     const registrationData = [
         {
