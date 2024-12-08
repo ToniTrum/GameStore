@@ -7,13 +7,7 @@ import './HomePage.css'
 
 
 const HomePage = () => {
-    const {user, logoutUser} = useContext(AuthContext)
-    const token = localStorage.getItem("authTokens")
-
-    if (token) {
-        const decodedToken = jwtDecode(token)
-        let userID = decodedToken.user_id
-    }
+    const {user} = useContext(AuthContext)
 
     return (
         <main>

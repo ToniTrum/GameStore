@@ -44,10 +44,10 @@ export const AuthProvider = ({ children }) => {
             const userID = jwtDecode(data.access).user_id
             history(`/user/id/${userID}`)
             sweetAlert.fire({
-                title: "Login Successful",
+                title: "Успешный вход",
                 icon: "success",
                 toast: true,
-                timer: 6000,
+                timer: 3000,
                 position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,

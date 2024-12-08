@@ -1,14 +1,18 @@
-import {useState} from "react";
-import {Link} from "react-router-dom";
+import {useState, useContext} from "react";
+import { Link } from "react-router-dom";
 import {motion, AnimatePresence} from "framer-motion";
 
 import sideMenuButton from '../../assets/img/side-menu.svg';
 import xMarkButton from '../../assets/img/x-mark.svg';
 
 import NavbarItem from "../NavbarItem/NavbarItem";
+import AuthContext from "../../context/AuthContext";
+
 import './Navbar.css'
 
 const Navbar = () => {
+    const {logoutUser} = useContext(AuthContext)
+
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -44,7 +48,11 @@ const Navbar = () => {
             <nav className={isOpen ? "open" : ""}>
                 <ul className="navbar-list">
                     <NavbarItem text="Профиль" link="/profile" />
-                    <NavbarItem text="Выйти" link="/login" />
+
+                    <li className="navbar-item">
+                        <Link className="navbar-link" onClick={() => logoutUser()}>Выйти</Link>
+                        <div className="navbar-item-underline"></div>
+                    </li>
                 </ul>
             </nav>
         </>
