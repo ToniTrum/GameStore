@@ -61,7 +61,7 @@ class Game(models.Model):
     tags = models.ManyToManyField(Tag)
     screenshots = models.ManyToManyField(Screenshot)
     developers = models.ManyToManyField(Developer)
-    price_in_cent = models.PositiveIntegerField(default=0)
+    price_in_cents = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

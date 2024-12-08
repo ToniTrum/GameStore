@@ -185,7 +185,7 @@ def fetch_game_data_by_id(game_id):
     
 def fetch_games_price_data():
     API_URL = "https://www.cheapshark.com/api/1.0/games"
-    games = Game.objects.filter(id<=11)
+    games = Game.objects.all()
 
     for game in games:
         params = {
@@ -198,9 +198,10 @@ def fetch_games_price_data():
         if data:
             for game_data in data:
                 if game_data["external"] == params["title"]:
-                    price = float(game_data["cheapest"]) * 10
-                    # game.price = price
-                    print(f"{game.name} -> {price}")
+                    price = int(float(game_data["cheapest"]) * 100)
+                    game.price_in_cents = price
+                    game.save()
+                    print(f"{game.id} {game.name} -> {price}")
     
 def fetch_genres_data():
     API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
