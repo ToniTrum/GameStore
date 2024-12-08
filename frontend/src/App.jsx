@@ -8,6 +8,7 @@ import StartRoute from './utils/StartRoute'
 import Header from './components/Header/Header'
 import RegisterPanel from './components/Authorization/RegisterPanel/RegisterPanel'
 import LoginPanel from './components/Authorization/LoginPanel/LoginPanel'
+import MainPage from './components/MainPage/MainPage'
 import HomePage from './components/HomePage/HomePage'
 import Profile from './components/Profile/Profile'
 
@@ -25,8 +26,8 @@ function App() {
 
 					{/* Приватные роуты */}
 					<Route element={<PrivateRoutes />}>
-						<Route path="/user/id/:id" element={<HomePage />}>
-							<Route index element={<div>Home</div>} />
+						<Route path="/user/id/:id" element={<MainPage />}>
+							<Route index element={<HomePage />} />
 							<Route path="profile" element={<Profile />} />
 						</Route>
 					</Route>

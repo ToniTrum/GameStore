@@ -7,11 +7,9 @@ const Profile = () => {
     const {user, setUser} = useContext(AuthContext)
 
     return (
-        <main>
-            <section className="profile">
-                <img src={user.image} alt="avatar" />
-            </section>
-        </main>
+        <section className="profile">
+            <img src={user.image} alt="avatar" />
+        </section>
     )
 }
 
