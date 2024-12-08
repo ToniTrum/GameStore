@@ -27,7 +27,7 @@ class ScreenshotAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'background_image', 'description', 'esrb_rating', 'release_date', 
+    list_display = ('id', 'name', 'background_image', 'esrb_rating', 'release_date', 
                     'get_platforms', 'get_genres', 'get_tags', 'get_screenshots', 'get_developers')
 
     def get_platforms(self, obj):

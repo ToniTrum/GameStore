@@ -44,7 +44,7 @@ class Developer(models.Model):
     
 class Screenshot(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
-    image = models.ImageField(upload_to='media')
+    image = models.URLField()
 
     def __str__(self):
         return f"{self.image}"
@@ -52,7 +52,7 @@ class Screenshot(models.Model):
 class Game(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=256)
-    background_image = models.ImageField(upload_to='media', default='default.svg')
+    background_image = models.URLField(default="https://t3.ftcdn.net/jpg/04/84/88/76/360_F_484887682_Mx57wpHG4lKrPAG0y7Q8Q7bJ952J3TTO.jpg")
     description = models.TextField()
     esrb_rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_rating)
     release_date = models.DateField()
@@ -61,6 +61,7 @@ class Game(models.Model):
     tags = models.ManyToManyField(Tag)
     screenshots = models.ManyToManyField(Screenshot)
     developers = models.ManyToManyField(Developer)
+    price_in_cent = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

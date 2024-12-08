@@ -2,10 +2,10 @@ import requests
 from datetime import datetime
 from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 
-API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
-API_URL = "https://api.rawg.io/api/"
-
 def fetch_games_data():
+    API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
+    API_URL = "https://api.rawg.io/api/"
+
     endpoint = "games"
     platforms_filter = {
         "PC": 4,
@@ -22,7 +22,7 @@ def fetch_games_data():
     }
 
     try:
-        for page in range(194, 201):
+        for page in range(1, 251):
             params["page"] = page
             print(f"Page {page}:")
             print("-" * 40)
@@ -129,10 +129,12 @@ def fetch_games_data():
                 object_game, created = Game.objects.update_or_create(
                     id=game_id,
                     name=name,
-                    background_image=background_image,
                     description=description,
                     release_date=release_date,
                 )
+
+                if background_image:
+                    object_game.background_image = background_image
 
                 if esrb_rating:
                     object_game.esrb_rating = esrb_rating
@@ -163,6 +165,9 @@ def fetch_games_data():
         print(f"Ошибка запроса: {e}")
     
 def fetch_game_data_by_id(game_id):
+    API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
+    API_URL = "https://api.rawg.io/api/"
+
     endpoint = f"games/{game_id}"
     params = {
         "key": API_KEY
@@ -178,7 +183,29 @@ def fetch_game_data_by_id(game_id):
         print(f"Ошибка запроса: {e}")
         return None
     
+def fetch_games_price_data():
+    API_URL = "https://www.cheapshark.com/api/1.0/games"
+    games = Game.objects.filter(id<=11)
+
+    for game in games:
+        params = {
+            "title": game.name,
+        }
+
+        response = requests.get(API_URL, params=params)
+        data = response.json()
+
+        if data:
+            for game_data in data:
+                if game_data["external"] == params["title"]:
+                    price = float(game_data["cheapest"]) * 10
+                    # game.price = price
+                    print(f"{game.name} -> {price}")
+    
 def fetch_genres_data():
+    API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
+    API_URL = "https://api.rawg.io/api/"
+
     endpoint = "genres"
     params = {
         "key": API_KEY,
@@ -209,6 +236,9 @@ def fetch_genres_data():
             break
 
 def fetch_tags_data():
+    API_KEY = "de8b9e6752384a70986f0a2ee4b000e4"
+    API_URL = "https://api.rawg.io/api/"
+
     endpoint = "tags"
     params = {
         "key": API_KEY,
