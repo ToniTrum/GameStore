@@ -19,3 +19,9 @@ def get_currency_rate(request, currency_code):
 class CountryView(generics.ListAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
+
+@api_view(['GET'])
+def get_country(request, numeric_code):
+    country = Country.objects.get(numeric_code=numeric_code)
+    serializer = CountrySerializer(country)
+    return Response(serializer.data, status=status.HTTP_200_OK)

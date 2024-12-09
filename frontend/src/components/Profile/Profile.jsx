@@ -12,8 +12,11 @@ const Profile = () => {
 
     return (
         <section className="profile">
-            <div className="avatar">
-                <img src={API_URL + "/" + user.image} alt="avatar" />
+            <div className="profile-avatar">
+                <img 
+                    className="avatar"
+                    src={API_URL + "/" + user.image} 
+                    alt="avatar" />
             </div>
             
             <div className="profile-info">
