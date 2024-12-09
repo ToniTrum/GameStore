@@ -2,7 +2,7 @@ import  {useNavigate } from "react-router-dom"
 import { useContext } from "react";
 import AuthContext from "../../../context/AuthContext";
 
-import '../Authorization.css'
+import "../Authorization.css"
 
 const LoginPanel = () => {
     const navigate = useNavigate()

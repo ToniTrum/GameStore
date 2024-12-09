@@ -9,8 +9,6 @@ import { API_URL } from "../../../main"
 import AuthContext from "../../../context/AuthContext"
 
 import '../Authorization.css'
-import './RegisterPanel.css'
-
 
 const RegisterPanel = () => {
     dayjs.extend(isSameOrBefore)

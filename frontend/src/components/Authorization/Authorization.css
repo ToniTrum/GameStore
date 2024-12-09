@@ -32,27 +32,6 @@ main {
     font-size: 1rem;
 }
 
-.form-input {
-    color: rgb(255, 255, 255);
-    background-color: #242424;
-    background-clip: padding-box;
-
-    border: 1px solid #bdbdbd;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-
-    width: 37rem;
-    height: 2.5rem;
-}
-
-.form-input:invalid {
-    border-color: rgba(214, 10, 10, 0.87);
-    color: rgba(214, 10, 10, 0.87);
-}
-
 .form-buttons {
     display: flex;
     gap: 3rem;

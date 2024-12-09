@@ -27,7 +27,14 @@
     gap: 1rem;
 }
 
-.change-button {
+.change-buttons {
     display: flex;
     justify-content: start;
+    gap: 5rem;
+}
+
+.delete-button:hover {
+    background-color: rgb(214, 10, 10);
+    color: whitesmoke;
+    border-color: whitesmoke;
 }

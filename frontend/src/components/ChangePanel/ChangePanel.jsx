@@ -1,7 +1,8 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 import AuthContext from "../../context/AuthContext"
-import { use } from "react"
+import { API_URL } from "../../main"
 
 const ChangePanel = () => {
     const {user} = useContext(AuthContext)
@@ -145,19 +146,17 @@ const ChangePanel = () => {
 
     return (
         <section>
-            <form className="authorization-form" action='' method="post" onSubmit={handleSubmit}>
+            <form className="authorization-form" action='' method="post">
                 {userDataForChanging.map((item) => {
                     return (
                         <div className="form-item" key={item.name}>
                             <label className="form-label" htmlFor={item.name}>{item.label}</label>
                             <input 
                                 onChange={(e) => item.stateFunction(e.target.value)} 
-                                className="form-input" 
                                 type={item.type} 
                                 name={item.name} 
-                                id={item.name}>
-                                    {item.text}
-                            </input>
+                                id={item.name}
+                                value={item.text}/>
                         </div>
                     )
                 })}
@@ -166,15 +165,14 @@ const ChangePanel = () => {
                     <label className="form-label" htmlFor="country">Страна</label>
                     <select 
                         onChange={(e) => setCountry(e.target.value)} 
-                        className="form-input" 
                         name="country" 
-                        id="country">
+                        id="country"
+                        defaultValue={country}>
                         {countryList.map((item) => {
                             return (
                                 <option
                                     key={item.numeric_code} 
-                                    value={item.numeric_code}
-                                    selected={country == item.numeric_code}>
+                                    value={item.numeric_code}>
                                         {item.name_ru}
                                 </option>
                             )
@@ -183,12 +181,10 @@ const ChangePanel = () => {
                 </div>
 
                 <div className="form-buttons">
-                    <button 
-                        type="button" 
-                        onClick={() => onClick('/profile')}>
-                            Отмена
-                    </button>
-                    <button type="submit" className="form-button">Сохранить</button>
+                    <Link to={`/user/id/${user.user_id}/profile`}>
+                        <button>Отмена</button>
+                    </Link>
+                    <button type="submit">Сохранить</button>
                 </div>
             </form>
         </section>

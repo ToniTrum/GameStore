@@ -1,4 +1,5 @@
 import { useContext } from "react"
+import { Link, useParams } from "react-router-dom"
 
 import AuthContext from "../../context/AuthContext"
 import ProfileItem from "../ProfileItem/ProfileItem"
@@ -7,6 +8,8 @@ import {API_URL} from "../../main"
 import "./Profile.css"
 
 const Profile = () => {
+    const { id } = useParams()
+
     const {user, setUser} = useContext(AuthContext)
     console.log(user)
 
@@ -33,8 +36,14 @@ const Profile = () => {
                 </div>
             </div>
 
-            <div className="change-button">
-                <button>Изменить данные</button>
+            <div className="change-buttons">
+                <Link to={`/user/id/${user.user_id}/change`}>
+                    <button>Изменить данные</button>
+                </Link>
+                <button
+                    className="delete-button">
+                        Удалить аккаунт
+                </button>
             </div>
         </section>
     )
