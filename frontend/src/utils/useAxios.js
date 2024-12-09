@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext.jsx';
 import { API_URL } from '../main.jsx';
 
 const useAxios = () => {
-    const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
+    const { authTokens, setUser, setAuthTokens } = useContext(AuthContext)
 
     const axiosInstance = axios.create({
         baseURL: API_URL,
