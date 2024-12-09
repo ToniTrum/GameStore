@@ -2,6 +2,7 @@ import { useContext } from "react"
 
 import AuthContext from "../../context/AuthContext"
 import ProfileItem from "../ProfileItem/ProfileItem"
+import {API_URL} from "../../main"
 
 import "./Profile.css"
 
@@ -12,7 +13,7 @@ const Profile = () => {
     return (
         <section className="profile">
             <div className="avatar">
-                <img src={user.image} alt="avatar" />
+                <img src={API_URL + "/" + user.image} alt="avatar" />
             </div>
             
             <div className="profile-info">

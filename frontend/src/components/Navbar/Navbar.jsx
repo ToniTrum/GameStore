@@ -51,7 +51,7 @@ const Navbar = () => {
                     <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} setIsOpen={setIsOpen} />
 
                     <li className="navbar-item">
-                        <Link className="navbar-link" onClick={() => logoutUser()}>Выйти</Link>
+                        <Link className="navbar-link" to="/" onClick={() => logoutUser()}>Выйти</Link>
                         <div className="navbar-item-underline"></div>
                     </li>
                 </ul>
