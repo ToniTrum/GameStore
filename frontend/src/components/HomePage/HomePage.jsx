@@ -7,7 +7,6 @@ import './HomePage.css'
 
 const HomePage = () => {
     const {user} = useContext(AuthContext)
-    console.log(user)
 
     return (
         <section className="home-section">

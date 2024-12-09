@@ -11,7 +11,6 @@ const Profile = () => {
     console.log(user)
 
     return (
-        <>
         <section className="profile">
             <div className="profile-container">
                 <div className="profile-avatar">
@@ -34,9 +33,10 @@ const Profile = () => {
                 </div>
             </div>
 
-            <button>Изменить данные</button>
+            <div className="change-button">
+                <button>Изменить данные</button>
+            </div>
         </section>
-        </>
     )
 }
 
