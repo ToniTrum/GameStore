@@ -3,6 +3,8 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import sweetAlert from 'sweetalert2';
 
+import useFetchCountry from "../utils/useFetchCountry";
+
 const AuthContext = createContext();
 
 export default AuthContext
@@ -18,7 +20,8 @@ export const AuthProvider = ({ children }) => {
             ? jwtDecode(localStorage.getItem("authTokens"))
             : null
     )
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
+    const [userCountry, setUserCountry] = useState({})
 
     const history = useNavigate();
 
@@ -33,7 +36,7 @@ export const AuthProvider = ({ children }) => {
             })
         })
         const data = await response.json()
-        console.log(data);
+        console.log(data)
 
         if(response.status === 200)
         {
@@ -41,6 +44,11 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
+
+            const numeric_code = jwtDecode(data.access).country
+            setUserCountry(useFetchCountry(numeric_code))
+            console.log(userCountry)
+
             const userID = jwtDecode(data.access).user_id
             history(`/user/id/${userID}`)
             sweetAlert.fire({
@@ -52,7 +60,7 @@ export const AuthProvider = ({ children }) => {
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
-        } 
+        }
         else 
         {    
             console.log(response.status);
@@ -145,5 +153,4 @@ export const AuthProvider = ({ children }) => {
             {loading ? null : children}
         </AuthContext.Provider>
     )
-
 }

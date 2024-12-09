@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import {Link, Outlet} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 import AuthContext from "../../context/AuthContext"
 import './HomePage.css'
@@ -7,6 +7,7 @@ import './HomePage.css'
 
 const HomePage = () => {
     const {user} = useContext(AuthContext)
+    console.log(user)
 
     return (
         <section className="home-section">

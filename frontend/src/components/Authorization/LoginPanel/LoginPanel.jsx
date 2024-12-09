@@ -13,7 +13,7 @@ const LoginPanel = () => {
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
         const email = event.target.email.value;
         const password = event.target.password.value;
 
@@ -40,12 +40,10 @@ const LoginPanel = () => {
                 <div className="form-buttons">
                     <button 
                         type="button"
-                        className="form-button" 
                         onClick={() => onClick('/register')}>
                             Зарегистрироваться
                     </button>
                     <button 
-                        className="form-button"
                         type="submit">
                             Войти
                     </button>

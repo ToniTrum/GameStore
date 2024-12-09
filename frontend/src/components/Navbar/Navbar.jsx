@@ -47,8 +47,8 @@ const Navbar = () => {
 
             <nav className={isOpen ? "open" : ""}>
                 <ul className="navbar-list">
-                    <NavbarItem text="Главная" link={`/user/id/${user.user_id}`} setIsOpen={setIsOpen} />
-                    <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} setIsOpen={setIsOpen} />
+                    <NavbarItem text="Главная" link={`/user/id/${user.user_id}`} onClick={setIsOpen} />
+                    <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} onClick={setIsOpen} />
 
                     <li className="navbar-item">
                         <Link className="navbar-link" to="/" onClick={() => logoutUser()}>Выйти</Link>

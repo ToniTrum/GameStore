@@ -1,6 +1,6 @@
 .profile {
     display: flex;
-    justify-content: start;
+    flex-direction: column;
     gap: 3rem;
 
     background-color: black;
@@ -8,6 +8,12 @@
 
     border-radius: 2rem;
     padding: 2.5rem;
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
 }
 
 .avatar {

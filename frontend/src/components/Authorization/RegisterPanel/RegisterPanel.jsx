@@ -201,7 +201,6 @@ const RegisterPanel = () => {
                 <div className="form-buttons">
                     <button 
                         type="button" 
-                        className="form-button" 
                         onClick={() => onClick('/login')}>
                             Назад
                     </button>

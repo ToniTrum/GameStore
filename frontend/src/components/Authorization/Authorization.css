@@ -58,23 +58,3 @@ main {
     gap: 3rem;
     align-self: flex-end;
 }
-
-.form-button {
-    color: rgb(255, 255, 255);
-    background-color: #242424;
-    background-clip: padding-box;
-
-    padding-left: 1rem;
-    padding-right: 1rem;
-
-    border: 1px solid #bdbdbd;
-    border-radius: 0.25rem;
-
-    line-height: 2rem;
-}
-
-.form-button:hover {
-    cursor: pointer;
-    color: rgba(214, 10, 10, 0.87);
-    border-color: rgba(214, 10, 10, 0.87);
-}
