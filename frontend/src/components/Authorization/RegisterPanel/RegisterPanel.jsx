@@ -103,7 +103,7 @@ const RegisterPanel = () => {
             return false
         }
 
-        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,3}$/i
+        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,}$/i
         if (!emailRegExp.test(email)) {
             sendErrorMessage("Некорректная электронная почта")
             return false

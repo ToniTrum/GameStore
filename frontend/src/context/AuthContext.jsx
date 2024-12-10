@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import sweetAlert from 'sweetalert2';
 import axios from "axios";
 
-import useFetchCountry from "../utils/useFetchCountry";
 import { API_URL } from "../main";
 
 const AuthContext = createContext();
@@ -23,7 +22,6 @@ export const AuthProvider = ({ children }) => {
             : null
     )
     const [loading, setLoading] = useState(true)
-    const [userCountry, setUserCountry] = useState({})
 
     const history = useNavigate();
 
@@ -46,10 +44,6 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data)
             setUser(jwtDecode(data.access))
             localStorage.setItem("authTokens", JSON.stringify(data))
-
-            const numeric_code = jwtDecode(data.access).country
-            setUserCountry(useFetchCountry(numeric_code))
-            console.log(userCountry)
 
             const userID = jwtDecode(data.access).user_id
             history(`/user/id/${userID}`)

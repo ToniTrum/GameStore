@@ -1,26 +1,40 @@
-import { useContext } from "react"
-import axios from "axios"
-import { jwtDecode } from "jwt-decode"
+import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 
-import { API_URL } from "../main"
+import { API_URL } from "../main";
+import AuthContext from "../context/AuthContext";
 
-const useFetchCountry = async (numeric_code) => {
-    const authTokens = jwtDecode(localStorage.getItem('authTokens'))
+const useFetchCountry = () => {
+    const { user } = useContext(AuthContext)
 
-    const response = await axios.get(`${API_URL}/currency/country/get/${numeric_code}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${authTokens.access}`
+    const [userCountry, setUserCountry] = useState({})
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try 
+            {
+                const response = await axios.get(`${API_URL}/currency/country/get/${user.country}`)
+                setUserCountry(response.data)
+            } 
+            catch (err) 
+            {
+                setError(err)
+            }
+            finally 
+            {
+                setLoading(false)
+            }
         }
-    })
-    print(response)
 
-    if (!response.ok) {
-        throw new Error(`Ошибка обращения к country/get: ${response.status}`);
-    }
+        if (user?.country) 
+        {
+            fetchData()
+        }
+    }, [user?.country])
 
-    const data = await response.json()
-    return data
+    return { data: userCountry, error, loading }
 }
 
 export default useFetchCountry
