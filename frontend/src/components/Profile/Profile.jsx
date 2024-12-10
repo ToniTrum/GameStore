@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import sweetAlert from "sweetalert2"
 
 import AuthContext from "../../context/AuthContext"
+import { useCountryAndCurrency } from "../../context/CountryAndCurrencyContext"
 import ProfileItem from "../ProfileItem/ProfileItem"
 import {API_URL} from "../../main"
 import useAxios from "../../utils/useAxios"
@@ -11,7 +12,8 @@ import "./Profile.css"
 
 const Profile = () => {
     const api = useAxios()
-    const {user, logoutUser } = useContext(AuthContext)
+    const { userCountry, countryCurrency } = useCountryAndCurrency()
+    const { user, logoutUser } = useContext(AuthContext)
 
     const deleteUser = async () => {
         const response = await api.delete(`/users/delete/${user.user_id}/`)
@@ -51,7 +53,7 @@ const Profile = () => {
                 <div className="profile-avatar">
                     <img 
                         className="avatar"
-                        src={API_URL + "/" + user.image} 
+                        src={`${API_URL}/${user.image}`} 
                         alt="avatar" />
                 </div>
                 
@@ -63,7 +65,7 @@ const Profile = () => {
                         <ProfileItem paragraph="Имя" value={user.first_name} />
                         <ProfileItem paragraph="Фамилия" value={user.last_name} />
                         <ProfileItem paragraph="Дата рождения" value={user.birthdate} />
-                        <ProfileItem paragraph="Страна" value={user.country} />
+                        <ProfileItem paragraph="Страна" value={userCountry.name_ru} />
                     </ul>
                 </div>
             </div>

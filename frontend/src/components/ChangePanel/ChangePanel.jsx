@@ -1,14 +1,14 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import { jwtDecode } from "jwt-decode"
+import dayjs from "dayjs"
 
 import AuthContext from "../../context/AuthContext"
 import { API_URL } from "../../main"
 
+import "./ChangePanel.css"
+
 const ChangePanel = () => {
-    const {user} = useContext(AuthContext)
-    const userData = localStorage.getItem("authTokens")
-    console.log(jwtDecode(userData))
+    const {user, changeUser} = useContext(AuthContext)
 
     const [countryList, setCountryList] = useState([])
 
@@ -21,6 +21,8 @@ const ChangePanel = () => {
     const [lastName, setLastName] = useState(user.last_name)
     const [birthdate, setBirthdate] = useState(user.birthdate)
     const [country, setCountry] = useState(user.country)
+    const [image, setImage] = useState("")
+    const [avatar, setAvatar] = useState(`${API_URL}/${user.image}`)
 
     const userDataForChanging = [
         {
@@ -45,7 +47,7 @@ const ChangePanel = () => {
         },
         {
             "name": "password1",
-            "label": "Пароль",
+            "label": "Новый пароль",
             "type": "password",
             "stateFunction": setPassword
         },
@@ -104,13 +106,13 @@ const ChangePanel = () => {
     }
 
     const validateForm = () => {
-        const usernameRegExp = /^[a-zA-Z0-9_]{4,}$/i
+        const usernameRegExp = /^[a-zA-Z0-9_]{4,64}$/i
         if (!usernameRegExp.test(username)) {
-            sendErrorMessage("Имя пользователя должно состоять из букв латинского алфавита, цифр или знака \"_\", а также иметь длину от 4 символов")
+            sendErrorMessage("Имя пользователя должно состоять из букв латинского алфавита, цифр или знака \"_\", а также иметь длину от 4 до 64 символов")
             return false
         }
 
-        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,3}$/i
+        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,}$/i
         if (!emailRegExp.test(email)) {
             sendErrorMessage("Некорректная электронная почта")
             return false
@@ -127,13 +129,15 @@ const ChangePanel = () => {
             return false
         }
 
-        const nameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,}$", "ui")
-        if (!nameRegExp.test(firstName)) {
-            sendErrorMessage("Имя может состоять только из букв, пробела или символов \"-\" и \"\'\"")
+        const firstNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,64}$", "ui")
+        if (!firstNameRegExp.test(firstName)) {
+            sendErrorMessage("Имя может состоять только из букв, пробела или символов \"-\" и \"\'\", а также иметь длину от 2 до 64 символов")
             return false
         }
-        if (!nameRegExp.test(lastName)) {
-            sendErrorMessage("Фамилия должна состоять только из букв, пробела и символов \"-\" и \"\'\"")
+
+        const lastNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,124}$", "ui")
+        if (!lastNameRegExp.test(lastName)) {
+            sendErrorMessage("Фамилия должна состоять только из букв, пробела и символов \"-\" и \"\'\", а также иметь длину от 2 до 124 символов")
             return false
         }
 
@@ -154,9 +158,49 @@ const ChangePanel = () => {
         fetchCountry()
     }, [])
 
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            const objectUrl = URL.createObjectURL(file)
+            setAvatar(objectUrl)
+            setImage(file)
+        }
+    }
+
+    useEffect(() => {
+        return () => {
+            URL.revokeObjectURL(image)
+        }
+    }, [avatar])
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        if (validateForm()) {
+            changeUser(email, username, password, password2, firstName, lastName, country, birthdate)
+        }
+    }
+
     return (
-        <section>
-            <form className="authorization-form" action='' method="post">
+        <section className="change-panel">
+            <form className="authorization-form" action='' method="patch">
+                <div className="form-image">
+                    <img 
+                        className="avatar"
+                        src={avatar}
+                        alt="avatar" />
+                </div>
+                    
+                <div className="form-item">
+                    <label className="form-label" htmlFor="image">
+                        Изображение
+                    </label>
+                    <input 
+                        onChange={handleAvatarChange} 
+                        type="file"
+                        name="image" 
+                        id="image"/>
+                </div>
+
                 {userDataForChanging.map((item) => {
                     return (
                         <div className="form-item" key={item.name}>

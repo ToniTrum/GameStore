@@ -1,0 +1,14 @@
+.form-image {
+    display: flex;
+    align-self: center;
+
+    overflow: hidden;
+    width: 16rem;
+    height: 16rem;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

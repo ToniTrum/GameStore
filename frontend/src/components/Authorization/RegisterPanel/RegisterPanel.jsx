@@ -97,9 +97,9 @@ const RegisterPanel = () => {
     }
 
     const validateForm = () => {
-        const usernameRegExp = /^[a-zA-Z0-9_]{4,}$/i
+        const usernameRegExp = /^[a-zA-Z0-9_]{4,64}$/i
         if (!usernameRegExp.test(username)) {
-            sendErrorMessage("Имя пользователя должно состоять из букв латинского алфавита, цифр или знака \"_\", а также иметь длину от 4 символов")
+            sendErrorMessage("Имя пользователя должно состоять из букв латинского алфавита, цифр или знака \"_\", а также иметь длину от 4 до 64 символов")
             return false
         }
 
@@ -120,13 +120,15 @@ const RegisterPanel = () => {
             return false
         }
 
-        const nameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,}$", "ui")
-        if (!nameRegExp.test(firstName)) {
-            sendErrorMessage("Имя может состоять только из букв, пробела или символов \"-\" и \"\'\"")
+        const firstNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,64}$", "ui")
+        if (!firstNameRegExp.test(firstName)) {
+            sendErrorMessage("Имя может состоять только из букв, пробела или символов \"-\" и \"\'\", а также иметь длину от 2 до 64 символов")
             return false
         }
-        if (!nameRegExp.test(lastName)) {
-            sendErrorMessage("Фамилия должна состоять только из букв, пробела и символов \"-\" и \"\'\"")
+
+        const lastNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,124}$", "ui")
+        if (!lastNameRegExp.test(lastName)) {
+            sendErrorMessage("Фамилия должна состоять только из букв, пробела и символов \"-\" и \"\'\", а также иметь длину от 2 до 124 символов")
             return false
         }
 

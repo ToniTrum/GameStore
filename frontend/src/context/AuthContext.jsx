@@ -45,15 +45,6 @@ export const AuthProvider = ({ children }) => {
 
             const userID = jwtDecode(data.access).user_id
             history(`/user/id/${userID}`)
-            sweetAlert.fire({
-                title: "Успешный вход",
-                icon: "success",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
         }
         else 
         {    
@@ -84,6 +75,15 @@ export const AuthProvider = ({ children }) => {
         if(response.status === 201)
         {
             history("/login")
+            sweetAlert.fire({
+                title: "Успешная регистрация",
+                icon: "success",
+                toast: true,
+                timer: 3000,
+                position: 'top-left',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
         } 
         else 
         {
@@ -103,6 +103,46 @@ export const AuthProvider = ({ children }) => {
                 toast: true,
                 timer: 6000,
                 position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+    }
+
+    const updateUser = async (email, username, first_name, last_name, password, oldPassword, country, birthdate, image) => {
+        const response = await fetch(`${API_URL}/users/update/${user.user_id}/`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${authTokens.access}`
+            },
+            body: JSON.stringify({
+                email, username, first_name, last_name, password, oldPassword, country, birthdate, image
+            })
+        })
+
+        if(response.status === 200)
+        {
+            loginUser(email, password)
+        }
+        else 
+        {
+            const errorData = await response.json();
+            console.log(errorData)
+
+            const errorMessage = Object.entries(errorData)
+                .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+                .join("\n");
+
+            console.log(response)
+            console.log(response.status)
+            sweetAlert.fire({
+                title: "Ошибка обновления данных",
+                text: errorMessage,
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-left',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
