@@ -10,8 +10,7 @@ import "./Profile.css"
 const Profile = () => {
     const { id } = useParams()
 
-    const {user, setUser} = useContext(AuthContext)
-    console.log(user)
+    const {user, deleteUser } = useContext(AuthContext)
 
     return (
         <section className="profile">
@@ -41,7 +40,8 @@ const Profile = () => {
                     <button>Изменить данные</button>
                 </Link>
                 <button
-                    className="delete-button">
+                    className="delete-button"
+                    onClick={deleteUser}>
                         Удалить аккаунт
                 </button>
             </div>

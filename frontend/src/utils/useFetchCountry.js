@@ -1,17 +1,17 @@
 import { useContext } from "react"
+import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 
 import { API_URL } from "../main"
-import AuthContext from "../context/AuthContext"
 
 const useFetchCountry = async (numeric_code) => {
-    const token = localStorage.getItem("authTokens")
+    const authTokens = jwtDecode(localStorage.getItem('authTokens'))
 
-    response = await fetch(`${API_URL}/currency/country/get/${numeric_code}`, {
-        method: "GET",
+    const response = await axios.get(`${API_URL}/currency/country/get/${numeric_code}`, {
         headers: {
-            "Content-Type": "application/json",
-        },
-        Authorization: `Bearer ${token.access}`,
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authTokens.access}`
+        }
     })
     print(response)
 

@@ -7,8 +7,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 
-from .models import User, Profile
-from .serializer import UserSerializer, TokenSerializer, RegisterSerializer
+from .models import User
+from .serializer import TokenSerializer, RegisterSerializer
 
 class TokenView(TokenObtainPairView):
     serializer_class = TokenSerializer
@@ -34,3 +34,29 @@ def dashboard(request):
         }, status=status.HTTP_200_OK)
     else:
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_user(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+
+        if request.user != user:
+            return Response(
+                {"detail": "Вы не можете удалить чужой аккаунт."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        user.delete()
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+    except User.DoesNotExist:
+        return Response(
+            {"detail": "Пользователь не найден."},
+            status=status.HTTP_404_NOT_FOUND
+        )
+
+    except Exception as e:
+        return Response(
+            {"detail": f"Произошла ошибка: {str(e)}"},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )

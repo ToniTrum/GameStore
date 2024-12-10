@@ -2,8 +2,10 @@ import {createContext, useState, useEffect} from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import sweetAlert from 'sweetalert2';
+import axios from "axios";
 
 import useFetchCountry from "../utils/useFetchCountry";
+import { API_URL } from "../main";
 
 const AuthContext = createContext();
 
@@ -26,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     const history = useNavigate();
 
     const loginUser = async (email, password) => {
-        const response = await fetch("http://127.0.0.1:8000/users/token/", {
+        const response = await fetch(`${API_URL}/users/token/`, {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
@@ -77,7 +79,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const registerUser = async (email, username, password, password2, first_name, last_name, country, birthdate) => {
-        const response = await fetch("http://127.0.0.1:8000/users/register/", {
+        const response = await fetch(`${API_URL}/users/register/`, {
             method: "POST",
             headers: {
                 "Content-Type":"application/json"
@@ -116,19 +118,46 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logoutUser = () => {
+        history("/login")
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
-        history.push("/login")
-        sweetAlert.fire({
-            title: "YOu have been logged out...",
-            icon: "success",
-            toast: true,
-            timer: 6000,
-            position: 'top-right',
-            timerProgressBar: true,
-            showConfirmButton: false,
+    }
+
+    const deleteUser = async () => {
+        const response = await axios.delete('https://reqres.in/api/posts/1', {
+            headers: {
+                Authorization: `Bearer ${authTokens.access}`
+            }
         })
+
+        if(response.status === 204)
+        {
+            logoutUser()
+            sweetAlert.fire({
+                title: "Вы удалили свой аккаунт",
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+        else {
+            const errorData = await response.json();
+            logoutUser()
+            sweetAlert.fire({
+                title: "Ошибка",
+                text: errorData.detail,
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
     }
 
     const contextData = {
@@ -139,6 +168,7 @@ export const AuthProvider = ({ children }) => {
         registerUser,
         loginUser,
         logoutUser,
+        deleteUser,
     }
 
     useEffect(() => {
