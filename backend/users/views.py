@@ -38,6 +38,7 @@ def dashboard(request):
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_user(request, user_id):
+    print("Заголовок Authorization:", request.headers.get("Authorization"))
     try:
         user = User.objects.get(id=user_id)
 

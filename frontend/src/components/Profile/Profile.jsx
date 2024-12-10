@@ -1,16 +1,49 @@
 import { useContext } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
+import sweetAlert from "sweetalert2"
 
 import AuthContext from "../../context/AuthContext"
 import ProfileItem from "../ProfileItem/ProfileItem"
 import {API_URL} from "../../main"
+import useAxios from "../../utils/useAxios"
 
 import "./Profile.css"
 
 const Profile = () => {
-    const { id } = useParams()
+    const api = useAxios()
+    const {user, logoutUser } = useContext(AuthContext)
 
-    const {user, deleteUser } = useContext(AuthContext)
+    const deleteUser = async () => {
+        const response = await api.delete(`/users/delete/${user.user_id}/`)
+
+        if(response.status === 204)
+        {
+            logoutUser()
+            sweetAlert.fire({
+                title: "Вы удалили свой аккаунт",
+                icon: "success",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+        else {
+            const errorData = await response.json();
+            logoutUser()
+            sweetAlert.fire({
+                title: "Ошибка",
+                text: errorData.detail,
+                icon: "success",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+    }
 
     return (
         <section className="profile">

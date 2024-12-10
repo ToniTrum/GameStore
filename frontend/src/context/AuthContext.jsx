@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }) => {
             })
         })
         const data = await response.json()
-        console.log(data)
 
         if(response.status === 200)
         {
@@ -118,42 +117,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("authTokens")
     }
 
-    const deleteUser = async () => {
-        const response = await axios.delete('https://reqres.in/api/posts/1', {
-            headers: {
-                Authorization: `Bearer ${authTokens.access}`
-            }
-        })
-
-        if(response.status === 204)
-        {
-            logoutUser()
-            sweetAlert.fire({
-                title: "Вы удалили свой аккаунт",
-                icon: "success",
-                toast: true,
-                timer: 6000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
-        }
-        else {
-            const errorData = await response.json();
-            logoutUser()
-            sweetAlert.fire({
-                title: "Ошибка",
-                text: errorData.detail,
-                icon: "success",
-                toast: true,
-                timer: 6000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
-        }
-    }
-
     const contextData = {
         user, 
         setUser,
@@ -162,7 +125,6 @@ export const AuthProvider = ({ children }) => {
         registerUser,
         loginUser,
         logoutUser,
-        deleteUser,
     }
 
     useEffect(() => {

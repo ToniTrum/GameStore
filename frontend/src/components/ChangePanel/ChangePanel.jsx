@@ -1,16 +1,20 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import { jwtDecode } from "jwt-decode"
 
 import AuthContext from "../../context/AuthContext"
 import { API_URL } from "../../main"
 
 const ChangePanel = () => {
     const {user} = useContext(AuthContext)
+    const userData = localStorage.getItem("authTokens")
+    console.log(jwtDecode(userData))
 
     const [countryList, setCountryList] = useState([])
 
     const [username, setUsername] = useState(user.username)
     const [email, setEmail] = useState(user.email)
+    const [oldPassword, setOldPassword] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
     const [firstName, setFirstName] = useState(user.first_name)
@@ -32,6 +36,12 @@ const ChangePanel = () => {
             "type": "email",
             "stateFunction": setEmail,
             "text": email
+        },
+        {
+            "name": "olpPassword",
+            "label": "Старый пароль",
+            "type": "password",
+            "stateFunction": setOldPassword
         },
         {
             "name": "password1",
