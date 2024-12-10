@@ -1,9 +1,9 @@
 import {Outlet} from "react-router-dom"
 
-import useFetchCountry from "../../utils/useFetchCountry"
+import useFetchCountryAndCurrency from "../../utils/useFetchCountryAndCurrency"
 
 const MainPage = () => {
-    const { userCountry, error, loading } = useFetchCountry()
+    const { userCountry, countryCurrency, error, loading } = useFetchCountryAndCurrency()
 
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error: {error.message}</p>

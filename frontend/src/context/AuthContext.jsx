@@ -2,7 +2,6 @@ import {createContext, useState, useEffect} from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import sweetAlert from 'sweetalert2';
-import axios from "axios";
 
 import { API_URL } from "../main";
 
