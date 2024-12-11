@@ -1,12 +1,14 @@
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer, DeveloperSerializer, ScreenshotSerializer, GameSerializer, RequirementSerializer
+from users.models import User
+from library.models import Library
 
 class PlatformView(generics.ListAPIView):
     queryset = Platform.objects.all()
@@ -34,14 +36,12 @@ class ScreenshotView(generics.ListAPIView):
 
 class GamePagination(PageNumberPagination):
     page_size = 40
-    page_size_query_param = 'page_size'
-    max_page_size = 100
 
     def get_paginated_response(self, data):
         return Response({
             'total_count': self.page.paginator.count,
             'total_pages': self.page.paginator.num_pages,
-            'current_page': self.page.number,
+            'page': self.page.number,
             'next': self.get_next_link(),
             'previous': self.get_previous_link(),
             'results': data,
@@ -56,6 +56,11 @@ class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()
     serializer_class = RequirementSerializer
 
-class RandomGamesView(generics.ListAPIView):
-    queryset = Game.objects.all().order_by('?')[:4]
-    serializer_class = GameSerializer
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_random_games(request, user_id):
+    user = User.objects.get(id=user_id)
+    library = Library.objects.filter(user=user).values_list('game_id', flat=True)
+    games = Game.objects.exclude(id__in=library).order_by('?')[:4]
+    serializer = GameSerializer(games, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
