@@ -11,41 +11,32 @@ const HomePage = () => {
     const {user} = useContext(AuthContext)
     const {userCountry, countryCurrency} = useCountryAndCurrency()
     const game = {
-        "id": 10089,
-        "name": "Ball 3D: Soccer Online",
-        "background_image": "https://media.rawg.io/media/screenshots/3a5/3a59c74568a14736d44a1df1660c5282.jpg",
-        "description": "In Ball 3D you compete online in 7 sports, against up to 30 opponents. We have Racing Soccer, Racing, Soccer, Basketball, Hockey, Handball and Battle Royale. Already played by over 1 000 000 players.<h3>Features:</h3><br/><ul> <li>7 Sports: Racing Soccer, Racing, Soccer, Basketball, Hockey, Handball, Battle Royale<br/></li><li>12 Game Modes<br/></li><li>23 Stadiums<br/></li><li>100% Control<br/></li><li>Multiplayer<br/></li><li>Realistic Physics<br/></li><li>T-Shirts Customization<br/></li><li>Replays<br/></li><li>Statistics<br/></li><li>Training Bots<br/></li><li>Custom Celebrations</li></ul>",
+        "id": 21666,
+        "name": "Ironclads: Schleswig War 1864",
+        "background_image": "https://media.rawg.io/media/screenshots/009/00958f83615d4d874a68173cd46442da.jpg",
+        "description": "<p>The Danish government wanted to annex the duchy of Schleswig to the Danish kingdom while the Prussian government, for internal political and strategic reasons, wanted Schleswig to finally became a part of Germany.</p>\n<p>A key element of Denmark's war strategy was the blockade of Germany's Baltic sea ports, thereby disrupting German overseas trade and hindering Prussian naval operations in support the Prussian army. The supreme commander of the Prussian army insisted that the navy attempt to breach the blockade.</p>",
         "esrb_rating": 6,
-        "release_date": "2017-03-31",
-        "price_in_cents": 0,
+        "release_date": "2011-06-21",
+        "price_in_cents": 899,
         "platforms": [
-            4,
-            5
+            4
         ],
         "genres": [
-            15
+            10
         ],
         "tags": [
-            4,
-            7,
-            18,
-            79,
-            190,
-            191,
-            397,
-            411,
-            40832,
-            40837
+            31
         ],
         "screenshots": [
-            76717,
-            76718,
-            76719,
-            76720,
-            76721
+            206695,
+            206696,
+            206697,
+            206698,
+            206699,
+            206700
         ],
         "developers": [
-            4073
+            6560
         ]
     }
 

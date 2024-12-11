@@ -1,17 +1,19 @@
+import { useNavigate, useParams } from "react-router-dom"
 import "./GameCard.css"
+import { API_URL } from "../../main"
 
 const GameCard = ({game, currency, symbol}) => {
-    const genres = []
-    for (let i = 0; i < game.genres.length; i++) {
-        const genre = fetch(`${API_URL}/genres/${game.genres[i]}/`,{method: 'GET'})
-            .then(response => response.json())
-            .then(data => genres.push(data.name))
+    const navigate = useNavigate()
+    const { id } = useParams()
+
+    const onClick = () => {
+        navigate(`/user/id/${id}/game/${game.id}`)
     }
 
-    const price = game.price_in_cents * currency.rate / 100
+    const price = (game.price_in_cents * currency.rate / 100).toFixed(2)
 
     return(
-        <div className="game-card">
+        <div onClick={onClick} className="game-card">
             <img className="game-card__image" src={game.background_image} alt={game.name} />
             <div className="game-card__info">
                 <h1 className="game-card__title">{game.name}</h1>
