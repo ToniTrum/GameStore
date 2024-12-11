@@ -5,8 +5,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Library, Wishlist
-from .serializer import LibrarySerializer, WishlistSerializer
+from .models import Library, Wishlist, Basket
+from .serializer import LibrarySerializer, WishlistSerializer, BasketSerializer
 
 class LibraryView(generics.ListAPIView):
     queryset = Library.objects.all()
@@ -15,3 +15,7 @@ class LibraryView(generics.ListAPIView):
 class WishlistView(generics.ListAPIView):
     queryset = Wishlist.objects.all()
     serializer_class = WishlistSerializer
+
+class BasketView(generics.ListAPIView):
+    queryset = Basket.objects.all()
+    serializer_class = BasketSerializer
