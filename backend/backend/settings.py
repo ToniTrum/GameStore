@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'users',
     'currency',
     'games',
+    'library',
 ]
 
 MIDDLEWARE = [
