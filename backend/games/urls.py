@@ -6,6 +6,7 @@ urlpatterns = [
     path("platform/", views.PlatformView.as_view(), name="platform"),
     path("esrb_rating/", views.ESRBRatingView.as_view(), name="esrb_rating"),
     path("genre/", views.GenreView.as_view(), name="genre"),
+    path("genre/get/<int:genre_id>/", views.get_genre_by_id, name="get_genre_by_id"),
     path("tag/", views.TagView.as_view(), name="tag"),
     path("developer/", views.DeveloperView.as_view(), name="developer"),
     path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),

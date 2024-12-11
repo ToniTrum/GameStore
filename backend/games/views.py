@@ -58,6 +58,13 @@ class RequirementView(generics.ListAPIView):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def get_genre_by_id(request, genre_id):
+    genre = Genre.objects.get(id=genre_id)
+    serializer = GenreSerializer(genre)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_random_games(request, user_id):
     user = User.objects.get(id=user_id)
     library = Library.objects.filter(user=user).values_list('game_id', flat=True)

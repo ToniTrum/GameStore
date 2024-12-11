@@ -23,3 +23,11 @@
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+
+.game-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
