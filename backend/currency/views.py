@@ -25,7 +25,6 @@ class CountryView(generics.ListAPIView):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_country(request, numeric_code):
-    if request.method == 'GET':
-        country = Country.objects.get(numeric_code=numeric_code)
-        serializer = CountrySerializer(country)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+    country = Country.objects.get(numeric_code=numeric_code)
+    serializer = CountrySerializer(country)
+    return Response(serializer.data, status=status.HTTP_200_OK)

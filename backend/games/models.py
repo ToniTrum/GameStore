@@ -56,12 +56,12 @@ class Game(models.Model):
     description = models.TextField()
     esrb_rating = models.ForeignKey(ESRBRating, on_delete=models.SET_DEFAULT, default=ESRBRating.get_default_rating)
     release_date = models.DateField()
+    price_in_cents = models.PositiveIntegerField(default=0)
     platforms = models.ManyToManyField(Platform)
     genres = models.ManyToManyField(Genre)
     tags = models.ManyToManyField(Tag)
     screenshots = models.ManyToManyField(Screenshot)
     developers = models.ManyToManyField(Developer)
-    price_in_cents = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

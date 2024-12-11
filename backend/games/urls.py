@@ -11,4 +11,5 @@ urlpatterns = [
     path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),
     path("game/", views.GameView.as_view(), name="game"),
     path("requirement/", views.RequirementView.as_view(), name="requirement"),
+    path("random_games/", views.RandomGamesView.as_view(), name="random_games"),
 ]

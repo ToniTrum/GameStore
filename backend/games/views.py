@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer, DeveloperSerializer, ScreenshotSerializer, GameSerializer, RequirementSerializer
@@ -53,3 +55,7 @@ class GameView(generics.ListAPIView):
 class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()
     serializer_class = RequirementSerializer
+
+class RandomGamesView(generics.ListAPIView):
+    queryset = Game.objects.all().order_by('?')[:4]
+    serializer_class = GameSerializer

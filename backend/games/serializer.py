@@ -34,7 +34,11 @@ class ScreenshotSerializer(serializers.ModelSerializer):
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ['id', 'name', 'background_image', 'description', 'esrb_rating', 'release_date', 'platforms', 'genres', 'tags', 'screenshots', 'developers']
+        fields = [
+            'id', 'name', 'background_image', 'description', 
+            'esrb_rating', 'release_date', 'price_in_cents',
+            'platforms', 'genres', 'tags', 'screenshots', 'developers'
+        ]
 
 class RequirementSerializer(serializers.ModelSerializer):
     class Meta:
