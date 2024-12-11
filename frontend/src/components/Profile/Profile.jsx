@@ -50,7 +50,7 @@ const Profile = () => {
     return (
         <section className="profile">
             <div className="profile-container">
-                <div className="profile-avatar">
+                <div className="avatar-container">
                     <img 
                         className="avatar-profile"
                         src={`${API_URL}/${user.image}`} 

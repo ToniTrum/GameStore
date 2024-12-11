@@ -16,8 +16,15 @@
     gap: 3rem;
 }
 
+.avatar-container {
+    display: flex;
+    width: 18rem;
+    height: 18rem;
+}
+
 .avatar-profile {
-    width: 16rem;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
