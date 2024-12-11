@@ -1,14 +1,20 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import dayjs from "dayjs"
+import isSameOrBefore  from "dayjs/plugin/isSameOrBefore"
+import sweetAlert from 'sweetalert2';
+import XRegExp from "xregexp";
 
 import AuthContext from "../../context/AuthContext"
 import { API_URL } from "../../main"
+import useAxios from "../../utils/useAxios";
 
 import "./ChangePanel.css"
 
 const ChangePanel = () => {
-    const {user, changeUser} = useContext(AuthContext)
+    const api = useAxios()
+    dayjs.extend(isSameOrBefore)
+    const {user, loginUser} = useContext(AuthContext)
 
     const [countryList, setCountryList] = useState([])
 
@@ -105,6 +111,49 @@ const ChangePanel = () => {
         setCountryList(responseData)
     }
 
+    const updateUser = async (formData) => {
+        const response = await api.put(`/users/update/${user.user_id}/`, formData)
+
+        if(response.status === 200)
+        {
+            if (formData.get("password"))
+                loginUser(formData.get("email"), formData.get("password"))
+            else
+                loginUser(formData.get("email"), formData.get("old_password"))
+            sweetAlert.fire({
+                title: "Данные успешно обновлены",
+                icon: "success",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+        else 
+        {
+            const errorData = await response.data
+            console.log(errorData)
+
+            const errorMessage = Object.entries(errorData)
+                .map(([field, messages]) => `${field}: ${messages}`)
+                .join("\n")
+
+            console.log(response)
+            console.log(response.status)
+            sweetAlert.fire({
+                title: "Ошибка обновления данных",
+                text: errorMessage,
+                icon: "error",
+                toast: true,
+                timer: 6000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+    }
+
     const validateForm = () => {
         const usernameRegExp = /^[a-zA-Z0-9_]{4,64}$/i
         if (!usernameRegExp.test(username)) {
@@ -118,8 +167,13 @@ const ChangePanel = () => {
             return false
         }
 
+        if (!oldPassword) {
+            sendErrorMessage("Заполните поле старого пароля")
+            return false
+        }
+
         const passwordRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9_]{8,}$/i
-        if (!passwordRegExp.test(password)) {
+        if (password && !passwordRegExp.test(password)) {
             sendErrorMessage("Пароль должен состоять из букв латинского алфавита, цифр и знака \"_\", а также иметь длину от 8 символов")
             return false
         }
@@ -176,13 +230,26 @@ const ChangePanel = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (validateForm()) {
-            changeUser(email, username, password, password2, firstName, lastName, country, birthdate)
+            const formData = new FormData()
+            if (image) {
+                formData.append("image", image)
+            }
+            formData.append("username", username)
+            formData.append("email", email)
+            formData.append("old_password", oldPassword)
+            formData.append("password", password)
+            formData.append("first_name", firstName)
+            formData.append("last_name", lastName)
+            formData.append("country", country)
+            formData.append("birthdate", birthdate)
+
+            updateUser(formData)
         }
     }
 
     return (
         <section className="change-panel">
-            <form className="authorization-form" action='' method="patch">
+            <form className="authorization-form" action='' method="patch" onSubmit={handleSubmit}>
                 <div className="form-image">
                     <img 
                         className="avatar"

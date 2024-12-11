@@ -52,7 +52,7 @@ const Profile = () => {
             <div className="profile-container">
                 <div className="profile-avatar">
                     <img 
-                        className="avatar"
+                        className="avatar-profile"
                         src={`${API_URL}/${user.image}`} 
                         alt="avatar" />
                 </div>

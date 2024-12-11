@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
                 icon: "success",
                 toast: true,
                 timer: 3000,
-                position: 'top-left',
+                position: 'top-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             })
@@ -109,46 +109,6 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const updateUser = async (email, username, first_name, last_name, password, oldPassword, country, birthdate, image) => {
-        const response = await fetch(`${API_URL}/users/update/${user.user_id}/`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type":"application/json",
-                "Authorization": `Bearer ${authTokens.access}`
-            },
-            body: JSON.stringify({
-                email, username, first_name, last_name, password, oldPassword, country, birthdate, image
-            })
-        })
-
-        if(response.status === 200)
-        {
-            loginUser(email, password)
-        }
-        else 
-        {
-            const errorData = await response.json();
-            console.log(errorData)
-
-            const errorMessage = Object.entries(errorData)
-                .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
-                .join("\n");
-
-            console.log(response)
-            console.log(response.status)
-            sweetAlert.fire({
-                title: "Ошибка обновления данных",
-                text: errorMessage,
-                icon: "error",
-                toast: true,
-                timer: 6000,
-                position: 'top-left',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
-        }
-    }
-
     const logoutUser = () => {
         history("/login")
         setAuthTokens(null)
@@ -163,7 +123,7 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens,
         registerUser,
         loginUser,
-        logoutUser,
+        logoutUser
     }
 
     useEffect(() => {
