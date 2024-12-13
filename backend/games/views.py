@@ -35,7 +35,7 @@ class ScreenshotView(generics.ListAPIView):
     serializer_class = ScreenshotSerializer
 
 class GamePagination(PageNumberPagination):
-    page_size = 40
+    page_size = 39
 
     def get_paginated_response(self, data):
         return Response({
@@ -51,6 +51,17 @@ class GameView(generics.ListAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
     pagination_class = GamePagination
+
+    def list(self, request, *args, **kwargs):
+        response = super().list(request, *args, **kwargs)
+
+        response.set_cookie(
+            key='key',
+            value='value',
+            samesite='None',
+            secure=True
+        )
+        return response
 
 class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()

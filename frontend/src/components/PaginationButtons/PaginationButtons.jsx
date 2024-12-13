@@ -1,8 +1,10 @@
 import "./PaginationButtons.css"
 
-const PaginationButton = ({changePage, currentPage, page}) => {
+const PaginationButton = ({changePage, pageNumber, page}) => {
+    page = parseInt(page)
+    
     const onClick = () => {
-        if (currentPage !== page) {
+        if (pageNumber !== page) {
             changePage(page)
         }
     }
@@ -10,22 +12,22 @@ const PaginationButton = ({changePage, currentPage, page}) => {
     return (
         <button
             onClick={onClick}
-            className={currentPage === page ? "active" : ""}
+            className={pageNumber == page ? "active" : ""}
         >
             {page}
         </button>
     )
 }
 
-const StartButtons = ({changePage, currentPage}) => {
+const StartButtons = ({changePage, pageNumber}) => {
     return (
-        currentPage <= 5 
+        pageNumber <= 5 
             ? (
                 <>
                 {Array.from({ length: 4 }, (_, index) => (
                     <PaginationButton 
                         changePage={changePage} 
-                        currentPage={currentPage} 
+                        pageNumber={pageNumber} 
                         page={index + 2}
                         key={index} 
                     />
@@ -37,17 +39,17 @@ const StartButtons = ({changePage, currentPage}) => {
     )
 }
 
-const MiddleButtons = ({changePage, currentPage, totalPages}) => {
+const MiddleButtons = ({changePage, pageNumber, totalPages}) => {
     return (
-        currentPage > 5 && currentPage < totalPages - 4
+        pageNumber > 5 && pageNumber < totalPages - 4
             ? (
                 <>
                 <p className="ellipsis">...</p>
                 {Array.from({ length: 3 }, (_, index) => (
                     <PaginationButton 
                         changePage={changePage} 
-                        currentPage={currentPage} 
-                        page={currentPage - 1 + index} 
+                        pageNumber={pageNumber} 
+                        page={pageNumber - 1 + index} 
                         key={index} 
                     />
                 ))}
@@ -58,16 +60,16 @@ const MiddleButtons = ({changePage, currentPage, totalPages}) => {
     )
 }
 
-const EndButtons = ({changePage, currentPage, totalPages}) => {
+const EndButtons = ({changePage, pageNumber, totalPages}) => {
     return (
-        currentPage >= totalPages - 4
+        pageNumber >= totalPages - 4
             ? (
                 <>
                 <p className="ellipsis">...</p>
                 {Array.from({ length: 4 }, (_, index) => (
                     <PaginationButton 
                         changePage={changePage} 
-                        currentPage={currentPage} 
+                        pageNumber={pageNumber} 
                         page={totalPages - 4 + index}
                         key={index} 
                     />
@@ -78,36 +80,32 @@ const EndButtons = ({changePage, currentPage, totalPages}) => {
     )
 }
 
-const PaginationButtons = ({ currentPage, setCurrentPage, totalPages }) => {
-    const changePage = (page) => {
-        if (page > 0 && page <= totalPages) {
-            setCurrentPage(page)
-        }
-    }
+const PaginationButtons = ({ changePage, pageNumber, totalPages }) => {
+    pageNumber = parseInt(pageNumber)
 
     return (
         <div className="pagination-container">
-            {currentPage > 1 && (
+            {pageNumber > 1 && (
                 <button 
-                    onClick={() => changePage(currentPage - 1)} 
-                    disabled={currentPage === 1}
+                    onClick={() => changePage(pageNumber - 1)} 
+                    disabled={pageNumber === 1}
                     >
                         &lt;
                 </button>
             )}
 
-            <PaginationButton changePage={changePage} currentPage={currentPage} page={1} />
+            <PaginationButton changePage={changePage} pageNumber={pageNumber} page={1} />
 
-            <StartButtons changePage={changePage} currentPage={currentPage} />
-            <MiddleButtons changePage={changePage} currentPage={currentPage} totalPages={totalPages} />
-            <EndButtons changePage={changePage} currentPage={currentPage} totalPages={totalPages} />
+            <StartButtons changePage={changePage} pageNumber={pageNumber} />
+            <MiddleButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
+            <EndButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
 
-            <PaginationButton changePage={changePage} currentPage={currentPage} page={totalPages} />
+            <PaginationButton changePage={changePage} pageNumber={pageNumber} page={totalPages} />
 
-            {currentPage < totalPages && (
+            {pageNumber < totalPages && (
                 <button 
-                    onClick={() => changePage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
+                    onClick={() => changePage(pageNumber + 1)} 
+                    disabled={pageNumber === totalPages}
                     >
                         &gt;
                 </button>

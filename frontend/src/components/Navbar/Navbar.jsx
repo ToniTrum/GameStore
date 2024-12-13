@@ -49,7 +49,7 @@ const Navbar = () => {
                 <ul className="navbar-list">
                     <NavbarItem text="Главная" link={`/user/id/${user.user_id}`} onClick={setIsOpen} />
                     <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} onClick={setIsOpen} />
-                    <NavbarItem text="Магазин" link={`/user/id/${user.user_id}/store`} onClick={setIsOpen} />
+                    <NavbarItem text="Магазин" link={`/user/id/${user.user_id}/store/page/1`} onClick={setIsOpen} />
 
                     <li className="navbar-item">
                         <Link className="navbar-link" to="/" onClick={() => logoutUser()}>Выйти</Link>

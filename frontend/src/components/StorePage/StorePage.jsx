@@ -1,40 +1,68 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { API_URL } from "../../main"
 import useCountryAndCurrency from "../../utils/useFetchCountryAndCurrency"
 
+import GameCard from "../GameCard/GameCard"
 import PaginationButtons from "../PaginationButtons/PaginationButtons"
 
 import "./StorePage.css"
 
 const StorePage = () => {
+    const navigate = useNavigate()
     const {userCountry, countryCurrency} = useCountryAndCurrency()
-    const { id } = useParams()
+    const { id, pageNumber } = useParams()
 
-    const [currentPage, setCurrentPage] = useState(1)
     const [games, setGames] = useState([])
+    const [totalPages, setTotalPages] = useState(1)
 
     useEffect(() => {
         const fetchGames = async () => {
-            try {
-                const response = await fetch(`${API_URL}/games/game`, {method: 'GET'})
+            try 
+            {
+                const response = await fetch(`${API_URL}/games/game/?page=${pageNumber}`, {
+                    method: 'GET',
+                    credentials: 'include',
+                })
                 const data = await response.json()
-                setGames(data)
-            } catch (error) {
+
+                setTotalPages(data.total_pages)
+                setGames(data.results)
+            } 
+            catch (error) 
+            {
                 console.error(error)
             }
         }
 
         fetchGames()
-    }, [])
+    }, [pageNumber])
+
+    const changePage = (page) => {
+        page = parseInt(page)
+        if (page > 0 && page <= totalPages) {
+            navigate(`/user/id/${id}/store/page/${page}`)
+        }
+    }
 
     return (
-        <section>
+        <section className="store">
+            <div className="store__games">
+                {games.map((game) => (
+                    <GameCard 
+                        key={game.id} 
+                        game={game} 
+                        currency={countryCurrency} 
+                        symbol={userCountry.currency_symbol} 
+                    /> 
+                ))}
+            </div>
+
             <PaginationButtons 
-                currentPage={currentPage} 
-                setCurrentPage={setCurrentPage}
-                totalPages={100} />
+                changePage={changePage}
+                pageNumber={pageNumber}
+                totalPages={totalPages} />
         </section>
     )
 }

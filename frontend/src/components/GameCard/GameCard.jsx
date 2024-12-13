@@ -14,7 +14,7 @@ const GameCard = ({game, currency, symbol}) => {
 
     return(
         <div onClick={onClick} className="game-card">
-            <img className="game-card__image" src={game.background_image} alt={game.name} />
+            <img className="game-card__image" src={game.background_image} alt={game.name} loading="lazy" />
             <div className="game-card__info">
                 <h1 className="game-card__title">{game.name}</h1>
 

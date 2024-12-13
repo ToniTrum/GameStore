@@ -32,7 +32,7 @@ function App() {
 							<Route index element={<HomePage />} />
 							<Route path="profile" element={<Profile />} />
 							<Route path="change" element={<ChangePanel />} />
-							<Route path="store" element={<StorePage />} />
+							<Route path="store/page/:pageNumber" element={<StorePage />} />
 						</Route>
 					</Route>
                 </Routes>
