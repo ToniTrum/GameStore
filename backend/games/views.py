@@ -68,6 +68,6 @@ def get_genre_by_id(request, genre_id):
 def get_random_games(request, user_id):
     user = User.objects.get(id=user_id)
     library = Library.objects.filter(user=user).values_list('game_id', flat=True)
-    games = Game.objects.exclude(id__in=library).order_by('?')[:4]
+    games = Game.objects.exclude(id__in=library).order_by('?')[:6]
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
