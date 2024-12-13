@@ -1,0 +1,10 @@
+.ellipsis {
+    margin: 1rem;
+    color: whitesmoke;
+    display: inline;
+}
+
+.active {
+    color: rgb(214, 10, 10);
+    border-color: rgb(214, 10, 10);
+}

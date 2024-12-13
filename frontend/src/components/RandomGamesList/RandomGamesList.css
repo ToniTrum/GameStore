@@ -13,13 +13,12 @@
 
 .game-cards {
     display: flex;
-    justify-content: space-around;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: no-wrap;
     gap: 1rem;
 
-    overflow-x: auto;
+    overflow-x: scroll;
     overflow-y: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: rgb(214, 10, 10);
+    scrollbar-width: 2rem;
+    scrollbar-color: #242424 transparent;;
 }

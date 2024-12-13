@@ -12,6 +12,7 @@ import MainPage from './components/MainPage/MainPage'
 import HomePage from './components/HomePage/HomePage'
 import Profile from './components/Profile/Profile'
 import ChangePanel from './components/ChangePanel/ChangePanel'
+import StorePage from './components/StorePage/StorePage'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 							<Route index element={<HomePage />} />
 							<Route path="profile" element={<Profile />} />
 							<Route path="change" element={<ChangePanel />} />
+							<Route path="store" element={<StorePage />} />
 						</Route>
 					</Route>
                 </Routes>
