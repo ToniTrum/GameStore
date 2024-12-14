@@ -39,10 +39,18 @@ const StorePage = () => {
         fetchGames()
     }, [pageNumber])
 
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
+    }
+
     const changePage = (page) => {
         page = parseInt(page)
         if (page > 0 && page <= totalPages) {
             navigate(`/user/id/${id}/store/page/${page}`)
+            scrollToTop()
         }
     }
 
