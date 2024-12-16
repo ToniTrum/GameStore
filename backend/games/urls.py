@@ -13,6 +13,7 @@ urlpatterns = [
     path("tag/", views.TagView.as_view(), name="tag"),
 
     path("developer/", views.DeveloperView.as_view(), name="developer"),
+    path("developer/get/<int:developer_id>/", views.get_developer, name="get_developer"),
 
     path("screenshot/", views.ScreenshotView.as_view(), name="screenshot"),
     path("screenshot/get/<int:screenshot_id>/", views.get_screenshot, name="get_screenshot"),

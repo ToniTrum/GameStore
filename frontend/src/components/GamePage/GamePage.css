@@ -22,3 +22,31 @@
     font-size: 3rem;
     margin: 0;
 }
+
+.developer-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.developer-list-container h2 {
+    margin: 0;
+    padding-left: 1rem;
+
+    font-size: 2.3rem;
+}
+
+.developer-list {
+    list-style: none;
+
+    font-size: 1.6rem;
+    color: whitesmoke;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.developer-list li {
+    padding-left: 2rem;
+}

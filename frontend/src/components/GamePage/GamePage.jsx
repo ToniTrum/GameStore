@@ -12,6 +12,7 @@ const GamePage = () => {
 
     const [game, setGame] = useState({})
     const [screenshots, setScreenshots] = useState([])
+    const [developers, setDevelopers] = useState([])
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -58,15 +59,58 @@ const GamePage = () => {
         }
     }, [game])
 
+    useEffect(() => {
+        const fetchDevelopers = async () => {
+            try
+            {
+                if (game?.developers) {
+                    const developerList = []
+                    for (let i = 0; i < game.developers.length; i++) {
+                        const developerID = game.developers[i]
+                        const response = await fetch(`${API_URL}/games/developer/get/${developerID}`, {method: 'GET'})
+                        const data = await response.json()
+                        developerList.push(data.name)
+                    }
+
+                    setDevelopers(developerList)
+                }
+            }
+            catch (error) 
+            {
+                console.error(error)
+            }
+        }
+
+        if (game) {
+            fetchDevelopers()
+        }
+    }, [game])
+
     return (
         <section className="game-section">
             <div className="game-main-info">
                 <h1 className="game-title">{game.name}</h1>
 
                 <ImageCarousel images={screenshots} />
+
+                <DeveloperList developers={developers} />
             </div>
         </section>
     )
 }
 
 export default GamePage
+
+const DeveloperList = ({developers}) => {
+    return (
+        <div className="developer-list-container">
+            <h2>Разработчики:</h2>
+
+            <ul className="developer-list">
+                {developers.map((developer, index) => (
+                    <li key={index}>{developer}</li>
+                ))}
+            </ul>
+        </div>
+    )
+}

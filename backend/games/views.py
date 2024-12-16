@@ -30,6 +30,13 @@ class DeveloperView(generics.ListAPIView):
     queryset = Developer.objects.all()
     serializer_class = DeveloperSerializer
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_developer(request, developer_id):    
+    developer = Developer.objects.get(id=developer_id)
+    serializer = DeveloperSerializer(developer)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class ScreenshotView(generics.ListAPIView):
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
