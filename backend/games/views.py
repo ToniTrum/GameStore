@@ -34,6 +34,13 @@ class ScreenshotView(generics.ListAPIView):
     queryset = Screenshot.objects.all()
     serializer_class = ScreenshotSerializer
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_screenshot(request, screenshot_id):
+    screenshot = Screenshot.objects.get(id=screenshot_id)
+    serializer = ScreenshotSerializer(screenshot)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class GamePagination(PageNumberPagination):
     page_size = 39
 
@@ -62,6 +69,13 @@ class GameView(generics.ListAPIView):
             secure=True
         )
         return response
+    
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_game(request, game_id):
+    game = Game.objects.get(id=game_id)
+    serializer = GameSerializer(game)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()
@@ -69,7 +83,7 @@ class RequirementView(generics.ListAPIView):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_genre_by_id(request, genre_id):
+def get_genre(request, genre_id):
     genre = Genre.objects.get(id=genre_id)
     serializer = GenreSerializer(genre)
     return Response(serializer.data, status=status.HTTP_200_OK)

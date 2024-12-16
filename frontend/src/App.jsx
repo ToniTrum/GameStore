@@ -13,6 +13,7 @@ import HomePage from './components/HomePage/HomePage'
 import Profile from './components/Profile/Profile'
 import ChangePanel from './components/ChangePanel/ChangePanel'
 import StorePage from './components/StorePage/StorePage'
+import GamePage from './components/GamePage/GamePage'
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
 							<Route path="profile" element={<Profile />} />
 							<Route path="change" element={<ChangePanel />} />
 							<Route path="store/page/:pageNumber" element={<StorePage />} />
+							<Route path="game/id/:game_id" element={<GamePage />} />
 						</Route>
 					</Route>
                 </Routes>

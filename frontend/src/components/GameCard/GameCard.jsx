@@ -7,7 +7,7 @@ const GameCard = ({game, currency, symbol}) => {
     const { id } = useParams()
 
     const onClick = () => {
-        navigate(`/user/id/${id}/game/${game.id}`)
+        navigate(`/user/id/${id}/game/id/${game.id}`)
     }
 
     const price = (game.price_in_cents * currency.rate / 100).toFixed(2)
