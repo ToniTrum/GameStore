@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom"
 import { API_URL } from "../../main"
 
 import ImageCarousel from "../ImageCarousel/ImageCarousel"
+import WrapListComponent from "../WrapListComponent/WrapListComponent"
 
 import "./GamePage.css"
 
@@ -12,6 +13,8 @@ const GamePage = () => {
 
     const [game, setGame] = useState({})
     const [screenshots, setScreenshots] = useState([])
+    const [genres, setGenres] = useState([])
+    const [tags, setTags] = useState([])
     const [developers, setDevelopers] = useState([])
 
     useEffect(() => {
@@ -60,6 +63,60 @@ const GamePage = () => {
     }, [game])
 
     useEffect(() => {
+        const fetchGenres = async () => {
+            try
+            {
+                if (game?.genres) {
+                    const genreList = []
+                    for (let i = 0; i < game.genres.length; i++) {
+                        const genreID = game.genres[i]
+                        const response = await fetch(`${API_URL}/games/genre/get/${genreID}`, {method: 'GET'})
+                        const data = await response.json()
+                        genreList.push(data.name)
+                    }
+
+                    setGenres(genreList)
+                }
+            }
+            catch (error) 
+            {
+                console.error(error)
+            }
+        }
+
+        if (game) {
+            fetchGenres()
+        }
+    }, [game])
+
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try
+            {
+                if (game?.tags) {
+                    const tagList = []
+                    for (let i = 0; i < game.tags.length; i++) {
+                        const tagID = game.tags[i]
+                        const response = await fetch(`${API_URL}/games/tag/get/${tagID}`, {method: 'GET'})
+                        const data = await response.json()
+                        tagList.push(data.name)
+                    }
+
+                    setTags(tagList)
+                }
+            }
+            catch (error) 
+            {
+                console.error(error)
+            }
+        }
+
+        if (game) {
+            fetchGenres()
+        }
+    }, [game])
+
+    useEffect(() => {
         const fetchDevelopers = async () => {
             try
             {
@@ -93,6 +150,8 @@ const GamePage = () => {
 
                 <ImageCarousel images={screenshots} />
 
+                <GenreTagTable genres={genres} tags={tags} />
+
                 <DeveloperList developers={developers} />
             </div>
         </section>
@@ -100,6 +159,16 @@ const GamePage = () => {
 }
 
 export default GamePage
+
+const GenreTagTable = ({genres, tags}) => {
+    return (
+        <div className="genre-tag-table">
+            <WrapListComponent elements={genres} title="Жанры" />
+            <tr className="vertical-line"></tr>
+            <WrapListComponent elements={tags} title="Тэги" />
+        </div>
+    )
+}
 
 const DeveloperList = ({developers}) => {
     return (

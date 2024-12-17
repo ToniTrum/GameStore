@@ -26,6 +26,13 @@ class TagView(generics.ListAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_tag(request, tag_id):
+    tag = Tag.objects.get(id=tag_id)
+    serializer = TagSerializer(tag)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class DeveloperView(generics.ListAPIView):
     queryset = Developer.objects.all()
     serializer_class = DeveloperSerializer

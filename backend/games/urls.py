@@ -11,6 +11,7 @@ urlpatterns = [
     path("genre/get/<int:genre_id>/", views.get_genre, name="get_genre"),
 
     path("tag/", views.TagView.as_view(), name="tag"),
+    path("tag/get/<int:tag_id>/", views.get_tag, name="get_tag"),
 
     path("developer/", views.DeveloperView.as_view(), name="developer"),
     path("developer/get/<int:developer_id>/", views.get_developer, name="get_developer"),

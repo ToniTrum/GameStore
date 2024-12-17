@@ -23,6 +23,24 @@
     margin: 0;
 }
 
+.genre-tag-table {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.vertical-line {
+    width: 0.3rem;
+
+    display: inline-block;
+
+    margin-top: 3rem;
+    margin-bottom: 1.8rem;
+    
+    background-color: rgba(214, 10, 10, 0.87);
+}
+
 .developer-list-container {
     display: flex;
     flex-direction: column;
