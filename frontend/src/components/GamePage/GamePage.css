@@ -41,30 +41,13 @@
     background-color: rgba(214, 10, 10, 0.87);
 }
 
-.developer-list-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-}
-
-.developer-list-container h2 {
-    margin: 0;
-    padding-left: 1rem;
-
-    font-size: 2.3rem;
-}
-
-.developer-list {
-    list-style: none;
-
-    font-size: 1.6rem;
+.game-description {
+    font-size: 1.5rem;
     color: whitesmoke;
 
+    padding: 2.5rem;
+
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-}
-
-.developer-list li {
-    padding-left: 2rem;
+    gap: 2rem;
 }

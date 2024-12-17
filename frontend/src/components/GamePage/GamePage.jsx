@@ -149,10 +149,8 @@ const GamePage = () => {
                 <h1 className="game-title">{game.name}</h1>
 
                 <ImageCarousel images={screenshots} />
-
-                <GenreTagTable genres={genres} tags={tags} />
-
-                <DeveloperList developers={developers} />
+                <GenreTagDeveloperTable genres={genres} tags={tags} developers={developers} />
+                <div className="game-description" dangerouslySetInnerHTML={{ __html: game.description }} />
             </div>
         </section>
     )
@@ -160,26 +158,14 @@ const GamePage = () => {
 
 export default GamePage
 
-const GenreTagTable = ({genres, tags}) => {
+const GenreTagDeveloperTable = ({genres, tags, developers}) => {
     return (
         <div className="genre-tag-table">
             <WrapListComponent elements={genres} title="Жанры" />
             <tr className="vertical-line"></tr>
             <WrapListComponent elements={tags} title="Тэги" />
-        </div>
-    )
-}
-
-const DeveloperList = ({developers}) => {
-    return (
-        <div className="developer-list-container">
-            <h2>Разработчики:</h2>
-
-            <ul className="developer-list">
-                {developers.map((developer, index) => (
-                    <li key={index}>{developer}</li>
-                ))}
-            </ul>
+            <tr className="vertical-line"></tr>
+            <WrapListComponent elements={developers} title="Разработчики" />
         </div>
     )
 }
