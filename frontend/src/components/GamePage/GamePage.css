@@ -42,12 +42,17 @@
 }
 
 .game-description {
-    font-size: 1.5rem;
+    font-size: 2rem;
     color: whitesmoke;
+    text-indent: 2rem;
 
     padding: 2.5rem;
 
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+
+.game-description p {
+    font-size: 1.5rem;
 }

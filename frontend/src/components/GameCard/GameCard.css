@@ -7,28 +7,23 @@
     width: 22rem;
     min-width: 22rem;
 
+    color: whitesmoke;
     background-color: #242424;
     border-radius: 1rem;
 
     cursor: pointer;
+    transition: scale 0.2s linear, color 0.17s linear, opacity 0.35s linear;
+}
+
+.game-card:hover {
+    scale: 1.05;
+    color: rgb(214, 10, 10);
+    opacity: 0.75;
 }
 
 .game-card__image {
     width: 100%;
     border-radius: 1rem;
-}
-
-.game-card__image:hover {
-    animation: image_hover 0.35s linear forwards;
-}
-
-@keyframes image_hover {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0.55;
-    }
 }
 
 .game-card__info {
@@ -42,23 +37,6 @@
 .game-card__info h1 {
     margin: 0;
     text-align: center;
-}
-
-.game-card__title {
-    color: whitesmoke;
-}
-
-.game-card__title:hover {
-    animation: title_hover 0.17s linear forwards;
-}
-
-@keyframes title_hover {
-    from {
-        color: whitesmoke;
-    }
-    to {
-        color: rgb(214, 10, 10);
-    }
 }
 
 .game-card__price {
