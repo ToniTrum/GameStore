@@ -5,6 +5,7 @@ import { API_URL } from "../../main"
 
 import ImageCarousel from "../ImageCarousel/ImageCarousel"
 import WrapListComponent from "../WrapListComponent/WrapListComponent"
+import GameSidePagePart from "../GameSidePagePart/GameSidePagePart"
 
 import "./GamePage.css"
 
@@ -152,6 +153,8 @@ const GamePage = () => {
                 <GenreTagDeveloperTable genres={genres} tags={tags} developers={developers} />
                 <div className="game-description" dangerouslySetInnerHTML={{ __html: game.description }} />
             </div>
+
+            <GameSidePagePart game={game} />
         </section>
     )
 }
@@ -160,11 +163,11 @@ export default GamePage
 
 const GenreTagDeveloperTable = ({genres, tags, developers}) => {
     return (
-        <div className="genre-tag-table">
+        <div className="genre-tag-developer-table">
             <WrapListComponent elements={genres} title="Жанры" />
-            <tr className="vertical-line"></tr>
+            <div className="vertical-line"></div>
             <WrapListComponent elements={tags} title="Тэги" />
-            <tr className="vertical-line"></tr>
+            <div className="vertical-line"></div>
             <WrapListComponent elements={developers} title="Разработчики" />
         </div>
     )

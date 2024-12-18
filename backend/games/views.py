@@ -14,13 +14,34 @@ class PlatformView(generics.ListAPIView):
     queryset = Platform.objects.all()
     serializer_class = PlatformSerializer
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_platform(request, platform_id):    
+    platform = Platform.objects.get(id=platform_id)
+    serializer = PlatformSerializer(platform)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class ESRBRatingView(generics.ListAPIView):
     queryset = ESRBRating.objects.all()
     serializer_class = ESRBRatingSerializer
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_esrb_rating(request, esrb_rating_id):
+    esrb_rating = ESRBRating.objects.get(id=esrb_rating_id)
+    serializer = ESRBRatingSerializer(esrb_rating)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 class GenreView(generics.ListAPIView):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_genre(request, genre_id):
+    genre = Genre.objects.get(id=genre_id)
+    serializer = GenreSerializer(genre)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 class TagView(generics.ListAPIView):
     queryset = Tag.objects.all()
@@ -94,13 +115,6 @@ def get_game(request, game_id):
 class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()
     serializer_class = RequirementSerializer
-
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def get_genre(request, genre_id):
-    genre = Genre.objects.get(id=genre_id)
-    serializer = GenreSerializer(genre)
-    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
