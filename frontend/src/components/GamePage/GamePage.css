@@ -1,6 +1,6 @@
 .game-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     gap: 2rem;
 
@@ -8,6 +8,13 @@
 
     background-color: black;
     border-radius: 1rem;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 2rem;
 }
 
 .game-main-info {

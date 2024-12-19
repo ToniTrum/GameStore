@@ -112,10 +112,6 @@ def get_game(request, game_id):
     serializer = GameSerializer(game)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-class RequirementView(generics.ListAPIView):
-    queryset = Requirement.objects.all()
-    serializer_class = RequirementSerializer
-
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_random_games(request, user_id):
@@ -123,4 +119,16 @@ def get_random_games(request, user_id):
     library = Library.objects.filter(user=user).values_list('game_id', flat=True)
     games = Game.objects.exclude(id__in=library).order_by('?')[:6]
     serializer = GameSerializer(games, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+class RequirementView(generics.ListAPIView):
+    queryset = Requirement.objects.all()
+    serializer_class = RequirementSerializer
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_requirement(request, game_id):
+    game = Game.objects.get(id=game_id)
+    requirements = Requirement.objects.filter(game=game)
+    serializer = RequirementSerializer(requirements, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)

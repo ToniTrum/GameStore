@@ -4,9 +4,8 @@ import {API_URL} from "../../main"
 
 import "./GameSidePagePart.css"
 
-const GameSidePagePart = ({ game }) => {
+const GameSidePagePart = ({ game, platforms }) => {
     const [esrbRating, setESRBRating] = useState({})
-    const [platforms, setPlatforms] = useState([])
 
     useEffect(() => {
         const fetchESRBRating = async () => {
@@ -26,32 +25,6 @@ const GameSidePagePart = ({ game }) => {
         if (game)
         {
             fetchESRBRating()
-        }
-    }, [game])
-
-    useEffect(() => {
-        const fetchPlatforms = async () => {
-            try {
-                if (game?.platforms) {
-                    const platformList = []
-                    for (let i = 0; i < game.platforms.length; i++) {
-                        const platformID = game.platforms[i]
-                        const response = await fetch(`${API_URL}/games/platform/get/${platformID}`, {method: 'GET'})
-                        const data = await response.json()
-                        platformList.push(data)
-                    }
-                    setPlatforms(platformList)
-                }
-            }
-            catch (err) 
-            {
-                console.log(err)
-            }
-        }
-
-        if (game)
-        {
-            fetchPlatforms()
         }
     }, [game])
 

@@ -4,7 +4,7 @@ from rest_framework import serializers
 class PlatformSerializer(serializers.ModelSerializer):
     class Meta:
         model = Platform
-        fields = ['name', 'icon']
+        fields = ['id', 'name', 'icon']
 
 class ESRBRatingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -43,4 +43,4 @@ class GameSerializer(serializers.ModelSerializer):
 class RequirementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Requirement
-        fields = ['id', 'minimal', 'recommended', 'platform', 'game']
+        fields = ['id', 'minimum', 'recommended', 'platform', 'game']

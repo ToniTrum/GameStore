@@ -26,4 +26,5 @@ urlpatterns = [
     path("random_games/<int:user_id>", views.get_random_games, name="random_games"),
 
     path("requirement/", views.RequirementView.as_view(), name="requirement"),
+    path("requirement/get/<int:game_id>/", views.get_requirement, name="get_requirement"),
 ]

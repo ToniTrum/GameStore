@@ -6,6 +6,7 @@ import { API_URL } from "../../main"
 import ImageCarousel from "../ImageCarousel/ImageCarousel"
 import WrapListComponent from "../WrapListComponent/WrapListComponent"
 import GameSidePagePart from "../GameSidePagePart/GameSidePagePart"
+import GameRequirementsPanel from "../GameRequirementsPanel/GameRequirementsPanel"
 
 import "./GamePage.css"
 
@@ -17,6 +18,8 @@ const GamePage = () => {
     const [genres, setGenres] = useState([])
     const [tags, setTags] = useState([])
     const [developers, setDevelopers] = useState([])
+    const [requirements, setRequirements] = useState([])
+    const [platforms, setPlatforms] = useState([])
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -144,17 +147,70 @@ const GamePage = () => {
         }
     }, [game])
 
+    useEffect(() => {
+        const fetchRequirements = async () => {
+            try
+            {
+                if (game?.id) {
+                    const response = await fetch(`${API_URL}/games/requirement/get/${game_id}`, {method: 'GET'})
+                    const data = await response.json()
+                    setRequirements(data)
+                }
+            }
+            catch (error) 
+            {
+                console.error(error)
+            }
+        }
+
+        if (game) {
+            fetchRequirements()
+        }
+    }, [game])
+
+    useEffect(() => {
+        const fetchPlatforms = async () => {
+            try {
+                if (game?.platforms) {
+                    const platformList = []
+                    for (let i = 0; i < game.platforms.length; i++) {
+                        const platformID = game.platforms[i]
+                        const response = await fetch(`${API_URL}/games/platform/get/${platformID}`, {method: 'GET'})
+                        const data = await response.json()
+                        platformList.push(data)
+                    }
+                    setPlatforms(platformList)
+                }
+            }
+            catch (err) 
+            {
+                console.log(err)
+            }
+        }
+
+        if (game)
+        {
+            fetchPlatforms()
+        }
+    }, [game])
+
     return (
         <section className="game-section">
-            <div className="game-main-info">
-                <h1 className="game-title">{game.name}</h1>
+            <div className="game-container">
+                <div className="game-main-info">
+                    <h1 className="game-title">{game.name}</h1>
 
-                <ImageCarousel images={screenshots} />
-                <GenreTagDeveloperTable genres={genres} tags={tags} developers={developers} />
-                <div className="game-description" dangerouslySetInnerHTML={{ __html: game.description }} />
+                    <ImageCarousel images={screenshots} />
+                    <GenreTagDeveloperTable genres={genres} tags={tags} developers={developers} />
+                    <div className="game-description" dangerouslySetInnerHTML={{ __html: game.description }} />
+                </div>
+
+                <GameSidePagePart game={game} platforms={platforms} />
             </div>
 
-            <GameSidePagePart game={game} />
+            {requirements.length > 0
+                ? <GameRequirementsPanel requirements={requirements} platforms={platforms} />
+                : null}
         </section>
     )
 }
