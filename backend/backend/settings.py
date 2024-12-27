@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'currency',
     'games',
     'library',
+    'payments',
 ]
 
 MIDDLEWARE = [
