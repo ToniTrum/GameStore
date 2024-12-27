@@ -9,6 +9,7 @@ main {
     flex-direction: column;
     gap: 1rem;
 
+    width: 700px;
     padding: 4rem;
     background-color: black;
     border-radius: 5%;
@@ -32,8 +33,23 @@ main {
     font-size: 1rem;
 }
 
+.form-input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .form-buttons {
     display: flex;
     gap: 3rem;
     align-self: flex-end;
+}
+
+.error-message {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    color: #9b9b9b78;
+    margin-top: -0.5rem;
 }
