@@ -30,10 +30,12 @@ button {
     border-radius: 0.25rem;
 
     line-height: 2rem;
+    cursor: pointer;
+
+    transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
 button:hover {
-    cursor: pointer;
     color: rgba(214, 10, 10, 0.87);
     border-color: rgba(214, 10, 10, 0.87);
 }
