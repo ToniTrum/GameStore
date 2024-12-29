@@ -1,7 +1,6 @@
 import './App.css'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import {Elements} from '@stripe/react-stripe-js'
-import {loadStripe} from "@stripe/stripe-js/pure"
 
 import { AuthProvider } from './context/AuthContext'
 import PrivateRoutes from './utils/PrivateRoutes'
@@ -16,9 +15,7 @@ import Profile from './components/Profile/Profile'
 import ChangePanel from './components/ChangePanel/ChangePanel'
 import StorePage from './components/StorePage/StorePage'
 import GamePage from './components/GamePage/GamePage'
-import PaymentForm from './components/PaymentForm/PaymentForm'
-
-const stripePromise = loadStripe('pk_test_51QaWj8L7bbq6rfGO6je7d1LFWRQH3VqyC0G6sRVYCr09trrFRUlaou2O6d9n5eVZ0XAJLl96ERh4Mrg9OHPobcM900n1tpx8pU')
+import PaymentPage from './components/PaymentPage/PaymentPage'
 
 function App() {
 	return (
@@ -39,11 +36,7 @@ function App() {
 							<Route path="change" element={<ChangePanel />} />
 							<Route path="store/page/:pageNumber" element={<StorePage />} />
 							<Route path="game/id/:game_id" element={<GamePage />} />
-							<Route path="payment" element={
-								<Elements stripe={stripePromise}>
-									<PaymentForm />
-								</Elements>
-							} />
+							<Route path="payment" element={<PaymentPage />} />
 						</Route>
 					</Route>
                 </Routes>

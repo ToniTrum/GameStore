@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 import {API_URL} from "../../main"
 
 import "./GameSidePagePart.css"
 
 const GameSidePagePart = ({ game, platforms }) => {
+    const { id } = useParams()
+    const navigate = useNavigate()
+
     const [esrbRating, setESRBRating] = useState({})
 
     useEffect(() => {
@@ -28,6 +32,11 @@ const GameSidePagePart = ({ game, platforms }) => {
         }
     }, [game])
 
+    const onClickBuy = () => {
+        const data = { game: game }
+        navigate(`/user/id/${id}/payment`, { state: data })
+    }
+
     return (
         <div className="game-side-page-part">
             <div className="game-info">
@@ -38,6 +47,11 @@ const GameSidePagePart = ({ game, platforms }) => {
                     <TableItem title={"Возрастной рейтинг"} value={esrbRating.name_ru} />
                     <TableItem title={"Название"} value={game.name} />
                 </ul>
+
+                <div className="game-side-page-part__buttons">
+                    <button>Добавить в желаемое</button>
+                    <button onClick={onClickBuy}>Купить</button>
+                </div>
             </div>
         </div>
     )
