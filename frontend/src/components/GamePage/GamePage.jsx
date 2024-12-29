@@ -28,7 +28,6 @@ const GamePage = () => {
                 const response = await fetch(`${API_URL}/games/game/get/${game_id}`, {method: 'GET'})
                 const data = await response.json()
                 setGame(data)
-                console.log(data)
             }
             catch (error) 
             {

@@ -33,24 +33,22 @@ const PaymentForm = () => {
     }
 
     return (
-        <section className="payment-section">
-            <form onSubmit={handleSubmit} className="stripe-form">
-                <div className="card-panel">
-                    <h1>Введите данные карты</h1>
-                    <div className="card-form-container">
-                        <CardFormElement CardComponent={CardNumberElement} label={"Номер карты"} />
-                        <div className="card-form-row">
-                            <CardFormElement CardComponent={CardExpiryElement} label={"Срок действия"} />
-                            <CardFormElement CardComponent={CardCvcElement} label={"CVC"} />
-                        </div>
+        <form onSubmit={handleSubmit} className="stripe-form">
+            <div className="card-panel">
+                <h1>Введите данные карты</h1>
+                <div className="card-form-container">
+                    <CardFormElement CardComponent={CardNumberElement} label={"Номер карты"} />
+                    <div className="card-form-row">
+                        <CardFormElement CardComponent={CardExpiryElement} label={"Срок действия"} />
+                        <CardFormElement CardComponent={CardCvcElement} label={"CVC"} />
                     </div>
                 </div>
+            </div>
 
-                <button type="submit" className="submit-btn">
-                    Оплатить
-                </button>
-            </form>
-        </section>
+            <button type="submit" className="submit-btn">
+                Оформить заказ
+            </button>
+        </form>
     )
 }
 
