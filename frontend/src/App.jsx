@@ -16,6 +16,7 @@ import ChangePanel from './components/ChangePanel/ChangePanel'
 import StorePage from './components/StorePage/StorePage'
 import GamePage from './components/GamePage/GamePage'
 import PaymentPage from './components/PaymentPage/PaymentPage'
+import LibraryPage from './components/LibraryPage/LibraryPage'
 
 function App() {
 	return (
@@ -35,6 +36,7 @@ function App() {
 							<Route path="profile" element={<Profile />} />
 							<Route path="change" element={<ChangePanel />} />
 							<Route path="store/page/:pageNumber" element={<StorePage />} />
+							<Route path="library/page/:pageNumber" element={<LibraryPage />} />
 							<Route path="game/id/:game_id" element={<GamePage />} />
 							<Route path="payment" element={<PaymentPage />} />
 						</Route>
