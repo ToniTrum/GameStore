@@ -2,30 +2,43 @@
     width: 3rem;
     margin-right: 2rem;
     cursor: pointer;
-}
-
-nav {
-    position: absolute;
-    top: 6rem;
-    left: 100vw;
-
-    padding: 1.5rem;
-
+    z-index: 11; 
+  }
+  
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+  
     height: 100vh;
-    width: calc(40vw - 3rem);
-
+    width: 40vw;
+  
     background-color: black;
-    transition: all 0.3s ease-in;
-}
-
-nav.open {
-    left: 60vw;
-}
-
-.navbar-list {
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    overflow: hidden;
+  }
+  
+  nav.open {
+    right: 0;
+  }
+  
+  .navbar-list {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-
+  
     list-style: none;
-}
+    padding: 2rem;
+  }
+  
+  @media screen and (max-width: 659px) {
+    .side-menu-button {
+      width: 2.5rem;
+      margin-right: 1.5rem;
+    }
+  
+    nav {
+      width: 100vw; 
+    }
+  }

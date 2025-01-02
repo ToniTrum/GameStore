@@ -7,18 +7,20 @@ header {
     position: fixed;
     width: 100vw;
     z-index: 10;
+    padding: 0 2rem;
 }
 
 .header-title {
     display: flex;
     align-items: center;
     font-family: "Sclate";
+    white-space: nowrap; /* Предотвращает перенос текста */
 }
 
 .header-logo {
     width: 6rem;
     margin-right: 1rem;
-    margin-left: 1rem;
+    flex-shrink: 0; /* Сохраняет размер изображения */
 }
 
 .header-text {
@@ -26,4 +28,49 @@ header {
     font-size: 2rem;
     font-weight: bold;
     font-style: italic;
+}
+
+/* Медиазапрос для экранов шириной до 1084px */
+@media screen and (max-width: 1084px) {
+    .header-logo {
+        width: 5rem;
+    }
+
+    .header-text {
+        font-size: 1.8rem;
+    }
+
+    header {
+        padding: 0 1.5rem;
+    }
+}
+
+/* Медиазапрос для экранов шириной до 659px */
+@media screen and (max-width: 659px) {
+    .header-logo {
+        width: 4rem;
+    }
+
+    .header-text {
+        font-size: 1.5rem;
+    }
+
+    header {
+        padding: 0 1rem;
+    }
+}
+
+/* Медиазапрос для экранов шириной до 398px */
+@media screen and (max-width: 398px) {
+    .header-logo {
+        width: 3rem;
+    }
+
+    .header-text {
+        font-size: 1.2rem;
+    }
+
+    header {
+        padding: 0 0.5rem;
+    }
 }
