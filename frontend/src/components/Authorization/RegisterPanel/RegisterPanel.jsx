@@ -2,8 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import { validateField } from "../../../utils/validation";
 import sweetAlert from "sweetalert2";
-import XRegExp from "xregexp";
 
 import { API_URL } from "../../../main";
 import AuthContext from "../../../context/AuthContext";
@@ -42,14 +42,18 @@ const RegisterPanel = () => {
   }, []);
 
   const fetchCountry = async () => {
-    const response = await fetch(`${API_URL}/currency/country/`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-    const responseData = await response.json();
-    responseData.sort((a, b) => (a.name_ru > b.name_ru ? 1 : -1));
-    setCountryList(responseData);
-    setFilteredCountries(responseData); // изначально список тот же
+    try {
+      const response = await fetch(`${API_URL}/currency/country/`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      const responseData = await response.json();
+      responseData.sort((a, b) => (a.name_ru > b.name_ru ? 1 : -1));
+      setCountryList(responseData);
+      setFilteredCountries(responseData);
+    } catch (error) {
+      sendErrorMessage("Ошибка загрузки списка стран");
+    }
   };
 
   const sendErrorMessage = (message) => {
@@ -64,65 +68,17 @@ const RegisterPanel = () => {
     });
   };
 
-  const validateField = (name, value) => {
-    let error = "";
-    switch (name) {
-      case "username":
-        const usernameRegExp = /^[a-zA-Z0-9_]{4,64}$/i;
-        if (!usernameRegExp.test(value)) {
-          error =
-            'Имя пользователя должно состоять из букв латинского алфавита, цифр или знака "_", длиной от 4 до 64 символов';
-        }
-        break;
-      case "email":
-        const emailRegExp = /^[a-z0-9._%+-]+@[a-z0-9]+\.[a-z]{2,}$/i;
-        if (!emailRegExp.test(value)) {
-          error = "Некорректная электронная почта";
-        }
-        break;
-      case "password":
-        const passwordRegExp = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9_]{8,}$/i;
-        if (!passwordRegExp.test(value)) {
-          error =
-            'Пароль должен состоять из букв латинского алфавита, цифр и знака "_", длиной от 8 символов';
-        }
-        break;
-      case "password2":
-        if (value !== password) {
-          error = "Пароли не совпадают";
-        }
-        break;
-      case "firstName":
-        const firstNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,64}$", "ui");
-        if (!firstNameRegExp.test(value)) {
-          error =
-            'Имя может содержать только буквы, пробел и символы "-" или "\'", длиной от 2 до 64 символов';
-        }
-        break;
-      case "lastName":
-        const lastNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,124}$", "ui");
-        if (!lastNameRegExp.test(value)) {
-          error =
-            'Фамилия может содержать только буквы, пробел и символы "-" или "\'", длиной от 2 до 124 символов';
-        }
-        break;
-      case "birthdate":
-        if (!value) {
-          error = "Дата рождения не указана";
-        } else {
-          const date = dayjs(value);
-          const today = dayjs();
-          if (!date.isSameOrBefore(today)) {
-            error = "Дата рождения не может быть в будущем";
-          } else if (date.isBefore(today.subtract(100, "years"))) {
-            error = "Возраст не может превышать 100 лет";
-          }
-        }
-        break;
-      default:
-        break;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value, password); // Добавляем проверку для всех полей
+    setErrors((prev) => ({ ...prev, [name]: error })); // Обновляем объект ошибок
+
+    const stateFunction = registrationData.find(
+      (item) => item.name === name
+    )?.stateFunction;
+    if (stateFunction) {
+      stateFunction(value);
     }
-    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const validateCountry = (value) => {
@@ -130,6 +86,54 @@ const RegisterPanel = () => {
       (item) => item.name_ru.toLowerCase() === value.toLowerCase()
     );
     setCountryError(isInList ? "" : "Страна не найдена в списке");
+    if (isInList) {
+      setCountry(value);
+    }
+  };
+
+  const handleCountryInput = (value) => {
+    setCountry(value);
+    validateCountry(value);
+
+    if (!value.trim()) {
+      setFilteredCountries(countryList);
+      return;
+    }
+
+    const filtered = countryList.filter((item) =>
+      item.name_ru.toLowerCase().startsWith(value.toLowerCase())
+    );
+    setFilteredCountries(filtered);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const hasNoErrors = Object.values(errors).every((err) => err === "");
+    if (!hasNoErrors || countryError) {
+      sendErrorMessage("Пожалуйста, исправьте ошибки в форме");
+      return;
+    }
+
+    const selectedCountry = filteredCountries.find(
+      (item) => item.name_ru === country
+    );
+
+    if (!selectedCountry) {
+      sendErrorMessage("Выберите страну из списка");
+      return;
+    }
+
+    registerUser(
+      email,
+      username,
+      password,
+      password2,
+      firstName,
+      lastName,
+      selectedCountry.numeric_code,
+      birthdate
+    );
   };
 
   const registrationData = [
@@ -148,7 +152,7 @@ const RegisterPanel = () => {
       error: errors.email,
     },
     {
-      name: "password1",
+      name: "password",
       label: "Пароль",
       type: "password",
       stateFunction: setPassword,
@@ -184,69 +188,11 @@ const RegisterPanel = () => {
     },
   ];
 
-  // При наборе текста в поле "Страна"
-  const handleCountryInput = (value) => {
-    setCountry(value);
-    validateCountry(value);
-
-    // Если поле пустое — показываем весь список
-    if (!value.trim()) {
-      setFilteredCountries(countryList);
-      return;
-    }
-
-    // Фильтруем по началу строки
-    const filtered = countryList.filter((item) =>
-      item.name_ru.toLowerCase().startsWith(value.toLowerCase())
-    );
-    setFilteredCountries(filtered);
-  };
-
-  // При вводе в остальные поля
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    validateField(name, value);
-    const stateFunction = registrationData.find(
-      (item) => item.name === name
-    )?.stateFunction;
-    if (stateFunction) {
-      stateFunction(value);
-    }
-  };
-
-  const onClick = (ref) => {
-    navigate(ref);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // проверяем, нет ли ошибок в других полях и по стране
-    const hasNoErrors = Object.values(errors).every((err) => err === "");
-    if (hasNoErrors && !countryError) {
-      const selectedCountry = filteredCountries.find(
-        (item) => item.name_ru === country
-      );
-      registerUser(
-        email,
-        username,
-        password,
-        password2,
-        firstName,
-        lastName,
-        selectedCountry.numeric_code,
-        birthdate
-      );
-    } else {
-      sendErrorMessage("Пожалуйста, исправьте ошибки в форме");
-    }
-  };
-
   return (
     <main>
       <form className="authorization-form" onSubmit={handleSubmit}>
         <h1 className="form-title">Регистрация</h1>
 
-        {/* Поля регистрации */}
         {registrationData.map((item) => (
           <div className="form-item" key={item.name}>
             <label className="form-label" htmlFor={item.name}>
@@ -263,7 +209,7 @@ const RegisterPanel = () => {
                   ? username
                   : item.name === "email"
                   ? email
-                  : item.name === "password1"
+                  : item.name === "password"
                   ? password
                   : item.name === "password2"
                   ? password2
@@ -280,7 +226,6 @@ const RegisterPanel = () => {
           </div>
         ))}
 
-        {/* Страна: через <datalist> */}
         <div className="form-item">
           <label className="form-label" htmlFor="country">
             Страна
@@ -306,7 +251,7 @@ const RegisterPanel = () => {
         </div>
 
         <div className="form-buttons">
-          <button type="button" onClick={() => onClick("/login")}>
+          <button type="button" onClick={() => navigate("/login")}>
             Назад
           </button>
           <button type="submit" className="form-button">
