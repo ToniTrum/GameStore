@@ -32,7 +32,7 @@ const PaymentForm = ({ game }) => {
             console.log(error)
         })
 
-        await api.post(`library/add/${user.user_id}/${game.id}/`)
+        await api.post(`library/library/add/${user.user_id}/${game.id}/`)
             .then(response => {
                 console.log(response.data)
             })
@@ -40,7 +40,7 @@ const PaymentForm = ({ game }) => {
                 console.log(error)
             })
     }
-console.log(user)
+
     return (
         <form onSubmit={handleSubmit} className="stripe-form">
             <div className="card-panel">
