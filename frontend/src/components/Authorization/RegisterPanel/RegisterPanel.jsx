@@ -111,8 +111,11 @@ const RegisterPanel = () => {
           error = "Дата рождения не указана";
         } else {
           const date = dayjs(value);
-          if (!date.isSameOrBefore(dayjs())) {
+          const today = dayjs();
+          if (!date.isSameOrBefore(today)) {
             error = "Дата рождения не может быть в будущем";
+          } else if (date.isBefore(today.subtract(100, "years"))) {
+            error = "Возраст не может превышать 100 лет";
           }
         }
         break;
@@ -297,7 +300,9 @@ const RegisterPanel = () => {
               </option>
             ))}
           </datalist>
-          {countryError && <span className="error-message">{countryError}</span>}
+          {countryError && (
+            <span className="error-message">{countryError}</span>
+          )}
         </div>
 
         <div className="form-buttons">
