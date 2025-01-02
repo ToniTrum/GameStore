@@ -220,6 +220,9 @@ const RegisterPanel = () => {
     // проверяем, нет ли ошибок в других полях и по стране
     const hasNoErrors = Object.values(errors).every((err) => err === "");
     if (hasNoErrors && !countryError) {
+      const selectedCountry = filteredCountries.find(
+        (item) => item.name_ru === country
+      );
       registerUser(
         email,
         username,
@@ -227,7 +230,7 @@ const RegisterPanel = () => {
         password2,
         firstName,
         lastName,
-        country,
+        selectedCountry.numeric_code,
         birthdate
       );
     } else {

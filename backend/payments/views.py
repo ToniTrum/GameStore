@@ -13,12 +13,15 @@ def save_stripe_info(request):
     data = request.data
     email = data['email']
     payment_method_id = data['payment_method_id']
+    price = int(data['price'])
     extra_msg = ''
     customer_data = stripe.Customer.list(email=email).data
     
     if len(customer_data) == 0:
         customer = stripe.Customer.create(
-        email=email, payment_method=payment_method_id)
+            email=email, 
+            payment_method=payment_method_id
+        )
     else:
         customer = customer_data[0]
         extra_msg = "Customer already existed."
@@ -27,7 +30,7 @@ def save_stripe_info(request):
         customer=customer, 
         payment_method=payment_method_id,  
         currency='usd',
-        amount=999,
+        amount=price,
         confirm=True,
         return_url='http://localhost:5173/user/id/16/payment'
     )
