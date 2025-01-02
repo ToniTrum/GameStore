@@ -50,6 +50,7 @@ const Navbar = () => {
                     <NavbarItem text="Главная" link={`/user/id/${user.user_id}`} onClick={setIsOpen} />
                     <NavbarItem text="Профиль" link={`/user/id/${user.user_id}/profile`} onClick={setIsOpen} />
                     <NavbarItem text="Магазин" link={`/user/id/${user.user_id}/store/page/1`} onClick={setIsOpen} />
+                    <NavbarItem text="Библиотека" link={`/user/id/${user.user_id}/library/page/1`} onClick={setIsOpen} />
 
                     <li className="navbar-item">
                         <Link className="navbar-link" to="/" onClick={() => logoutUser()}>Выйти</Link>

@@ -94,13 +94,29 @@ const PaginationButtons = ({ changePage, pageNumber, totalPages }) => {
                 </button>
             )}
 
-            <PaginationButton changePage={changePage} pageNumber={pageNumber} page={1} />
 
-            <StartButtons changePage={changePage} pageNumber={pageNumber} />
-            <MiddleButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
-            <EndButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
+            {totalPages > 6 ? (
+                <>
+                <PaginationButton changePage={changePage} pageNumber={pageNumber} page={1} />
 
-            <PaginationButton changePage={changePage} pageNumber={pageNumber} page={totalPages} />
+                <StartButtons changePage={changePage} pageNumber={pageNumber} />
+                <MiddleButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
+                <EndButtons changePage={changePage} pageNumber={pageNumber} totalPages={totalPages} />
+    
+                <PaginationButton changePage={changePage} pageNumber={pageNumber} page={totalPages} />
+                </>
+            ) : (
+                <>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <PaginationButton 
+                        changePage={changePage} 
+                        pageNumber={pageNumber} 
+                        page={index + 1} 
+                        key={index} 
+                    />
+                ))}
+                </>
+            )}
 
             {pageNumber < totalPages && (
                 <button 
