@@ -6,7 +6,7 @@ import AuthContext from "../../context/AuthContext";
 
 import "./PaymentForm.css";
 
-const PaymentForm = () => {
+const PaymentForm = ({ game }) => {
     const api = useAxios()
     const stripe = useStripe()
     const elements = useElements()
@@ -23,15 +23,24 @@ const PaymentForm = () => {
         console.log(paymentMethod)
 
         await api.post('/payments/save_stripe_info/', {
-            email: user.email, 
-            payment_method_id: paymentMethod.id
+            email: user.email,
+            payment_method_id: paymentMethod.id,
+            price: game.price_in_cents
         }).then(response => {
-            console.log(response.data);
+            console.log(response.data)
         }).catch(error => {
             console.log(error)
         })
-    }
 
+        await api.post(`library/add/${user.user_id}/${game.id}/`)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+console.log(user)
     return (
         <form onSubmit={handleSubmit} className="stripe-form">
             <div className="card-panel">

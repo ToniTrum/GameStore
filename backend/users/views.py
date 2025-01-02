@@ -36,7 +36,7 @@ def update_user(request, user_id):
             profile.first_name = request.data.get('first_name')
             profile.last_name = request.data.get('last_name')
             profile.birthdate = request.data.get('birthdate')
-            profile.country = Country.objects.get(numeric_code=request.data.get('country'))
+            profile.country = Country.objects.get(name_ru=request.data.get('country'))
             if request.FILES.get('image'):
                 profile.image = request.FILES['image']
 

@@ -21,7 +21,7 @@ const PaymentPage = () => {
             <UserAgreement />
 
             <Elements stripe={stripePromise} >
-                <PaymentForm />
+                <PaymentForm game={game} />
             </Elements>
         </section>
     )

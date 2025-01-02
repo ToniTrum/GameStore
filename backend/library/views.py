@@ -12,20 +12,8 @@ from users.models import User
 from games.models import Game
 from games.serializer import GameSerializer
 
-class LibraryView(generics.ListAPIView):
-    queryset = Library.objects.all()
-    serializer_class = LibrarySerializer
-
-class WishlistView(generics.ListAPIView):
-    queryset = Wishlist.objects.all()
-    serializer_class = WishlistSerializer
-
-class BasketView(generics.ListAPIView):
-    queryset = Basket.objects.all()
-    serializer_class = BasketSerializer
-
 class CommonPagination(PageNumberPagination):
-    page_size = 40
+    page_size = 39
 
     def get_paginated_response(self, data):
         return Response({
@@ -37,6 +25,10 @@ class CommonPagination(PageNumberPagination):
             'results': data,
         })
 
+class LibraryView(generics.ListAPIView):
+    queryset = Library.objects.all()
+    serializer_class = LibrarySerializer
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_library(request, user_id):
@@ -47,3 +39,19 @@ def get_user_library(request, user_id):
     paginator = CommonPagination()
     page = paginator.paginate_queryset(serializer.data, request)
     return paginator.get_paginated_response(page)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_to_library(request, user_id, game_id):
+    user = User.objects.get(id=user_id)
+    game = Game.objects.get(id=game_id)
+    Library.objects.create(user=user, game=game)
+    return Response({"message": "Game added to library"}, status=status.HTTP_201_CREATED)
+
+class WishlistView(generics.ListAPIView):
+    queryset = Wishlist.objects.all()
+    serializer_class = WishlistSerializer
+
+class BasketView(generics.ListAPIView):
+    queryset = Basket.objects.all()
+    serializer_class = BasketSerializer
