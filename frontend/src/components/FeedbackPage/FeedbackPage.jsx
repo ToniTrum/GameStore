@@ -61,12 +61,11 @@ const FeedbackPage = () => {
                 <input 
                     type="text" 
                     placeholder="Введите тему..." 
-                    id="theme"
                     ref={themeRef}
                     className="feedback-input" />
 
                 <label className="feedback-label">Текст заявления</label>
-                <textarea placeholder="Введите текст..." ref={textRef} />
+                <textarea placeholder="Введите текст..." ref={textRef} className="feedback-text" />
 
                 <label className="feedback-label">Изображения</label>
                 <input className="feedback-image-input" type="file" accept=".jpg, .png, .jpeg" />

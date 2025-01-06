@@ -4,4 +4,4 @@ from rest_framework import serializers
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feedback
-        fields = ['theme', 'text', 'status', 'created_at', 'user']
+        fields = ['id', 'theme', 'text', 'status', 'created_at', 'updated_at', 'user']

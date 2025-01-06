@@ -61,7 +61,7 @@ const Feedback = ({ feedback }) => {
     }
 
     return (
-        <li className="feedback">
+        <li className="feedback" onClick={onClick}>
             <div className="feedback-info">
                 <p className="feedback-info__theme">{feedback.theme}</p>
                 <p>{date}</p>

@@ -22,6 +22,13 @@ def get_feedback(request, user_id):
     serializer = FeedbackSerializer(feedback, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_feedback_by_id(request, feedback_id):
+    feedback = Feedback.objects.get(id=feedback_id)
+    serializer = FeedbackSerializer(feedback)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_feedback(request, user_id):
