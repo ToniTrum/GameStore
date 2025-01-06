@@ -69,3 +69,16 @@ input[type='date']::-webkit-calendar-picker-indicator {
 input[type='file'] {
     padding-top: 1rem;
 }
+
+textarea {
+    resize: none;
+
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    scrollbar-width: thin;
+    scrollbar-color: black transparent;
+
+    background-color: #242424;
+    color: whitesmoke;
+}

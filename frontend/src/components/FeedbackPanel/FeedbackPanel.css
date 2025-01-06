@@ -1,0 +1,70 @@
+.feedback-panel-section {
+    background-color: black;
+    width: 100%;
+
+    border-radius: 2rem;
+    padding: 2.5rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feedback-panel-section h2 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.feedback-panel-section button {
+    width: 11.5rem;
+}
+
+.feedback-panel-section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 1rem;
+    overflow-x: hidden;
+    max-height: 300px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #242424 transparent;
+}
+
+.feedback {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: #242424;
+    color: whitesmoke;
+
+    padding: 1.5rem;
+    border-radius: 1rem;
+
+    transition: opacity 0.2s linear, scale 0.2s linear;
+}
+
+.feedback:hover {
+    opacity: 0.9;
+    scale: 1.02;
+}
+
+.feedback-info {
+    width: 50%;
+    font-size: 1.2rem;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+.feedback-info__theme {
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
