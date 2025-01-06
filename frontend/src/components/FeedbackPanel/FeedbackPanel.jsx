@@ -21,7 +21,9 @@ const FeedbackPanel = () => {
                 console.error(error)
             }
         }
-    })
+
+        fetchFeedbacks()
+    }, [])
 
     const onClick = () => {
         navigate(`/user/id/${id}/feedback/create`)
