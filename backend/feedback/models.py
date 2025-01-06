@@ -14,6 +14,7 @@ class Feedback(models.Model):
     text = models.TextField()
     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="sended")
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
