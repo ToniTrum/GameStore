@@ -17,6 +17,7 @@ import StorePage from './components/StorePage/StorePage'
 import GamePage from './components/GamePage/GamePage'
 import PaymentPage from './components/PaymentPage/PaymentPage'
 import LibraryPage from './components/LibraryPage/LibraryPage'
+import FeedbackPage from './components/FeedbackPage/FeedbackPage'
 
 function App() {
 	return (
@@ -39,6 +40,7 @@ function App() {
 							<Route path="library/page/:pageNumber" element={<LibraryPage />} />
 							<Route path="game/id/:game_id" element={<GamePage />} />
 							<Route path="payment" element={<PaymentPage />} />
+							<Route path="feedback" element={<FeedbackPage />} />
 						</Route>
 					</Route>
                 </Routes>
