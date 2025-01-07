@@ -11,6 +11,7 @@ STATUS_CHOICES = (
 class Feedback(models.Model):
     theme = models.CharField(max_length=128)
     text = models.TextField()
+    file = models.FileField(upload_to='static/files', null=True, blank=True)
     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="Отправлено")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
