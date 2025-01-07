@@ -72,7 +72,7 @@ const FeedbackPage = () => {
                 <textarea placeholder="Введите текст..." ref={textRef} className="feedback-text" />
 
                 <label className="feedback-label">Изображения</label>
-                <input className="feedback-image-input" ref={fileRef} type="file" accept=".jpg, .png, .jpeg" />
+                <input className="feedback-image-input" ref={fileRef} type="file" />
 
                 <div className="feedback-button-container">
                     <button onClick={clearForm} className="feedback-button" type="reset">Очистить</button>

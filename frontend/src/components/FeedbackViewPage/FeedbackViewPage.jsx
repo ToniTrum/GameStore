@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
+import { API_URL } from "../../main"
 import useAxios from "../../utils/useAxios"
+import FileViewer from "../FileViewer/FileViewer"
 
 import "./FeedbackViewPage.css"
 
@@ -37,8 +39,10 @@ const FeedbackViewPage = () => {
                 <label className="feedback-label">Текст заявления</label>
                 <textarea readOnly className="feedback-text" value={feedback?.text || ""} />
 
-                <label className="feedback-label">Изображения</label>
-                <input readOnly className="feedback-image-input" type="file" accept=".jpg, .png, .jpeg" />
+                <label className="feedback-label">Файл</label>
+                <FileViewer 
+                    fileUrl={feedback?.file ? `${API_URL}${feedback.file}` : ""} 
+                    fileName={feedback?.file ? feedback.file.split('/').pop() : ""} />
 
                 <label className="feedback-label">Статус</label>
                 <p className="feedback-status">
