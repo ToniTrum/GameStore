@@ -45,12 +45,11 @@
     padding: 1.5rem;
     border-radius: 1rem;
 
-    transition: opacity 0.2s linear, scale 0.2s linear;
+    transition: scale 0.2s linear;
 }
 
 .feedback:hover {
-    opacity: 0.9;
-    scale: 1.02;
+    scale: 1.03;
 }
 
 .feedback-info {
@@ -67,4 +66,28 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.feedback-buttons {
+    width: 23%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 1.5rem;
+}
+
+.feedback-buttons p {
+    font-size: 1.2rem;
+}
+
+.feedback-buttons img {
+    width: 2rem;
+    cursor: pointer;
+    transition: opacity 0.2s linear, scale 0.2s linear;
+}
+
+.feedback-buttons img:hover {
+    opacity: 0.75;
+    scale: 1.1;
 }
