@@ -41,3 +41,30 @@ def create_feedback(request, user_id):
         return Response({"message": "Feedback created"}, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({"details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_feedback(request, feedback_id):
+    try:
+        theme = request.data.get('theme')
+        text = request.data.get('text')
+        file = request.data.get('file')
+
+        feedback = Feedback.objects.get(id=feedback_id)
+        feedback.theme = theme
+        feedback.text = text
+        feedback.file = file
+        feedback.save()
+        return Response({"message": "Feedback updated"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_feedback(request, feedback_id):
+    try:
+        feedback = Feedback.objects.get(id=feedback_id)
+        feedback.delete()
+        return Response({"message": "Feedback deleted"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
