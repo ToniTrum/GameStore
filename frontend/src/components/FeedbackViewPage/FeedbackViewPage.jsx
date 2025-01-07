@@ -27,7 +27,7 @@ const FeedbackViewPage = () => {
     }, [])
 
     const onClickEdit = () => {
-        navigate(`/user/id/${id}/feedback/edit/${feedback_id}/`)
+        navigate(`/user/id/${id}/feedback/edit/${feedback_id}`)
     }
 
     return (

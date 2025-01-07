@@ -1,7 +1,8 @@
-import { useRef } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import sweetAlert from "sweetalert2"
 
+import { API_URL } from "../../main"
 import useAxios from "../../utils/useAxios"
 import FileViewer from "../FileViewer/FileViewer"
 
@@ -50,7 +51,7 @@ const FeedbackEditPage = () => {
             if (file) formData.append("file", file)
 
             try {
-                await api.post(`/feedback/feedback/update/${feedback_id}/`, formData)
+                await api.put(`/feedback/feedback/update/${feedback_id}/`, formData)
                 navigate(`/user/id/${id}/feedback/`)
             }
             catch (error) {
@@ -83,14 +84,14 @@ const FeedbackEditPage = () => {
                     placeholder="Введите тему..."
                     ref={themeRef}
                     className="feedback-input"
-                    value={feedback?.theme || ""} />
+                    defaultValue={feedback?.theme || ""} />
 
                 <label className="feedback-label">Текст заявления</label>
                 <textarea 
                     placeholder="Введите текст..." 
                     ref={textRef} 
                     className="feedback-text"
-                    value={feedback?.text || ""} />
+                    defaultValue={feedback?.text || ""} />
 
                 <label className="feedback-label">Файл</label>
                 <input className="feedback-file-input" ref={fileRef} type="file" />
