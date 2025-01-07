@@ -1,4 +1,8 @@
 from django.db import models
+import os
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+
 from users.models import User
 
 STATUS_CHOICES = (
@@ -19,4 +23,10 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.theme
+    
+@receiver(pre_delete, sender=Feedback)
+def delete_feedback_file(sender, instance, **kwargs):
+    if instance.file:
+        if os.path.isfile(instance.file.path):
+            os.remove(instance.file.path)
 
