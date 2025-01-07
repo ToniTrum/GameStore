@@ -36,8 +36,8 @@ def create_feedback(request, user_id):
         user = User.objects.get(id=user_id)
         theme = request.data.get('theme')
         text = request.data.get('text')
-        Feedback.objects.create(user=user, theme=theme, text=text)
+        file = request.data.get('file')
+        Feedback.objects.create(user=user, theme=theme, text=text, file=file)
         return Response({"message": "Feedback created"}, status=status.HTTP_201_CREATED)
     except Exception as e:
         return Response({"details": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-

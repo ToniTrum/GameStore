@@ -12,10 +12,12 @@ const FeedbackPage = () => {
     const { id } = useParams()
     const themeRef = useRef(null)
     const textRef = useRef(null)
+    const fileRef = useRef(null)
 
     const clearForm = () => {
         if (themeRef.current) themeRef.current.value = ""
         if (textRef.current) textRef.current.value = ""
+        if (fileRef.current) fileRef.current.value = ""
     }
 
     const onSubmit = async (e) => {
@@ -23,11 +25,13 @@ const FeedbackPage = () => {
 
         const theme = themeRef.current.value
         const text = textRef.current.value
+        const file = fileRef.current.files[0]
 
         if (theme && text) {
             const formData = new FormData()
             formData.append("theme", theme)
             formData.append("text", text)
+            if (file) formData.append("file", file)
 
             try {
                 await api.post(`/feedback/feedback/create/${id}/`, formData)
@@ -68,7 +72,7 @@ const FeedbackPage = () => {
                 <textarea placeholder="Введите текст..." ref={textRef} className="feedback-text" />
 
                 <label className="feedback-label">Изображения</label>
-                <input className="feedback-image-input" type="file" accept=".jpg, .png, .jpeg" />
+                <input className="feedback-image-input" ref={fileRef} type="file" accept=".jpg, .png, .jpeg" />
 
                 <div className="feedback-button-container">
                     <button onClick={clearForm} className="feedback-button" type="reset">Очистить</button>
