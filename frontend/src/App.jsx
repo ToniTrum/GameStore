@@ -20,6 +20,7 @@ import LibraryPage from './components/LibraryPage/LibraryPage'
 import FeedbackPanel from './components/FeedbackPanel/FeedbackPanel'
 import FeedbackPage from './components/FeedbackPage/FeedbackPage'
 import FeedbackViewPage from './components/FeedbackViewPage/FeedbackViewPage'
+import FeedbackEditPage from './components/FeedbackEditPage/FeedbackEditPage'
 
 function App() {
 	return (
@@ -45,6 +46,7 @@ function App() {
 							<Route path="feedback" element={<FeedbackPanel />} />
 							<Route path="feedback/create" element={<FeedbackPage />} />
 							<Route path="feedback/view/:feedback_id" element={<FeedbackViewPage />} />
+							<Route path="feedback/edit/:feedback_id" element={<FeedbackEditPage />} />
 						</Route>
 					</Route>
                 </Routes>

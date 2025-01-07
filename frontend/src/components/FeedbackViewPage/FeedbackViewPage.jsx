@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import { API_URL } from "../../main"
 import useAxios from "../../utils/useAxios"
@@ -8,6 +8,7 @@ import FileViewer from "../FileViewer/FileViewer"
 import "./FeedbackViewPage.css"
 
 const FeedbackViewPage = () => {
+    const navigate = useNavigate()
     const api = useAxios()
     const { id, feedback_id } = useParams()
     const [feedback, setFeedback] = useState({})
@@ -24,6 +25,10 @@ const FeedbackViewPage = () => {
 
         fetchFeedback()
     }, [])
+
+    const onClickEdit = () => {
+        navigate(`/user/id/${id}/feedback/edit/${feedback_id}/`)
+    }
 
     return (
         <section className="feedback-section">
@@ -50,7 +55,7 @@ const FeedbackViewPage = () => {
                 </p>
 
                 {feedback?.status === "Отправлено" && (
-                    <button className="feedback-button">Редактировать</button>
+                    <button onClick={onClickEdit} className="feedback-button">Редактировать</button>
                 )}
             </form>
         </section>

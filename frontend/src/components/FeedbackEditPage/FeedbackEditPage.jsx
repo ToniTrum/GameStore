@@ -3,16 +3,32 @@ import { useParams, useNavigate } from "react-router-dom"
 import sweetAlert from "sweetalert2"
 
 import useAxios from "../../utils/useAxios"
+import FileViewer from "../FileViewer/FileViewer"
 
-import "./FeedbackPage.css" 
+import "./FeedbackEditPage.css" 
 
-const FeedbackPage = () => {
+const FeedbackEditPage = () => {
     const api = useAxios()
     const navigate = useNavigate()
-    const { id } = useParams()
+    const { id, feedback_id } = useParams()
+
     const themeRef = useRef(null)
     const textRef = useRef(null)
     const fileRef = useRef(null)
+    const [feedback, setFeedback] = useState({})
+
+    useEffect(() => {
+        const fetchFeedback = async () => {
+            try {
+                const response = await api.get(`/feedback/feedback/get_by_id/${feedback_id}/`)
+                setFeedback(response.data)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        fetchFeedback()
+    }, [])
 
     const clearForm = () => {
         if (themeRef.current) themeRef.current.value = ""
@@ -34,7 +50,7 @@ const FeedbackPage = () => {
             if (file) formData.append("file", file)
 
             try {
-                await api.post(`/feedback/feedback/create/${id}/`, formData)
+                await api.post(`/feedback/feedback/update/${feedback_id}/`, formData)
                 navigate(`/user/id/${id}/feedback/`)
             }
             catch (error) {
@@ -60,30 +76,39 @@ const FeedbackPage = () => {
 
             <WarningMassage />
 
-            <form className="feedback-form" method="post" onSubmit={onSubmit}>
+            <form className="feedback-form" method="put" onSubmit={onSubmit}>
                 <label className="feedback-label">Тема заявления</label>
                 <input 
                     type="text" 
-                    placeholder="Введите тему..." 
+                    placeholder="Введите тему..."
                     ref={themeRef}
-                    className="feedback-input" />
+                    className="feedback-input"
+                    value={feedback?.theme || ""} />
 
                 <label className="feedback-label">Текст заявления</label>
-                <textarea placeholder="Введите текст..." ref={textRef} className="feedback-text" />
+                <textarea 
+                    placeholder="Введите текст..." 
+                    ref={textRef} 
+                    className="feedback-text"
+                    value={feedback?.text || ""} />
 
                 <label className="feedback-label">Файл</label>
                 <input className="feedback-file-input" ref={fileRef} type="file" />
+                <FileViewer 
+                    fileUrl={feedback?.file ? `${API_URL}${feedback.file}` : ""} 
+                    fileName={feedback?.file ? feedback.file.split('/').pop() : ""} />
+
 
                 <div className="feedback-button-container">
                     <button onClick={clearForm} className="feedback-button" type="reset">Очистить</button>
-                    <button className="feedback-button" type="submit">Отправить</button>
+                    <button className="feedback-button" type="submit">Изменить</button>
                 </div>
             </form>
         </section>
     )
 }
 
-export default FeedbackPage
+export default FeedbackEditPage
 
 const WarningMassage = () => {
     return (

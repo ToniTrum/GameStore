@@ -53,7 +53,9 @@ def update_feedback(request, feedback_id):
         feedback = Feedback.objects.get(id=feedback_id)
         feedback.theme = theme
         feedback.text = text
-        feedback.file = file
+        if file is not None:
+            feedback.file = file
+
         feedback.save()
         return Response({"message": "Feedback updated"}, status=status.HTTP_200_OK)
     except Exception as e:
