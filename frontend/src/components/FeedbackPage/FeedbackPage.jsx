@@ -103,7 +103,7 @@ const FeedbackPage = () => {
             <WarningMassage />
 
             <form className="feedback-form" method="post" onSubmit={onSubmit}>
-                <div>
+                <div className="feedback-field">
                     <label className="feedback-label">Тема заявления</label>
                     <input
                         type="text" 
@@ -115,7 +115,7 @@ const FeedbackPage = () => {
                     {errors.theme && <span className="error-message">{errors.theme}</span>}
                 </div>
 
-                <div>
+                <div className="feedback-field">
                     <label className="feedback-label">Текст заявления</label>
                     <textarea 
                         placeholder="Введите текст..."
