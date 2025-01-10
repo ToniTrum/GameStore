@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import sweetAlert from "sweetalert2"
 
+import { validateFeedback } from "../../utils/useFeedbackValidation"
 import { API_URL } from "../../main"
 import useAxios from "../../utils/useAxios"
 import FileViewer from "../FileViewer/FileViewer"
@@ -13,16 +14,37 @@ const FeedbackEditPage = () => {
     const navigate = useNavigate()
     const { id, feedback_id } = useParams()
 
-    const themeRef = useRef(null)
-    const textRef = useRef(null)
-    const fileRef = useRef(null)
     const [feedback, setFeedback] = useState({})
+    const [theme, setTheme] = useState("")
+    const [text, setText] = useState("")
+    const [errors, setErrors] = useState({
+        theme: "",
+        text: ""
+    })
+
+    const fileRef = useRef(null)
+    const feedbackData = [
+        {
+            name: "theme",
+            stateFunction: setTheme,
+            error: errors.theme
+        },
+        {
+            name: "text",
+            stateFunction: setText,
+            error: errors.text
+        }
+    ]
 
     useEffect(() => {
         const fetchFeedback = async () => {
             try {
                 const response = await api.get(`/feedback/feedback/get_by_id/${feedback_id}/`)
-                setFeedback(response.data)
+                const data = response.data
+
+                setFeedback(data)
+                setTheme(data.theme)
+                setText(data.text)
             } catch (error) {
                 console.error(error)
             }
@@ -31,17 +53,46 @@ const FeedbackEditPage = () => {
         fetchFeedback()
     }, [])
 
+    const sendErrorMessage = (message) => {
+        sweetAlert.fire({
+            title: message,
+            icon: "error",
+            toast: true,
+            timer: 4000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
+    }
+
     const clearForm = () => {
-        if (themeRef.current) themeRef.current.value = ""
-        if (textRef.current) textRef.current.value = ""
+        setTheme("")
+        setText("")
         if (fileRef.current) fileRef.current.value = ""
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        const error = validateFeedback(name, value)
+        setErrors((prev) => ({...prev, [name]: error}))
+
+        const stateFunction = feedbackData.find(
+            (item) => item.name === name
+        )?.stateFunction
+        if (stateFunction) {
+            stateFunction(value)
+        }
     }
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const theme = themeRef.current.value
-        const text = textRef.current.value
+        const hasNoErrors = Object.values(errors).every((err) => err === "")
+        if (!hasNoErrors) {
+            sendErrorMessage("Пожалуйста, исправьте ошибки в форме")
+            return
+        }
+
         const file = fileRef.current.files[0]
 
         if (theme && text) {
@@ -59,15 +110,7 @@ const FeedbackEditPage = () => {
             }
         }
         else {
-            sweetAlert.fire({
-                title: "Пожалйста, заполните все поля!",
-                icon: "error",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
+            sendErrorMessage("Пожалйста, заполните все поля!")
         }
     }
 
@@ -78,27 +121,36 @@ const FeedbackEditPage = () => {
             <WarningMassage />
 
             <form className="feedback-form" method="put" onSubmit={onSubmit}>
-                <label className="feedback-label">Тема заявления</label>
-                <input 
-                    type="text" 
-                    placeholder="Введите тему..."
-                    ref={themeRef}
-                    className="feedback-input"
-                    defaultValue={feedback?.theme || ""} />
+                <div className="feedback-field">
+                    <label className="feedback-label">Тема заявления</label>
+                    <input 
+                        type="text" 
+                        placeholder="Введите тему..."
+                        className="feedback-input"
+                        value={theme}
+                        name="theme"
+                        onChange={handleChange} />
+                    {errors.theme && <span className="error-message">{errors.theme}</span>}
+                </div>
 
-                <label className="feedback-label">Текст заявления</label>
-                <textarea 
-                    placeholder="Введите текст..." 
-                    ref={textRef} 
-                    className="feedback-text"
-                    defaultValue={feedback?.text || ""} />
+                <div className="feedback-field">
+                    <label className="feedback-label">Текст заявления</label>
+                    <textarea 
+                        placeholder="Введите текст..." 
+                        className="feedback-text"
+                        value={text}
+                        name="text"
+                        onChange={handleChange} />
+                    {errors.text && <span className="error-message">{errors.text}</span>}
+                </div>
 
                 <label className="feedback-label">Файл</label>
                 <input className="feedback-file-input" ref={fileRef} type="file" />
-                <FileViewer 
+                {feedback?.file && (
+                    <FileViewer 
                     fileUrl={feedback?.file ? `${API_URL}${feedback.file}` : ""} 
                     fileName={feedback?.file ? feedback.file.split('/').pop() : ""} />
-
+                )}
 
                 <div className="feedback-button-container">
                     <button onClick={clearForm} className="feedback-button" type="reset">Очистить</button>

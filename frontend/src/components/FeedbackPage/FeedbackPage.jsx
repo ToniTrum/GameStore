@@ -1,8 +1,9 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import sweetAlert from "sweetalert2"
 
 import useAxios from "../../utils/useAxios"
+import { validateFeedback } from "../../utils/useFeedbackValidation"
 
 import "./FeedbackPage.css" 
 
@@ -10,21 +11,68 @@ const FeedbackPage = () => {
     const api = useAxios()
     const navigate = useNavigate()
     const { id } = useParams()
-    const themeRef = useRef(null)
-    const textRef = useRef(null)
+
+    const [theme, setTheme] = useState("")
+    const [text, setText] = useState("")
+    const [errors, setErrors] = useState({
+        theme: "",
+        text: ""
+    })
+
     const fileRef = useRef(null)
+    const feedbackData = [
+        {
+            name: "theme",
+            stateFunction: setTheme,
+            error: errors.theme
+        },
+        {
+            name: "text",
+            stateFunction: setText,
+            error: errors.text
+        }
+    ]
+
+    const sendErrorMessage = (message) => {
+        sweetAlert.fire({
+            title: message,
+            icon: "error",
+            toast: true,
+            timer: 4000,
+            position: 'top-right',
+            timerProgressBar: true,
+            showConfirmButton: false,
+        })
+    }
 
     const clearForm = () => {
-        if (themeRef.current) themeRef.current.value = ""
-        if (textRef.current) textRef.current.value = ""
+        setTheme("")
+        setText("")
         if (fileRef.current) fileRef.current.value = ""
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        const error = validateFeedback(name, value)
+        setErrors((prev) => ({...prev, [name]: error}))
+
+        const stateFunction = feedbackData.find(
+            (item) => item.name === name
+        )?.stateFunction
+        if (stateFunction) {
+            stateFunction(value)
+        }
     }
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        const theme = themeRef.current.value
-        const text = textRef.current.value
+        const hasNoErrors = Object.values(errors).every((err) => err === "")
+        if (!hasNoErrors) {
+            sendErrorMessage("Пожалуйста, исправьте ошибки в форме")
+            return
+        }
+            
         const file = fileRef.current.files[0]
 
         if (theme && text) {
@@ -42,15 +90,7 @@ const FeedbackPage = () => {
             }
         }
         else {
-            sweetAlert.fire({
-                title: "Пожалйста, заполните все поля!",
-                icon: "error",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
+            sendErrorMessage("Пожалйста, заполните все поля!")
         }
     }
 
@@ -61,15 +101,28 @@ const FeedbackPage = () => {
             <WarningMassage />
 
             <form className="feedback-form" method="post" onSubmit={onSubmit}>
-                <label className="feedback-label">Тема заявления</label>
-                <input 
-                    type="text" 
-                    placeholder="Введите тему..." 
-                    ref={themeRef}
-                    className="feedback-input" />
+                <div className="feedback-field">
+                    <label className="feedback-label">Тема заявления</label>
+                    <input
+                        type="text" 
+                        placeholder="Введите тему..." 
+                        className="feedback-input"
+                        onChange={handleChange}
+                        name="theme"
+                        value={theme} />
+                    {errors.theme && <span className="error-message">{errors.theme}</span>}
+                </div>
 
-                <label className="feedback-label">Текст заявления</label>
-                <textarea placeholder="Введите текст..." ref={textRef} className="feedback-text" />
+                <div className="feedback-field">
+                    <label className="feedback-label">Текст заявления</label>
+                    <textarea 
+                        placeholder="Введите текст..."
+                        className="feedback-text"
+                        onChange={handleChange}
+                        name="text"
+                        value={text} />
+                    {errors.text && <span className="error-message">{errors.text}</span>}
+                </div>
 
                 <label className="feedback-label">Файл</label>
                 <input className="feedback-file-input" ref={fileRef} type="file" />
