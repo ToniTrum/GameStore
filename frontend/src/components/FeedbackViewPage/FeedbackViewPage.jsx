@@ -27,7 +27,7 @@ const FeedbackViewPage = () => {
     }, [])
 
     const onClickEdit = () => {
-        navigate(`/user/id/${id}/feedback/edit/${feedback_id}`)
+        navigate(`/user/id/${id}/feedback/edit/${feedback_id}/`)
     }
 
     return (
@@ -44,10 +44,14 @@ const FeedbackViewPage = () => {
                 <label className="feedback-label">Текст заявления</label>
                 <textarea readOnly className="feedback-text" value={feedback?.text || ""} />
 
-                <label className="feedback-label">Файл</label>
-                <FileViewer 
-                    fileUrl={feedback?.file ? `${API_URL}${feedback.file}` : ""} 
-                    fileName={feedback?.file ? feedback.file.split('/').pop() : ""} />
+                {feedback?.file !== null && (
+                    <>
+                    <label className="feedback-label">Файл</label>
+                    <FileViewer 
+                        fileUrl={feedback?.file ? `${API_URL}${feedback.file}` : ""} 
+                        fileName={feedback?.file ? feedback.file.split('/').pop() : ""} />
+                    </>
+                )}
 
                 <label className="feedback-label">Статус</label>
                 <p className="feedback-status">

@@ -16,11 +16,9 @@ const FeedbackPage = () => {
     const [text, setText] = useState("")
     const [errors, setErrors] = useState({
         theme: "",
-        text: "",
+        text: ""
     })
 
-    const themeRef = useRef(null)
-    const textRef = useRef(null)
     const fileRef = useRef(null)
     const feedbackData = [
         {
@@ -48,8 +46,8 @@ const FeedbackPage = () => {
     }
 
     const clearForm = () => {
-        if (themeRef.current) themeRef.current.value = ""
-        if (textRef.current) textRef.current.value = ""
+        setTheme("")
+        setText("")
         if (fileRef.current) fileRef.current.value = ""
     }
 
