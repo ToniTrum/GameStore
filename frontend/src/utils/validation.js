@@ -35,17 +35,17 @@ export const validateField = (name, value, password = "") => {
       }
       break;
     case "firstName":
-      const firstNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,64}$", "ui");
+      const firstNameRegExp = XRegExp("^[\\p{L}](?:[\\p{L}]|[\\s\\-'’](?=[\\p{L}])){0,62}[\\p{L}]$", "ui");
       if (!firstNameRegExp.test(value)) {
         error =
-          'Имя может содержать только буквы, пробел и символы "-" или "\'", длиной от 2 до 64 символов';
+          'Имя может содержать только буквы и символы пробела, "-" или "\'" (Только в случае, если эти символы окружены буквами), длиной от 2 до 64 символов';
       }
       break;
     case "lastName":
-      const lastNameRegExp = XRegExp("^[\\p{L}\\s\\-'’]{2,124}$", "ui");
+      const lastNameRegExp = XRegExp("^[\\p{L}](?:[\\p{L}]|[\\s\\-'’](?=[\\p{L}])){0,122}[\\p{L}]$", "ui");
       if (!lastNameRegExp.test(value)) {
         error =
-          'Фамилия может содержать только буквы, пробел и символы "-" или "\'", длиной от 2 до 124 символов';
+          'Фамилия может содержать только буквы и символы пробела, "-" или "\'" (Только в случае, если эти символы окружены буквами), длиной от 2 до 124 символов';
       }
       break;
     case "birthdate":
