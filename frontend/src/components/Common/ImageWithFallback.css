@@ -1,0 +1,54 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+    background-color: gray; /* Цвет для отсутствующего изображения */
+    overflow: hidden;
+}
+
+.image-container img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Убедитесь, что изображение занимает всё пространство */
+}
+
+/* Анимация загрузки */
+.image-container.loading .loading-animation {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Показ изображения после загрузки */
+.image-container.loaded img {
+    display: block;
+}
+
+/* Если изображение не загружено */
+.image-container.error {
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-container.error .error-placeholder {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+}
+
+/* Анимация движения фона */
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
