@@ -160,6 +160,15 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.User'
 
+# SMTP Gmail server
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = False
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'gamestore.django.app@gmail.com'
+EMAIL_HOST_PASSWORD = 'olagqyjjrxtqturw'
+
 # Stripe API
 STRIPE_PUBLISHABLE_KEY = "pk_test_51QaWj8L7bbq6rfGO6je7d1LFWRQH3VqyC0G6sRVYCr09trrFRUlaou2O6d9n5eVZ0XAJLl96ERh4Mrg9OHPobcM900n1tpx8pU"
 STRIPE_SECRET_KEY = "sk_test_51QaWj8L7bbq6rfGOwunD4RzqLJWWXduu0pnaKzlyfBFH5dM01UH43GWuELZY6LevRd98mUUpdSRnZP2zOvi9S7pU00deQL6TOH"
