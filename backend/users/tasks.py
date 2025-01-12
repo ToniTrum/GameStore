@@ -4,7 +4,7 @@ from .models import User
 
 @shared_task
 def send_subscription_emails():
-    subscribers = User.objects.filter(subscribed=True)
+    subscribers = User.objects.filter(profile__subscribed=True)
     for user in subscribers:
         send_mail(
             subject="Ваша подписка",

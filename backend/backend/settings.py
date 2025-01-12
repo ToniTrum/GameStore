@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
+    'django_celery_beat',
 
     'users',
     'currency',
@@ -164,7 +165,8 @@ STRIPE_PUBLISHABLE_KEY = "pk_test_51QaWj8L7bbq6rfGO6je7d1LFWRQH3VqyC0G6sRVYCr09t
 STRIPE_SECRET_KEY = "sk_test_51QaWj8L7bbq6rfGOwunD4RzqLJWWXduu0pnaKzlyfBFH5dM01UH43GWuELZY6LevRd98mUUpdSRnZP2zOvi9S7pU00deQL6TOH"
 
 # Celery
-
-CELERY_BROKER_URL = "redis://localhost:6379/0"
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+# CELERY_ACCEPT_CONTENT = ["json"]
+# CELERY_TASK_SERIALIZER = "json"
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
