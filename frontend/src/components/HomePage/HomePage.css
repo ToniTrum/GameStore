@@ -13,6 +13,20 @@
   animation: scale-up 0.7s ease-in-out 1;
 }
 
+.home-subscribe {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+
+  padding: 2rem;
+}
+
+.home-subscribe h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -54,6 +68,14 @@
   .home-title {
     font-size: 1.8rem;
   }
+
+  .home-subscribe {
+    padding: 0;
+  }
+
+  .home-subscribe h2 {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 398px) {
@@ -64,5 +86,9 @@
 
   .home-title {
     font-size: 1.5rem;
+  }
+
+  .home-subscribe h2 {
+    font-size: 6vw;
   }
 }
