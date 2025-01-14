@@ -1,6 +1,14 @@
-const PrivacyPolicyPanel = () => {
+import './PrivacyPolicyPanel.css'
+
+const PrivacyPolicyPanel = (isShow, setIsShow) => {
+    const onClick = () => {
+        isShow.setIsShow(false)
+    }
+
     return (
-        <div className="privacy-policy-panel">
+        <div 
+            className={`privacy-policy-panel${isShow.isShow ? ' open' : ''}`}
+            onClick={onClick}>
             <div className="privacy-policy-text">
                 <h1>Политика конфиденциальности</h1>
 
