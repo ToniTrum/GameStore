@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import check_password
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from rest_framework import generics, status
@@ -127,7 +128,8 @@ def check_reset_password_code(request):
     except Exception as e:
         return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
-api_view(["PUT"])
+@csrf_exempt
+@api_view(["PUT"])
 @permission_classes([AllowAny])
 def reset_password(request):
     try:
