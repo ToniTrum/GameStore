@@ -27,6 +27,10 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
     
+class ResetPasswordCode(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    code = models.CharField(max_length=4)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
