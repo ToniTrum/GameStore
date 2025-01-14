@@ -22,7 +22,7 @@ class Profile(models.Model):
     birthdate = models.DateField(null=True)
     country = models.ForeignKey(Country, on_delete=models.SET_DEFAULT, default=Country.get_default_country, related_name="users")
     image = models.ImageField(upload_to='static/img', default='static/icons/default-avatar.png')
-    verified = models.BooleanField(default=False)
+    subscribed = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

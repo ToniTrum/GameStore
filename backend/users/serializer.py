@@ -28,7 +28,7 @@ class TokenSerializer(TokenObtainPairSerializer):
 
         token['country'] = user.profile.country.numeric_code
         token['image'] = str(user.profile.image)
-        token['verified'] = user.profile.verified
+        token['subscribed'] = user.profile.subscribed
 
         return token
     
