@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
-import sweetAlert from 'sweetalert2';
+import sweetAlert from 'sweetalert2'
 
-import { validateFields } from "../../utils/validation";
+import { validateFields } from "../../utils/validation"
 import AuthContext from "../../context/AuthContext"
 import { API_URL } from "../../main"
-import useAxios from "../../utils/useAxios";
+import useAxios from "../../utils/useAxios"
 
 import "./ChangePanel.css"
 
