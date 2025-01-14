@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
-import { API_URL } from "../../main"
-import GameCard from "../GameCard/GameCard"
+import { API_URL } from "../../../main"
+import GameCard from "../../GameCard/GameCard"
 
 import "./RandomGamesList.css"
 

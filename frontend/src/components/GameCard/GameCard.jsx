@@ -10,10 +10,20 @@ const GameCard = ({ game, currency, symbol }) => {
     navigate(`/user/id/${id}/game/id/${game.id}`);
   };
 
-  const price =
-    game.price_in_cents === 0
-      ? "Free"
-      : ((game.price_in_cents * currency.rate) / 100).toFixed(2);
+  const formatPrice = (priceInCents) => {
+    if (priceInCents === 0) {
+      return "Free";
+    }
+
+    const price = (priceInCents * currency.rate) / 100;
+    const fractionalPart = price % 1;
+    const roundedFraction = fractionalPart <= 0.49 ? 0.49 : 0.99;
+    const finalPrice = Math.floor(price) + roundedFraction;
+
+    return finalPrice.toFixed(2);
+  };
+
+  const price = formatPrice(game.price_in_cents);
 
   return (
     <div onClick={onClick} className="game-card">

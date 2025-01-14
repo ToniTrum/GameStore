@@ -17,7 +17,7 @@
     color: var(--color-text); 
 }
 
-@media (max-width: var(--breakpoint-medium)) {
+@media (max-width: 659px) {
     .profile-item {
         flex-direction: column; 
         gap: 0.5rem;
@@ -29,7 +29,7 @@
     }
 }
 
-@media (max-width: var(--breakpoint-small)) {
+@media (max-width: 398px) {
     .profile-item__text,
     .profile-item__value {
         font-size: var(--font-size-xsmall); 

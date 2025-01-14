@@ -1,6 +1,6 @@
 import { useContext } from "react"
 
-import RandomGamesList from "../RandomGamesList/RandomGamesList"
+import RandomGamesList from "./RandomGamesList/RandomGamesList"
 import AuthContext from "../../context/AuthContext"
 import './HomePage.css'
 import { useCountryAndCurrency } from "../../context/CountryAndCurrencyContext"

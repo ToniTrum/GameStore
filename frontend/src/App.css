@@ -20,11 +20,12 @@
   --border-radius: 0.25rem;
 
   /* --------------- FONTS ------------- */
-  --font-size-base: 1rem; /* Обычный размер шрифта */
-  --font-size-large: 1.25rem; /* Увеличенный размер */
-  --font-size-small: 0.875rem; /* Уменьшенный размер */
+  --font-size-base: 1rem; 
+  --font-size-large: 1.25rem;
+  --font-size-small: 0.875rem; 
 
-  /* Breakpoints */
+  /* --------------- Breakpoints ------------- */
+  --breakpoint-big: 1084px;
   --breakpoint-medium: 659px;
   --breakpoint-small: 398px;
 }
@@ -107,13 +108,21 @@ input[type="file"] {
 
 /* Адаптивность */
 
-@media (min-width: 1084px) {
+@media (max-width: var(--breakpoint-big)) {
+  h1 {
+    font-size: 2rem;
+  }
+
   body {
     font-size: var(--font-size-large);
   }
 }
 
 @media (max-width: var(--breakpoint-medium)) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
   body {
     font-size: var(--font-size-small);
   }
@@ -131,13 +140,18 @@ input[type="file"] {
 }
 
 @media (max-width: var(--breakpoint-small)) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
   body {
     font-size: calc(var(--font-size-small) - 0.125rem);
   }
+
   button {
-    width: 90%; 
-    max-width: none; 
-    padding: 0.5rem 0.75rem; 
+    width: 90%;
+    max-width: none;
+    padding: 0.5rem 0.75rem;
     font-size: var(--font-size-small);
   }
 
