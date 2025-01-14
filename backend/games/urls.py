@@ -22,7 +22,7 @@ urlpatterns = [
     path("screenshot/get/<int:screenshot_id>/", views.get_screenshot, name="get_screenshot"),
 
     path("game/", views.GameView.as_view(), name="game"),
-    path("games/get/<int:user_id>/", views.get_games, name="get_games"),
+    path("games/get/<int:user_id>/", views.FilteredGameView.as_view(), name="get_games"),
     path("game/get/<int:game_id>/", views.get_game, name="get_game"),
     path("random_games/<int:user_id>", views.get_random_games, name="random_games"),
     path("check_game_in_library/<int:user_id>/<int:game_id>", views.check_game_in_library, name="check_game_in_library"),
