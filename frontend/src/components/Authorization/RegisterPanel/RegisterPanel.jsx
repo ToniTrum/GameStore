@@ -3,10 +3,12 @@ import { useEffect, useState, useContext } from "react";
 import { validateFields } from "../../../utils/validation";
 import sweetAlert from "sweetalert2";
 
+import PrivacyPolicyPanel from "../../PrivacyPolicyPage/PrivacyPolicyPanel";
 import { API_URL } from "../../../main";
 import AuthContext from "../../../context/AuthContext";
 
 import "../Authorization.css";
+import "./RegisterPanel.css";
 
 const RegisterPanel = () => {
   const navigate = useNavigate();
@@ -250,6 +252,17 @@ const RegisterPanel = () => {
           {countryError && (
             <span className="error-message">{countryError}</span>
           )}
+        </div>
+
+        <div className="form-agreement">
+          <input type="checkbox" name="terms" id="terms" />
+          <label className="form-label" htmlFor="terms">
+            Я принимаю условия 
+            <span
+              className="link">
+              пользовательского соглашения
+            </span>
+          </label>
         </div>
 
         <div className="form-buttons">
