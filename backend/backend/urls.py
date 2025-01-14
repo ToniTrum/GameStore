@@ -8,4 +8,5 @@ urlpatterns = [
     path("games/", include("games.urls")),
     path("library/", include("library.urls")),
     path("payments/", include("payments.urls")),
+    path("feedback/", include("feedback.urls")),
 ]
