@@ -72,7 +72,7 @@ const Profile = () => {
 
       <div className="change-buttons">
         <Link to={`/user/id/${user.user_id}/change`}>
-          <button>Изменить данные</button>
+          <button className="edit-button">Изменить данные</button>
         </Link>
         <button className="delete-button" onClick={deleteUser}>
           Удалить аккаунт

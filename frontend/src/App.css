@@ -1,71 +1,148 @@
 @font-face {
-    font-family: "Sclate";
-    src: url('./assets/fonts/Sclate.ttf');
+  font-family: "Sclate";
+  src: url("./assets/fonts/Sclate.ttf") format("truetype");
+}
+
+:root {
+  --primary-color: rgba(214, 10, 10, 0.87);
+  --background-color: #242424;
+  --text-color: rgb(255, 255, 255);
+  --border-color: #bdbdbd;
+  --hover-color: rgba(214, 10, 10, 0.87);
+  --font-family-base: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-family-logo: "Sclate";
+
+  --button-padding-horizontal: 1rem;
+  --button-line-height: 2rem;
+  --input-width: 37rem;
+  --input-height: 2.5rem;
+
+  --border-radius: 0.25rem;
+
+  /* --------------- FONTS ------------- */
+  --font-size-base: 1rem; /* Обычный размер шрифта */
+  --font-size-large: 1.25rem; /* Увеличенный размер */
+  --font-size-small: 0.875rem; /* Уменьшенный размер */
+
+  /* Breakpoints */
+  --breakpoint-medium: 659px;
+  --breakpoint-small: 398px;
 }
 
 body {
-	color: rgba(214, 10, 10, 0.87);
-	background-color: #242424;
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: var(--primary-color);
+  background-color: var(--background-color);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
 }
 
 main {
-	padding: 3rem;
-	padding-top: 8rem;
+  padding: 3rem;
+  padding-top: 8rem;
 }
 
 .white {
-	color: whitesmoke;
+  color: var(--text-color);
+}
+
+.header-title,
+.header-text,
+.important-text {
+  font-family: var(--font-family-logo);
+  color: var(--text-color);
 }
 
 button {
-    color: rgb(255, 255, 255);
-    background-color: #242424;
-    background-clip: padding-box;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  background-clip: padding-box;
 
-    padding-left: 1rem;
-    padding-right: 1rem;
+  padding-left: var(--button-padding-horizontal);
+  padding-right: var(--button-padding-horizontal);
 
-    border: 1px solid #bdbdbd;
-    border-radius: 0.25rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
 
-    line-height: 2rem;
-    cursor: pointer;
+  line-height: var(--button-line-height);
+  cursor: pointer;
 
-    transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
 button:hover {
-    color: rgba(214, 10, 10, 0.87);
-    border-color: rgba(214, 10, 10, 0.87);
+  color: var(--hover-color);
+  border-color: var(--hover-color);
 }
 
-input, select {
-    color: rgb(255, 255, 255);
-    background-color: #242424;
-    background-clip: padding-box;
+input,
+select {
+  color: var(--text-color);
+  background-color: var(--background-color);
+  background-clip: padding-box;
 
-    border: 1px solid #bdbdbd;
-    border-radius: 0.25rem;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 
-    width: 37rem;
-    height: 2.5rem;
+  height: var(--input-height);
 }
 
 input:invalid {
-    border-color: rgba(214, 10, 10, 0.87);
-    color: rgba(214, 10, 10, 0.87);
+  border-color: var(--hover-color);
+  color: var(--hover-color);
 }
 
-input[type='date']::-webkit-calendar-picker-indicator {
-    filter: invert(23%) sepia(77%) saturate(5905%) hue-rotate(357deg) brightness(96%) contrast(94%);
-    cursor: pointer;
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(23%) sepia(77%) saturate(5905%) hue-rotate(357deg)
+    brightness(96%) contrast(94%);
+  cursor: pointer;
 }
 
-input[type='file'] {
-    padding-top: 1rem;
+input[type="file"] {
+  padding-top: 1rem;
+}
+
+/* Адаптивность */
+
+@media (min-width: 1084px) {
+  body {
+    font-size: var(--font-size-large);
+  }
+}
+
+@media (max-width: var(--breakpoint-medium)) {
+  body {
+    font-size: var(--font-size-small);
+  }
+
+  button {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    line-height: 1.8rem;
+  }
+
+  input,
+  select {
+    height: 2rem;
+  }
+}
+
+@media (max-width: var(--breakpoint-small)) {
+  body {
+    font-size: calc(var(--font-size-small) - 0.125rem);
+  }
+  button {
+    width: 90%; 
+    max-width: none; 
+    padding: 0.5rem 0.75rem; 
+    font-size: var(--font-size-small);
+  }
+
+  input,
+  select {
+    height: 1.8rem;
+  }
 }

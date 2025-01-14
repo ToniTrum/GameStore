@@ -6,6 +6,32 @@
 }
 
 .profile-item__text {
-    font-size: 1.5rem;
+    font-size: var(--font-size-medium); 
     display: inline;
+    color: var(--color-primary);
+}
+
+.profile-item__value {
+    font-size: var(--font-size-medium); 
+    font-weight: bold; 
+    color: var(--color-text); 
+}
+
+@media (max-width: var(--breakpoint-medium)) {
+    .profile-item {
+        flex-direction: column; 
+        gap: 0.5rem;
+    }
+
+    .profile-item__text,
+    .profile-item__value {
+        font-size: var(--font-size-small); 
+    }
+}
+
+@media (max-width: var(--breakpoint-small)) {
+    .profile-item__text,
+    .profile-item__value {
+        font-size: var(--font-size-xsmall); 
+    }
 }
