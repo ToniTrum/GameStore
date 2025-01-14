@@ -21,7 +21,7 @@ const StorePage = () => {
         const fetchGames = async () => {
             try 
             {
-                const response = await fetch(`${API_URL}/games/game/?page=${pageNumber}`, {
+                const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}`, {
                     method: 'GET',
                     credentials: 'include',
                 })

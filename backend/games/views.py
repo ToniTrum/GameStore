@@ -107,6 +107,17 @@ class GameView(generics.ListAPIView):
     
 @api_view(['GET'])
 @permission_classes([AllowAny])
+def get_games(request, user_id):
+    user = User.objects.get(id=user_id)
+    library = Library.objects.filter(user=user).values_list('game_id', flat=True)
+    games = Game.objects.exclude(id__in=library)
+    paginator = GamePagination()
+    paginated_games = paginator.paginate_queryset(games, request)
+    serializer = GameSerializer(paginated_games, many=True)
+    return paginator.get_paginated_response(serializer.data)
+    
+@api_view(['GET'])
+@permission_classes([AllowAny])
 def get_game(request, game_id):
     game = Game.objects.get(id=game_id)
     serializer = GameSerializer(game)
