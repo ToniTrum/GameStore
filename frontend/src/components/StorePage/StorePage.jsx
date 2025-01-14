@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { API_URL } from "../../main"
 import useCountryAndCurrency from "../../utils/useFetchCountryAndCurrency"
 
+import FiltrationPanel from "../FiltrationPanel/FiltrationPanel"
 import GameCard from "../GameCard/GameCard"
 import PaginationButtons from "../PaginationButtons/PaginationButtons"
 
@@ -56,6 +57,8 @@ const StorePage = () => {
 
     return (
         <section className="store">
+            <FiltrationPanel />
+
             <div className="store__games">
                 {games.map((game) => (
                     <GameCard 
