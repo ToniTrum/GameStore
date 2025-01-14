@@ -1,0 +1,73 @@
+.random-games {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin: 2rem;
+}
+
+.random-games__title {
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+}
+
+.game-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: no-wrap;
+  gap: 1rem;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: 2rem;
+  scrollbar-color: #242424 transparent;
+}
+
+@media (max-width: 1084px) {
+  .random-games {
+    gap: 3rem;
+    margin: 2rem auto;
+    max-width: 90%;
+  }
+
+  .random-games__title {
+    font-size: 2rem;
+  }
+
+  .game-cards {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 659px) {
+  .random-games {
+    gap: 2rem;
+    margin: 1.5rem;
+  }
+
+  .random-games__title {
+    font-size: 1.8rem;
+  }
+
+  .game-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: visible;
+  }
+}
+
+@media (max-width: 398px) {
+  .random-games {
+    gap: 1.5rem;
+    margin: 1rem;
+  }
+
+  .random-games__title {
+    font-size: 1.5rem;
+  }
+
+  .game-cards {
+    gap: 1.5rem;
+  }
+}

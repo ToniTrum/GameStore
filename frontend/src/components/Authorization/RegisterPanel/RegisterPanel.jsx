@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
-import { validateField } from "../../../utils/validation";
+import { validateFields } from "../../../utils/validation";
 import sweetAlert from "sweetalert2";
 
 import { API_URL } from "../../../main";
@@ -27,15 +27,7 @@ const RegisterPanel = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [errors, setErrors] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password2: "",
-    firstName: "",
-    lastName: "",
-    birthdate: "",
-  });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     fetchCountry();
@@ -68,32 +60,17 @@ const RegisterPanel = () => {
     });
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const error = validateField(name, value, password); // Добавляем проверку для всех полей
-    setErrors((prev) => ({ ...prev, [name]: error })); // Обновляем объект ошибок
+  const handleCountryInput = (value) => {
+    setCountry(value);
 
-    const stateFunction = registrationData.find(
-      (item) => item.name === name
-    )?.stateFunction;
-    if (stateFunction) {
-      stateFunction(value);
-    }
-  };
-
-  const validateCountry = (value) => {
     const isInList = countryList.some(
       (item) => item.name_ru.toLowerCase() === value.toLowerCase()
     );
     setCountryError(isInList ? "" : "Страна не найдена в списке");
+
     if (isInList) {
       setCountry(value);
     }
-  };
-
-  const handleCountryInput = (value) => {
-    setCountry(value);
-    validateCountry(value);
 
     if (!value.trim()) {
       setFilteredCountries(countryList);
@@ -106,11 +83,39 @@ const RegisterPanel = () => {
     setFilteredCountries(filtered);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: validateFields([{ name, value }], password)[name] || "",
+    }));
+
+    const stateFunction = registrationData.find(
+      (item) => item.name === name
+    )?.stateFunction;
+    if (stateFunction) {
+      stateFunction(value);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const hasNoErrors = Object.values(errors).every((err) => err === "");
-    if (!hasNoErrors || countryError) {
+    const fieldsToValidate = [
+      { name: "username", value: username },
+      { name: "email", value: email },
+      { name: "password", value: password },
+      { name: "password2", value: password2 },
+      { name: "firstName", value: firstName },
+      { name: "lastName", value: lastName },
+      { name: "birthdate", value: birthdate },
+    ];
+
+    const validationErrors = validateFields(fieldsToValidate, password);
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0 || countryError) {
       sendErrorMessage("Пожалуйста, исправьте ошибки в форме");
       return;
     }

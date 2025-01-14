@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { useParams } from "react-router-dom"
 
-import RandomGamesList from "../RandomGamesList/RandomGamesList"
+import RandomGamesList from "./RandomGamesList/RandomGamesList"
 import AuthContext from "../../context/AuthContext"
 import './HomePage.css'
 import { useCountryAndCurrency } from "../../context/CountryAndCurrencyContext"
