@@ -1,10 +1,87 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid whitesmoke;
+  background-color: transparent;
+  color: whitesmoke;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+button:hover {
+  color: rgb(214, 10, 10);
+  border-color: rgb(214, 10, 10);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .ellipsis {
-    margin: 1rem;
-    color: whitesmoke;
-    display: inline;
+  margin: 0 0.5rem;
+  color: whitesmoke;
+  display: inline;
 }
 
 .active {
-    color: rgb(214, 10, 10);
-    border-color: rgb(214, 10, 10);
+  color: rgb(214, 10, 10);
+  border-color: rgb(214, 10, 10);
+}
+
+@media (max-width: 1084px) {
+  .pagination-container {
+    gap: 0.4rem;
+  }
+
+  button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 659px) {
+    .pagination-container {
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 0.2rem;
+      }
+
+  button {
+    padding: 0.4rem 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .ellipsis {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 398px) {
+  .pagination-container {
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.2rem;
+  }
+
+  button {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .ellipsis {
+    font-size: 0.75rem;
+  }
 }
