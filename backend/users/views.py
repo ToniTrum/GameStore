@@ -54,6 +54,18 @@ def update_user(request, user_id):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def subscribe_user(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        user.profile.subscribed = not user.profile.subscribed
+        user.profile.save()
+        return Response({f"details": "User subscribed {user.profile.subscribed}"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_user(request, user_id):
