@@ -1,0 +1,12 @@
+.form-code {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.form-digit {
+    width: 2rem;
+    text-align: center;
+}
