@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import dayjs from "dayjs";
-import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { validateFields } from "../../../utils/validation";
 import sweetAlert from "sweetalert2";
 
@@ -11,7 +9,6 @@ import AuthContext from "../../../context/AuthContext";
 import "../Authorization.css";
 
 const RegisterPanel = () => {
-  dayjs.extend(isSameOrBefore);
   const navigate = useNavigate();
   const { registerUser } = useContext(AuthContext);
 
