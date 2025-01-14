@@ -3,19 +3,23 @@ import { useEffect, useState, useContext } from "react";
 import { validateFields } from "../../../utils/validation";
 import sweetAlert from "sweetalert2";
 
+import PrivacyPolicyPanel from "../../PrivacyPolicyPage/PrivacyPolicyPanel";
 import { API_URL } from "../../../main";
 import AuthContext from "../../../context/AuthContext";
 
 import "../Authorization.css";
+import "./RegisterPanel.css";
 
 const RegisterPanel = () => {
   const navigate = useNavigate();
   const { registerUser } = useContext(AuthContext);
 
+  const [isShow, setIsShow] = useState(false);
   const [countryList, setCountryList] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [country, setCountry] = useState("");
   const [countryError, setCountryError] = useState("");
+  const [checkboxError, setCheckboxError] = useState("");
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -98,6 +102,13 @@ const RegisterPanel = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const check = document.getElementById("terms");
+    if (!check.checked) {
+      setCheckboxError("Пожалуйста, примите пользовательское соглашение");
+      return;
+    }
+    else setCheckboxError("");
 
     const fieldsToValidate = [
       { name: "username", value: username },
@@ -190,8 +201,14 @@ const RegisterPanel = () => {
     },
   ];
 
+  const handleOpenModal = () => {
+    setIsShow((prev) => !prev);
+  };
+
   return (
     <main>
+      <PrivacyPolicyPanel isShow={isShow} setIsShow={setIsShow} />
+
       <form className="authorization-form" onSubmit={handleSubmit}>
         <h1 className="form-title">Регистрация</h1>
 
@@ -250,6 +267,21 @@ const RegisterPanel = () => {
           {countryError && (
             <span className="error-message">{countryError}</span>
           )}
+        </div>
+
+        <div className="form-item">
+          <div className="form-agreement">
+            <input type="checkbox" name="terms" id="terms" />
+            <label className="form-label" htmlFor="terms">
+              Я принимаю условия 
+              <span
+                className="link"
+                onClick={handleOpenModal}>
+                пользовательского соглашения
+              </span>
+            </label>
+          </div>
+          {checkboxError.length > 0 && <span className="error-message">{checkboxError}</span>}
         </div>
 
         <div className="form-buttons">
