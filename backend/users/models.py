@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.conf import settings
 import os
 
 from currency.models import Country
@@ -31,6 +33,15 @@ class ResetPasswordCode(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     code = models.CharField(max_length=4)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def send_code_to_email(self):
+        send_mail(
+            "Сброс пароля",
+            f"Ваш код сброса пароля: {self.code}",
+            settings.EMAIL_HOST_USER,
+            [self.user.email],
+            fail_silently=False
+        )
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
