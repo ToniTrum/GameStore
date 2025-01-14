@@ -9,6 +9,7 @@ import StartRoute from './utils/StartRoute'
 import Header from './components/Header/Header'
 import RegisterPanel from './components/Authorization/RegisterPanel/RegisterPanel'
 import LoginPanel from './components/Authorization/LoginPanel/LoginPanel'
+import EmailFieldForResetPassword from './components/Authorization/EmailFieldForResetPassword/EmailFieldForResetPassword'
 import MainPage from './components/MainPage/MainPage'
 import HomePage from './components/HomePage/HomePage'
 import Profile from './components/Profile/Profile'
@@ -32,6 +33,8 @@ function App() {
 					<Route path="/" element={<StartRoute />} />
                     <Route path="/login" element={<LoginPanel />} />
                     <Route path="/register" element={<RegisterPanel />} />
+					<Route path="/reset-password/email" element={<EmailFieldForResetPassword />} />
+					<Route path="/reset-password/code" element={<h1>Смена пароля</h1>} />
 
 					{/* Приватные роуты */}
 					<Route element={<PrivateRoutes />}>

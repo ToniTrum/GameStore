@@ -99,9 +99,9 @@ def create_reset_password_code(request):
         email = request.data.get('email')
         user = User.objects.get(email=email)
         code = ''.join(str(random.randint(0, 9)) for _ in range(4))
-        reset_password_code = ResetPasswordCode.objects.update_or_create(
+        reset_password_code, created = ResetPasswordCode.objects.update_or_create(
             user=user,
-            code=code
+            defaults={'code': code}
         )
         reset_password_code.send_code_to_email()
         return Response({"details": "Reset password code sent"}, status=status.HTTP_200_OK)
