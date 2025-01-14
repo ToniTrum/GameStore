@@ -38,6 +38,11 @@ const LoginPanel = () => {
                 </div>
 
                 <div className="form-buttons">
+                    <button
+                        type="button"
+                        onClick={() => onClick('/reset-password/email')}>
+                            Забыли пароль?
+                    </button>
                     <button 
                         type="button"
                         onClick={() => onClick('/register')}>

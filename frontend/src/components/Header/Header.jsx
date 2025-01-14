@@ -18,7 +18,12 @@ const Header = () => {
                 <h1 className="header-text"><span className="white">GAME</span> STORE</h1>
             </div>
 
-            {location.pathname !== '/' &&location.pathname !== '/login' && location.pathname !== '/register' && <Navbar />}
+            {location.pathname !== '/' && 
+            location.pathname !== '/login' && 
+            location.pathname !== '/register' &&
+            location.pathname !== '/reset-password/email' &&
+            location.pathname !== '/reset-password/code' &&
+            location.pathname !== '/reset-password' && <Navbar />}
         </header>
     )
 }
