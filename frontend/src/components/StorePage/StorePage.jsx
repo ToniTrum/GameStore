@@ -30,8 +30,8 @@ const StorePage = () => {
 
                 setTotalPages(data.total_pages)
                 setGames(data.results)
-            } 
-            catch (error) 
+            }
+            catch (error)
             {
                 console.error(error)
             }
@@ -57,7 +57,7 @@ const StorePage = () => {
 
     return (
         <section className="store">
-            <FiltrationPanel games={games} setGames={setGames} />
+            <FiltrationPanel setGames={setGames} setTotalPages={setTotalPages} />
 
             <div className="store__games">
                 {games.map((game) => (

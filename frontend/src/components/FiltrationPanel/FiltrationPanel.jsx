@@ -6,9 +6,9 @@ import yesIcon from "../../assets/img/yes.svg"
 
 import './FiltrationPanel.css'
 
-import { API_URL } from "../../main";
+import { API_URL } from "../../main"
 
-const FiltrationPanel = ({games, setGames}) => {
+const FiltrationPanel = ({setGames, setTotalPages}) => {
     const { id, pageNumber } = useParams()
 
     const [platforms, setPlatforms] = useState([])
@@ -98,7 +98,9 @@ const FiltrationPanel = ({games, setGames}) => {
             credentials: "include",
         })
         const data = await response.json()
+        setTotalPages(data.total_pages)
         setGames(data.results)
+        localStorage.setItem()
     }
 
     return (
