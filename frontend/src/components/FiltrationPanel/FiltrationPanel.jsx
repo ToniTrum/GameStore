@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import arrowDown from "../../assets/img/down-arrow.svg"
 import yesIcon from "../../assets/img/yes.svg"
@@ -10,6 +10,9 @@ import { API_URL } from "../../main"
 
 const FiltrationPanel = ({setGames, setTotalPages}) => {
     const { id, pageNumber } = useParams()
+    const navigate = useNavigate()
+
+    const [isStored, setIsStored] = useState(false)
 
     const [platforms, setPlatforms] = useState([])
     const [genres, setGenres] = useState([])
@@ -23,84 +26,97 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
     const [selectedDevelopers, setSelectedDevelopers] = useState([])
 
     useEffect(() => {
-        const fetchPlatforms = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch(`${API_URL}/games/platform/`, {
-                    method: "GET",
-                })
-                const data = await response.json()
-                setPlatforms(data)
+                const [platformsData, genresData, tagsData, developersData] = await Promise.all([
+                    fetch(`${API_URL}/games/platform/`).then((res) => res.json()),
+                    fetch(`${API_URL}/games/genre/`).then((res) => res.json()),
+                    fetch(`${API_URL}/games/tag/`).then((res) => res.json()),
+                    fetch(`${API_URL}/games/developer/`).then((res) => res.json()),
+                ]);
+                setPlatforms(platformsData)
+                setGenres(genresData)
+                setTags(tagsData)
+                setDevelopers(developersData)
             } catch (error) {
                 console.error(error)
             }
         }
-
-        fetchPlatforms()
-    }, [])
-
-    useEffect(() => {
-        const fetchGenres = async () => {
-            try {
-                const response = await fetch(`${API_URL}/games/genre/`, {
-                    method: "GET",
-                })
-                const data = await response.json()
-                setGenres(data)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        fetchGenres()
-    }, [])
-
-    const fetchTags = async () => {
-        try {
-            const response = await fetch(`${API_URL}/games/tag/`, {
-                method: "GET",
-            })
-            const data = await response.json()
-            setTags(data)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
-    useEffect(() => {
-        fetchTags()
-    }, [])
-
-    useEffect(() => {
-        const fetchDevelopers = async () => {
-            try {
-                const response = await fetch(`${API_URL}/games/developer/`, {
-                    method: "GET",
-                })
-                const data = await response.json()
-                setDevelopers(data)
-            } catch (error) {
-                console.error(error)
-            }
-        }
-
-        fetchDevelopers()
+    
+        fetchData()
     }, [])
 
     const onClick = async () => {
-        const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
-        const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
-        const tagsQuery = selectedTags.map((tag) => `&tags=${tag}`).join("")
-        const developersQuery = selectedDevelopers.map((developer) => `&developers=${developer}`).join("")
-        const nameQuery = name ? `&name=${name}` : ""
+        localStorage.setItem("name", JSON.stringify(""))
+        localStorage.setItem("platforms", JSON.stringify([]))
+        localStorage.setItem("genres", JSON.stringify([]))
+        localStorage.setItem("tags", JSON.stringify([]))
+        localStorage.setItem("developers", JSON.stringify([]))
 
-        const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}${platformsQuery}${genresQuery}${tagsQuery}${developersQuery}${nameQuery}`, {
-            method: "GET",
-            credentials: "include",
-        })
-        const data = await response.json()
-        setTotalPages(data.total_pages)
-        setGames(data.results)
-        localStorage.setItem()
+        setName("")
+        setSelectedPlatforms([])
+        setSelectedGenres([])
+        setSelectedTags([])
+        setSelectedDevelopers([])
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("platforms")) {
+            const savedPlatforms = JSON.parse(localStorage.getItem("platforms"))
+            setSelectedPlatforms(savedPlatforms)
+        }
+        if (localStorage.getItem("genres")) {
+            const savedGenres = JSON.parse(localStorage.getItem("genres"))
+            setSelectedGenres(savedGenres)
+        }
+        if (localStorage.getItem("tags")) {
+            const savedTags = JSON.parse(localStorage.getItem("tags"))
+            setSelectedTags(savedTags)
+        }
+        if (localStorage.getItem("developers")) {
+            const savedDevelopers = JSON.parse(localStorage.getItem("developers"))
+            setSelectedDevelopers(savedDevelopers)
+        }
+        if (localStorage.getItem("name")) {
+            const savedName = JSON.parse(localStorage.getItem("name"))
+            setName(savedName)
+        }
+
+        setIsStored(true)
+    }, [])
+
+    useEffect(() => {
+        if (!isStored) return
+
+        const fetchGames = async () => {
+            const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
+            const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
+            const tagsQuery = selectedTags.map((tag) => `&tags=${tag}`).join("")
+            const developersQuery = selectedDevelopers.map((developer) => `&developers=${developer}`).join("")
+            const nameQuery = name ? `&name=${name}` : ""
+
+            const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}${platformsQuery}${genresQuery}${tagsQuery}${developersQuery}${nameQuery}`, {
+                method: "GET",
+                credentials: "include",
+            })
+            if (!response.ok) {
+                console.error(response.statusText)
+                if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
+            }
+            else {
+                const data = await response.json()
+                setTotalPages(data.total_pages)
+                setGames(data.results)
+            }
+        }
+
+        fetchGames()
+    }, [pageNumber, selectedPlatforms, selectedGenres, selectedTags, selectedDevelopers, name])
+
+    const onChange = (value) => {
+        if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
+        setName(value)
+        localStorage.setItem("name", JSON.stringify(value))
     }
 
     return (
@@ -110,19 +126,19 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
                     type="text"
                     placeholder="Название..."
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={(e) => onChange(e.target.value)}
                 />
-                <button onClick={onClick}>Применить изменения</button>
+                <button onClick={onClick}>Сбросить</button>
             </div>
             
             <div className="filtration-panel__part">
                 <div className="filtration-panel__elements">
-                    <SelectPanel elements={platforms} selectedElements={selectedPlatforms} setSelectedElements={setSelectedPlatforms} title="Платформы" />
-                    <SelectPanel elements={genres} selectedElements={selectedGenres} setSelectedElements={setSelectedGenres} title="Жанры" />
+                    <SelectPanel elements={platforms} selectedElements={selectedPlatforms} setSelectedElements={setSelectedPlatforms} title="Платформы" localName={"platforms"} />
+                    <SelectPanel elements={genres} selectedElements={selectedGenres} setSelectedElements={setSelectedGenres} title="Жанры" localName={"genres"} />
                 </div>
                 <div className="filtration-panel__elements">
-                    <SelectPanel elements={tags} selectedElements={selectedTags} setSelectedElements={setSelectedTags} title="Тэги" />
-                    <SelectPanel elements={developers} selectedElements={selectedDevelopers} setSelectedElements={setSelectedDevelopers} title="Разработчики" />
+                    <SelectPanel elements={tags} selectedElements={selectedTags} setSelectedElements={setSelectedTags} title="Тэги" localName={"tags"} />
+                    <SelectPanel elements={developers} selectedElements={selectedDevelopers} setSelectedElements={setSelectedDevelopers} title="Разработчики" localName={"developers"} />
                 </div>
             </div>
         </div>
@@ -131,16 +147,24 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
 
 export default FiltrationPanel
 
-const SelectPanel = ({elements, selectedElements, setSelectedElements, title}) => {
+const SelectPanel = ({elements, selectedElements, setSelectedElements, title, localName}) => {
+    const {id, pageNumber} = useParams()
+    const navigate = useNavigate()
+
     const [isOpen, setIsOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
 
     const handleSelect = (id) => {
+        if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
+
+        let updatedElements
         if (selectedElements.includes(id)) {
-            setSelectedElements(selectedElements.filter((element) => element !== id))
+            updatedElements = selectedElements.filter((element) => element !== id)
         } else {
-            setSelectedElements([...selectedElements, id])
+            updatedElements = [...selectedElements, id]
         }
+        setSelectedElements(updatedElements)
+        localStorage.setItem(localName, JSON.stringify(updatedElements))
     }
 
     const filteredElements = elements.filter((element) =>
@@ -173,7 +197,7 @@ const SelectPanel = ({elements, selectedElements, setSelectedElements, title}) =
                         <div
                             key={element.id}
                             className="select-panel__element"
-                            onClick={() => handleSelect(element.id)} 
+                            onClick={() => handleSelect(element.id)}
                         >
                             <p>{element.name}</p>
                             {selectedElements.includes(element.id) && <img src={yesIcon} alt="" />}
