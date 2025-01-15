@@ -86,7 +86,7 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
 
     useEffect(() => {
         if (!isStored) return
-
+        
         const fetchGames = async () => {
             const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
             const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
@@ -120,7 +120,7 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
                     value={name}
                     onChange={(e) => onChange(e.target.value)}
                 />
-                <button onClick={onClick}>Сбросить</button>
+                <button onClick={onClick}>Очистить</button>
             </div>
             
             <div className="filtration-panel__part">
