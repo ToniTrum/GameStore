@@ -1,0 +1,206 @@
+"filename", "language", "Python", "JSON", "pip requirements", "JavaScript", "JavaScript JSX", "CSS", "Markdown", "XML", "HTML", "comment", "blank", "total"
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\__init__.py", "Python", 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\asgi.py", "Python", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 17
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\celery.py", "Python", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 9
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\settings.py", "Python", 137, 0, 0, 0, 0, 0, 0, 0, 0, 17, 29, 183
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\urls.py", "Python", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\backend\wsgi.py", "Python", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 17
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\admin.py", "Python", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 12
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\fixtures\Country.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\fixtures\CurrencyRate.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\management\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\management\commands\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\management\commands\fetch_country.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\management\commands\fetch_currency.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\migrations\0001_initial.py", "Python", 26, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 34
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\models.py", "Python", 21, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 28
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\serializer.py", "Python", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\urls.py", "Python", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\utils.py", "Python", 54, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 72
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\currency\views.py", "Python", 25, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 30
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\admin.py", "Python", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 8
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0001_initial.py", "Python", 22, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 30
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0002_remove_feedback_admin_alter_feedback_user.py", "Python", 19, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 26
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0003_feedback_updated_at.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0004_alter_feedback_user.py", "Python", 15, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 22
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0005_alter_feedback_status_alter_feedback_user.py", "Python", 20, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 27
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\0006_feedback_file.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\models.py", "Python", 26, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 33
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\serializer.py", "Python", 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 8
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\urls.py", "Python", 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 11
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\feedback\views.py", "Python", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 73
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\admin.py", "Python", 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 14, 56
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\filters.py", "Python", 37, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 40
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Developer.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\ESRBRating.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Game.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Genre.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Platform.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Requirement.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Screenshot.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\fixtures\Tag.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\fetch_game_by_id.py", "Python", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 18
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\fetch_games.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\fetch_games_price.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\fetch_genres.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\management\commands\fetch_tags.py", "Python", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 10
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0001_initial.py", "Python", 62, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 70
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0002_developer_rename_rating_game_esrb_rating_and_more.py", "Python", 35, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 42
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0003_rename_minimal_requirement_minimum_and_more.py", "Python", 26, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 33
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0004_alter_game_background_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0005_alter_screenshot_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0006_game_price_in_cent.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0007_alter_game_background_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0008_rename_price_in_cent_game_price_in_cents.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0009_alter_esrbrating_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\0010_alter_esrbrating_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\models.py", "Python", 59, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 77
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\serializer.py", "Python", 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 47
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\urls.py", "Python", 23, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 32
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\utils.py", "Python", 218, 0, 0, 0, 0, 0, 0, 0, 0, 0, 53, 271
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\games\views.py", "Python", 139, 0, 0, 0, 0, 0, 0, 0, 0, 0, 28, 167
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\admin.py", "Python", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\migrations\0001_initial.py", "Python", 19, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 27
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\migrations\0002_wishlist.py", "Python", 19, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 26
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\migrations\0003_basket.py", "Python", 19, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 26
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\models.py", "Python", 18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 26
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\serializer.py", "Python", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\urls.py", "Python", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\library\views.py", "Python", 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 58
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\manage.py", "Python", 17, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, 23
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\admin.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\models.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\urls.py", "Python", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\payments\views.py", "Python", 36, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 41
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\requirements.txt", "pip requirements", 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 1, 39
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\admin.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 16
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\apps.py", "Python", 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 7
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0001_initial.py", "Python", 53, 0, 0, 0, 0, 0, 0, 0, 0, 1, 7, 61
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0002_alter_profile_country.py", "Python", 15, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 22
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0003_rename_birth_day_profile_birthdate.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0004_alter_profile_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0005_alter_profile_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0006_alter_profile_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0007_alter_profile_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0008_alter_profile_image.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0009_rename_verified_profile_subscribed.py", "Python", 12, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 19
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\0010_resetpasswordcode.py", "Python", 18, 0, 0, 0, 0, 0, 0, 0, 0, 1, 6, 25
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\migrations\__init__.py", "Python", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\models.py", "Python", 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 60
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\serializer.py", "Python", 62, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 80
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\tasks.py", "Python", 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 40
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\tests.py", "Python", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\urls.py", "Python", 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 16
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\backend\users\views.py", "Python", 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 144
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 4, 9
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\eslint.config.js", "JavaScript", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 2, 39
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 2, 17
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\package-lock.json", "JSON", 0, 5220, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5221
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\package.json", "JSON", 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 1, 39
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\App.css", "CSS", 0, 0, 0, 0, 0, 135, 0, 0, 0, 3, 38, 176
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\App.jsx", "JavaScript JSX", 0, 0, 0, 0, 56, 0, 0, 0, 0, 2, 7, 65
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\document.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\down-arrow.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 7, 0, 1, 0, 8
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\side-menu.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\trash.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\x-mark.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 4
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\assets\img\yes.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\Authorization.css", "CSS", 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 9, 55
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\EmailFieldForResetPassword\EmailFieldForResetPassword.jsx", "JavaScript JSX", 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 11, 60
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\LoginPanel\LoginPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 51, 0, 0, 0, 0, 0, 10, 61
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\RegisterPanel\RegisterPanel.css", "CSS", 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 4, 20
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\RegisterPanel\RegisterPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 267, 0, 0, 0, 0, 0, 34, 301
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\ResetCodeField\ResetCodeField.css", "CSS", 0, 0, 0, 0, 0, 11, 0, 0, 0, 0, 1, 12
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\ResetCodeField\ResetCodeField.jsx", "JavaScript JSX", 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 11, 78
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Authorization\ResetPasswordPanel\ResetPasswordPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 88, 0, 0, 0, 0, 0, 16, 104
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ChangePanel\ChangePanel.css", "CSS", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 2, 14
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ChangePanel\ChangePanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 316, 0, 0, 0, 0, 0, 32, 348
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Common\ImageWithFallback.css", "CSS", 0, 0, 0, 0, 0, 44, 0, 0, 0, 4, 6, 54
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Common\ImageWithFallback.jsx", "JavaScript JSX", 0, 0, 0, 0, 21, 0, 0, 0, 0, 0, 4, 25
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackEditPage\FeedbackEditPage.css", "CSS", 0, 0, 0, 0, 0, 50, 0, 0, 0, 0, 13, 63
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackEditPage\FeedbackEditPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 160, 0, 0, 0, 0, 0, 25, 185
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackPage\FeedbackPage.css", "CSS", 0, 0, 0, 0, 0, 56, 0, 0, 0, 0, 15, 71
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackPage\FeedbackPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 138, 0, 0, 0, 0, 0, 23, 161
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackPanel\FeedbackPanel.css", "CSS", 0, 0, 0, 0, 0, 74, 0, 0, 0, 0, 20, 94
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackPanel\FeedbackPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 79, 0, 0, 0, 0, 0, 19, 98
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackViewPage\FeedbackViewPage.css", "CSS", 0, 0, 0, 0, 0, 33, 0, 0, 0, 0, 9, 42
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FeedbackViewPage\FeedbackViewPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 57, 0, 0, 0, 0, 0, 12, 69
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FileViewer\FileViewer.css", "CSS", 0, 0, 0, 0, 0, 27, 0, 0, 0, 0, 8, 35
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FileViewer\FileViewer.jsx", "JavaScript JSX", 0, 0, 0, 0, 43, 0, 0, 0, 0, 0, 5, 48
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FiltrationPanel\FiltrationPanel.css", "CSS", 0, 0, 0, 0, 0, 115, 0, 0, 0, 0, 32, 147
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\FiltrationPanel\FiltrationPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 162, 0, 0, 0, 0, 0, 24, 186
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameCard\GameCard.css", "CSS", 0, 0, 0, 0, 0, 86, 0, 0, 0, 0, 21, 107
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameCard\GameCard.jsx", "JavaScript JSX", 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 9, 46
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GamePage\GamePage.css", "CSS", 0, 0, 0, 0, 0, 52, 0, 0, 0, 0, 15, 67
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GamePage\GamePage.jsx", "JavaScript JSX", 0, 0, 0, 0, 200, 0, 0, 0, 0, 0, 29, 229
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameRequirementsPanel\GameRequirementsPanel.css", "CSS", 0, 0, 0, 0, 0, 76, 0, 0, 0, 0, 21, 97
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameRequirementsPanel\GameRequirementsPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 94, 0, 0, 0, 0, 0, 11, 105
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameSidePagePart\GameSidePagePart.css", "CSS", 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 16, 76
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\GameSidePagePart\GameSidePagePart.jsx", "JavaScript JSX", 0, 0, 0, 0, 86, 0, 0, 0, 0, 0, 16, 102
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Header\Header.css", "CSS", 0, 0, 0, 0, 0, 60, 0, 0, 0, 3, 13, 76
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Header\Header.jsx", "JavaScript JSX", 0, 0, 0, 0, 25, 0, 0, 0, 0, 0, 6, 31
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\HomePage\HomePage.css", "CSS", 0, 0, 0, 0, 0, 77, 0, 0, 0, 0, 18, 95
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\HomePage\HomePage.jsx", "JavaScript JSX", 0, 0, 0, 0, 41, 0, 0, 0, 0, 0, 9, 50
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\HomePage\RandomGamesList\RandomGamesList.css", "CSS", 0, 0, 0, 0, 0, 61, 0, 0, 0, 0, 13, 74
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\HomePage\RandomGamesList\RandomGamesList.jsx", "JavaScript JSX", 0, 0, 0, 0, 39, 0, 0, 0, 0, 0, 9, 48
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ImageCarousel\ImageCarousel.css", "CSS", 0, 0, 0, 0, 0, 68, 0, 0, 0, 0, 18, 86
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ImageCarousel\ImageCarousel.jsx", "JavaScript JSX", 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 9, 72
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\LibraryPage\LibraryPage.css", "CSS", 0, 0, 0, 0, 0, 17, 0, 0, 0, 0, 4, 21
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\LibraryPage\LibraryPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 63, 0, 0, 0, 0, 0, 12, 75
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\MainPage\MainPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 6, 23
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\NavbarItem\NavbarItem.css", "CSS", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 6, 34
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\NavbarItem\NavbarItem.jsx", "JavaScript JSX", 0, 0, 0, 0, 11, 0, 0, 0, 0, 0, 3, 14
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Navbar\Navbar.css", "CSS", 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 8, 44
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Navbar\Navbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 85, 0, 0, 0, 0, 0, 7, 92
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaginationButtons\PaginationButtons.css", "CSS", 0, 0, 0, 0, 0, 74, 0, 0, 0, 0, 14, 88
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaginationButtons\PaginationButtons.jsx", "JavaScript JSX", 0, 0, 0, 0, 109, 0, 0, 0, 0, 0, 14, 123
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentForm\PaymentForm.css", "CSS", 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 8, 50
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentForm\PaymentForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 93, 0, 0, 0, 0, 0, 15, 108
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentPage\PaymentPage 2.css", "CSS", 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 8, 42
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentPage\PaymentPage 2.jsx", "JavaScript JSX", 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 14, 64
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentPage\PaymentPage.css", "CSS", 0, 0, 0, 0, 0, 34, 0, 0, 0, 0, 8, 42
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PaymentPage\PaymentPage.jsx", "JavaScript JSX", 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 14, 64
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PrivacyPolicyPage\PrivacyPolicyPanel.css", "CSS", 0, 0, 0, 0, 0, 40, 0, 0, 0, 0, 12, 52
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\PrivacyPolicyPage\PrivacyPolicyPanel.jsx", "JavaScript JSX", 0, 0, 0, 0, 79, 0, 0, 0, 0, 0, 10, 89
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ProfileItem\ProfileItem.css", "CSS", 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 5, 37
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\ProfileItem\ProfileItem.jsx", "JavaScript JSX", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 3, 15
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Profile\Profile.css", "CSS", 0, 0, 0, 0, 0, 157, 0, 0, 0, 1, 32, 190
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\Profile\Profile.jsx", "JavaScript JSX", 0, 0, 0, 0, 76, 0, 0, 0, 0, 0, 9, 85
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\StorePage\StorePage.css", "CSS", 0, 0, 0, 0, 0, 45, 0, 0, 0, 0, 11, 56
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\StorePage\StorePage.jsx", "JavaScript JSX", 0, 0, 0, 0, 67, 0, 0, 0, 0, 0, 14, 81
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\WrapListComponent\WrapListComponent.css", "CSS", 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 9, 37
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\components\WrapListComponent\WrapListComponent.jsx", "JavaScript JSX", 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 3, 17
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\context\AuthContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 125, 0, 0, 0, 0, 0, 16, 141
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\context\CountryAndCurrencyContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 4, 14
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\main.jsx", "JavaScript JSX", 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 4, 13
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\PrivateRoutes.jsx", "JavaScript JSX", 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 6, 15
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\StartRoute.jsx", "JavaScript JSX", 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 6, 16
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\useAxios.js", "JavaScript", 0, 0, 0, 45, 0, 0, 0, 0, 0, 1, 8, 54
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\useFeedbackValidation.js", "JavaScript", 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 5, 35
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\useFetchCountryAndCurrency.js", "JavaScript", 0, 0, 0, 55, 0, 0, 0, 0, 0, 0, 9, 64
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\src\utils\validation.js", "JavaScript", 0, 0, 0, 74, 0, 0, 0, 0, 0, 2, 8, 84
+"c:\Users\Alpha\.vscode\VS Codes\Works\WEB-works\GameStore\frontend\vite.config.js", "JavaScript", 0, 0, 0, 5, 0, 0, 0, 0, 0, 1, 2, 8
+"Total", "-", 2069, 5268, 38, 246, 3028, 1726, 5, 18, 15, 74, 1551, 14038

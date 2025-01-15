@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
-import { API_URL } from "../../main"
 import useCountryAndCurrency from "../../utils/useFetchCountryAndCurrency"
 
 import FiltrationPanel from "../FiltrationPanel/FiltrationPanel"
@@ -17,28 +16,6 @@ const StorePage = () => {
 
     const [games, setGames] = useState([])
     const [totalPages, setTotalPages] = useState(1)
-
-    useEffect(() => {
-        const fetchGames = async () => {
-            try 
-            {
-                const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}`, {
-                    method: 'GET',
-                    credentials: 'include',
-                })
-                const data = await response.json()
-
-                setTotalPages(data.total_pages)
-                setGames(data.results)
-            }
-            catch (error)
-            {
-                console.error(error)
-            }
-        }
-
-        fetchGames()
-    }, [pageNumber])
 
     const scrollToTop = () => {
         window.scrollTo({
