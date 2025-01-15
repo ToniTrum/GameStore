@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
 
 import arrowDown from "../../assets/img/down-arrow.svg"
 import yesIcon from "../../assets/img/yes.svg"
@@ -7,7 +8,9 @@ import './FiltrationPanel.css'
 
 import { API_URL } from "../../main";
 
-const FiltrationPanel = () => {
+const FiltrationPanel = ({games, setGames}) => {
+    const { id, pageNumber } = useParams()
+
     const [platforms, setPlatforms] = useState([])
     const [genres, setGenres] = useState([])
     const [tags, setTags] = useState([])
@@ -83,6 +86,21 @@ const FiltrationPanel = () => {
         fetchDevelopers()
     }, [])
 
+    const onClick = async () => {
+        const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
+        const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
+        const tagsQuery = selectedTags.map((tag) => `&tags=${tag}`).join("")
+        const developersQuery = selectedDevelopers.map((developer) => `&developers=${developer}`).join("")
+        const nameQuery = name ? `&name=${name}` : ""
+
+        const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}${platformsQuery}${genresQuery}${tagsQuery}${developersQuery}${nameQuery}`, {
+            method: "GET",
+            credentials: "include",
+        })
+        const data = await response.json()
+        setGames(data.results)
+    }
+
     return (
         <div className="filtration-panel">
             <div className="filtration-panel__part">
@@ -92,7 +110,7 @@ const FiltrationPanel = () => {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <button>Применить изменения</button>
+                <button onClick={onClick}>Применить изменения</button>
             </div>
             
             <div className="filtration-panel__part">

@@ -57,7 +57,7 @@ const StorePage = () => {
 
     return (
         <section className="store">
-            <FiltrationPanel />
+            <FiltrationPanel games={games} setGames={setGames} />
 
             <div className="store__games">
                 {games.map((game) => (

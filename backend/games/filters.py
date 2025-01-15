@@ -8,18 +8,22 @@ class GameFilter(filters.FilterSet):
     platforms = filters.ModelMultipleChoiceFilter(
         queryset=Platform.objects.all(),
         field_name="platforms__id",
+        to_field_name="id",
     )
     genres = filters.ModelMultipleChoiceFilter(
         queryset=Genre.objects.all(),
         field_name="genres__id",
+        to_field_name="id",
     )
     tags = filters.ModelMultipleChoiceFilter(
         queryset=Tag.objects.all(),
         field_name="tags__id",
+        to_field_name="id",
     )
     developers = filters.ModelMultipleChoiceFilter(
         queryset=Developer.objects.all(),
         field_name="developers__id",
+        to_field_name="id",
     )
 
     class Meta:
