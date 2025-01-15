@@ -85,16 +85,25 @@ const FiltrationPanel = () => {
 
     return (
         <div className="filtration-panel">
-            <input
-                type="text"
-                placeholder="Название..."
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-            />
+            <div className="filtration-panel__part">
+                <input
+                    type="text"
+                    placeholder="Название..."
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <button>Применить изменения</button>
+            </div>
             
-            <div className="filtration-panel__elements">
-                <SelectPanel elements={platforms} selectedElements={selectedPlatforms} setSelectedElements={setSelectedPlatforms} title="Платформы" />
-                <SelectPanel elements={genres} selectedElements={selectedGenres} setSelectedElements={setSelectedGenres} title="Жанры" />
+            <div className="filtration-panel__part">
+                <div className="filtration-panel__elements">
+                    <SelectPanel elements={platforms} selectedElements={selectedPlatforms} setSelectedElements={setSelectedPlatforms} title="Платформы" />
+                    <SelectPanel elements={genres} selectedElements={selectedGenres} setSelectedElements={setSelectedGenres} title="Жанры" />
+                </div>
+                <div className="filtration-panel__elements">
+                    <SelectPanel elements={tags} selectedElements={selectedTags} setSelectedElements={setSelectedTags} title="Тэги" />
+                    <SelectPanel elements={developers} selectedElements={selectedDevelopers} setSelectedElements={setSelectedDevelopers} title="Разработчики" />
+                </div>
             </div>
         </div>
     )
@@ -104,6 +113,7 @@ export default FiltrationPanel
 
 const SelectPanel = ({elements, selectedElements, setSelectedElements, title}) => {
     const [isOpen, setIsOpen] = useState(false)
+    const [searchQuery, setSearchQuery] = useState("")
 
     const handleSelect = (id) => {
         if (selectedElements.includes(id)) {
@@ -112,6 +122,10 @@ const SelectPanel = ({elements, selectedElements, setSelectedElements, title}) =
             setSelectedElements([...selectedElements, id])
         }
     }
+
+    const filteredElements = elements.filter((element) =>
+        element.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
 
     return (
         <div className={`select-panel ${isOpen ? "open" : ""}`}>
@@ -128,7 +142,14 @@ const SelectPanel = ({elements, selectedElements, setSelectedElements, title}) =
 
             {isOpen && (
                 <div className="select-panel__elements">
-                    {elements.map((element) => (
+                    <input
+                        type="text"
+                        className="select-panel__search"
+                        placeholder="Поиск..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    {filteredElements.map((element) => (
                         <div
                             key={element.id}
                             className="select-panel__element"
