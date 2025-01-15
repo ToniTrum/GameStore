@@ -1,6 +1,6 @@
 import "./Footer.css";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import PrivacyPolicyPanel from "../PrivacyPolicyPage/PrivacyPolicyPanel";
 
@@ -15,7 +15,7 @@ const Footer = () => {
 
   const handleSupportClick = () => {
     if (user !== null) {
-      navigate("/support");
+      navigate(`/user/id/${user.user_id}/feedback`);
     } else {
       navigate("/auth-warning");
     }

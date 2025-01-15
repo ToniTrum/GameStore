@@ -43,7 +43,7 @@ function App() {
           />
           <Route path="/reset-password/code" element={<ResetCodeField />} />
           <Route path="/reset-password" element={<ResetPasswordPanel />} />
-		  <Route path="/auth-warning" element={<AuthWarningPage />} />
+          <Route path="/auth-warning" element={<AuthWarningPage />} />
 
           {/* Приватные роуты */}
           <Route element={<PrivateRoutes />}>
