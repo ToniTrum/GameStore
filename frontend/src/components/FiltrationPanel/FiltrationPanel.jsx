@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 import arrowDown from "../../assets/img/down-arrow.svg"
 import yesIcon from "../../assets/img/yes.svg"
@@ -10,7 +10,6 @@ import { API_URL } from "../../main"
 
 const FiltrationPanel = ({setGames, setTotalPages}) => {
     const { id, pageNumber } = useParams()
-    const navigate = useNavigate()
 
     const [isStored, setIsStored] = useState(false)
 
@@ -99,22 +98,15 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
                 method: "GET",
                 credentials: "include",
             })
-            if (!response.ok) {
-                console.error(response.statusText)
-                if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
-            }
-            else {
-                const data = await response.json()
-                setTotalPages(data.total_pages)
-                setGames(data.results)
-            }
+            const data = await response.json()
+            setTotalPages(data.total_pages)
+            setGames(data.results)
         }
 
         fetchGames()
     }, [pageNumber, selectedPlatforms, selectedGenres, selectedTags, selectedDevelopers, name])
 
     const onChange = (value) => {
-        if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
         setName(value)
         localStorage.setItem("name", JSON.stringify(value))
     }
@@ -148,15 +140,10 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
 export default FiltrationPanel
 
 const SelectPanel = ({elements, selectedElements, setSelectedElements, title, localName}) => {
-    const {id, pageNumber} = useParams()
-    const navigate = useNavigate()
-
     const [isOpen, setIsOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState("")
 
     const handleSelect = (id) => {
-        if (pageNumber > 1) navigate(`/user/id/${id}/store/page/1`)
-
         let updatedElements
         if (selectedElements.includes(id)) {
             updatedElements = selectedElements.filter((element) => element !== id)
