@@ -4,9 +4,12 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
+from rest_framework.exceptions import NotFound
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Platform, ESRBRating, Genre, Tag, Developer, Screenshot, Game, Requirement
 from .serializer import PlatformSerializer, ESRBRatingSerializer, GenreSerializer, TagSerializer, DeveloperSerializer, ScreenshotSerializer, GameSerializer, RequirementSerializer
+from .filters import GameFilter
 from users.models import User
 from library.models import Library
 
@@ -104,6 +107,26 @@ class GameView(generics.ListAPIView):
             secure=True
         )
         return response
+
+class FilteredGameView(generics.ListAPIView):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+    pagination_class = GamePagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = GameFilter
+
+    def get_queryset(self):
+        user_id = self.kwargs.get('user_id')
+        if not user_id:
+            raise NotFound("Не указан ID пользователя.")
+
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise NotFound("Пользователь не найден.")
+
+        library_game_ids = Library.objects.filter(user=user).values_list('game_id', flat=True)
+        return Game.objects.exclude(id__in=library_game_ids)
     
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -120,6 +143,15 @@ def get_random_games(request, user_id):
     games = Game.objects.exclude(id__in=library).order_by('?')[:6]
     serializer = GameSerializer(games, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def check_game_in_library(request, user_id, game_id):
+    user = User.objects.get(id=user_id)
+    library = Library.objects.filter(user=user).values_list('game_id', flat=True)
+    if game_id in library:
+        return Response({'in_library': True}, status=status.HTTP_200_OK)
+    return Response({'in_library': False}, status=status.HTTP_200_OK)
 
 class RequirementView(generics.ListAPIView):
     queryset = Requirement.objects.all()

@@ -10,6 +10,7 @@ const GameSidePagePart = ({ game, platforms }) => {
     const navigate = useNavigate()
 
     const [esrbRating, setESRBRating] = useState({})
+    const [inLibrary, setInLibrary] = useState(false)
 
     useEffect(() => {
         const fetchESRBRating = async () => {
@@ -32,6 +33,22 @@ const GameSidePagePart = ({ game, platforms }) => {
         }
     }, [game])
 
+    useEffect(() => {
+        const fetchCheck = async () => {
+            try {
+                const response = await fetch(`${API_URL}/games/check_game_in_library/${id}/${game.id}`, {method: 'GET'})
+                const data = await response.json()
+                setInLibrary(data.in_library)
+            }
+            catch (err) 
+            {
+                console.log(err)
+            }
+        }
+
+        if (game?.id) fetchCheck()
+    }, [game])
+
     const onClickBuy = () => {
         const data = { game: game }
         navigate(`/user/id/${id}/payment`, { state: data })
@@ -50,7 +67,7 @@ const GameSidePagePart = ({ game, platforms }) => {
 
                 <div className="game-side-page-part__buttons">
                     <button>Добавить в желаемое</button>
-                    <button onClick={onClickBuy}>Купить</button>
+                    {!inLibrary && <button onClick={onClickBuy}>Купить</button>}
                 </div>
             </div>
         </div>

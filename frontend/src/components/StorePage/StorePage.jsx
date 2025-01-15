@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { API_URL } from "../../main"
 import useCountryAndCurrency from "../../utils/useFetchCountryAndCurrency"
 
+import FiltrationPanel from "../FiltrationPanel/FiltrationPanel"
 import GameCard from "../GameCard/GameCard"
 import PaginationButtons from "../PaginationButtons/PaginationButtons"
 
@@ -21,7 +22,7 @@ const StorePage = () => {
         const fetchGames = async () => {
             try 
             {
-                const response = await fetch(`${API_URL}/games/game/?page=${pageNumber}`, {
+                const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}`, {
                     method: 'GET',
                     credentials: 'include',
                 })
@@ -29,8 +30,8 @@ const StorePage = () => {
 
                 setTotalPages(data.total_pages)
                 setGames(data.results)
-            } 
-            catch (error) 
+            }
+            catch (error)
             {
                 console.error(error)
             }
@@ -56,6 +57,8 @@ const StorePage = () => {
 
     return (
         <section className="store">
+            <FiltrationPanel setGames={setGames} setTotalPages={setTotalPages} />
+
             <div className="store__games">
                 {games.map((game) => (
                     <GameCard 

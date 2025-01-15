@@ -1,5 +1,6 @@
 import {CardNumberElement, CardExpiryElement, CardCvcElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {useState, useContext} from "react";
+import { useNavigate } from "react-router-dom";
 
 import useAxios from "../../utils/useAxios";
 import AuthContext from "../../context/AuthContext";
@@ -8,6 +9,7 @@ import "./PaymentForm.css";
 
 const PaymentForm = ({ game }) => {
     const api = useAxios()
+    const navigate = useNavigate()
     const stripe = useStripe()
     const elements = useElements()
     const {user} = useContext(AuthContext)
@@ -39,6 +41,8 @@ const PaymentForm = ({ game }) => {
             .catch(error => {
                 console.log(error)
             })
+
+        navigate(`/user/id/${user.user_id}/`)
     }
 
     return (
