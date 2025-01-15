@@ -67,7 +67,7 @@
     scrollbar-width: none;
     scrollbar-color: black #242424;
 
-    z-index: 100;
+    z-index: 9;
     animation: slide-down 0.3s ease-in-out;
 }
 
@@ -98,11 +98,6 @@
 .select-panel__element {
     display: grid;
     grid-template-columns: 9fr 1fr;
-    /* display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem; */
 
     cursor: pointer;
     font-size: 1.1rem;
@@ -127,4 +122,26 @@
 .select-panel__element img {
     width: 100%;
     max-width: 1.1rem;
+}
+
+@media (max-width: 700px) {
+    .filtration-panel {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 410px) {
+    .filtration-panel__elements {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 370px) {
+    .filtration-panel__part button {
+        width: 53vw;
+    }
+
+    .filtration-panel__part input {
+        width: 48vw;
+    }
 }
