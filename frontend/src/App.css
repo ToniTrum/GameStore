@@ -132,6 +132,11 @@ textarea {
 }
 
 @media (max-width: var(--breakpoint-medium)) {
+  main {
+    padding: 2rem;
+    padding-top: 5rem;
+  }
+
   h1 {
     font-size: 1.8rem;
   }
@@ -153,6 +158,11 @@ textarea {
 }
 
 @media (max-width: var(--breakpoint-small)) {
+  main {
+    padding: 1rem;
+    padding-top: 3rem;
+  }
+
   h1 {
     font-size: 1.5rem;
   }

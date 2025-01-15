@@ -1,0 +1,168 @@
+.game-side-page-part {
+  position: sticky;
+  top: 10rem;
+
+  height: fit-content;
+  width: 25%;
+  max-width: 25%;
+
+  padding: 2rem;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: start;
+
+  width: 100%;
+}
+
+.esrb-rating-image {
+  width: 40%;
+}
+
+.info-table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+
+  font-size: 1.3rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.table-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.table-item p {
+  text-align: start;
+}
+
+.table-item p.white {
+  text-align: end;
+}
+
+.platforms-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  list-style: none;
+}
+
+.platform-item__image {
+  width: 2.3rem;
+}
+
+.game-side-page-part__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.game-side-page-part__buttons button {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1084px) {
+  .game-side-page-part {
+    width: 30%;
+    padding: 1.5rem;
+  }
+
+  .game-info {
+    gap: 1.5rem;
+  }
+
+  .esrb-rating-image {
+    width: 50%;
+  }
+
+  .info-table {
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+
+  .table-item p {
+    font-size: 1rem;
+  }
+
+  .platform-item__image {
+    width: 2rem;
+  }
+}
+
+@media (max-width: 659px) {
+  .game-side-page-part {
+    width: 100%;
+    max-width: none;
+    padding: 1rem;
+  }
+
+  .esrb-rating-image {
+    width: 60%;
+  }
+
+  .info-table {
+    font-size: 1rem;
+  }
+
+  .table-item p {
+    font-size: 0.9rem;
+  }
+
+  .platform-item__image {
+    width: 1.7rem;
+  }
+
+  .game-side-page-part__buttons {
+    padding: 0 0.5rem; 
+    gap: 0.6rem;
+  }
+
+  .game-side-page-part__buttons button {
+    padding: 0.6rem; 
+    font-size: 0.9rem; 
+  }
+}
+
+@media (max-width: 398px) {
+  .game-side-page-part {
+    padding: 0.8rem;
+  }
+
+  .esrb-rating-image {
+    width: 70%;
+  }
+
+  .info-table {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+
+  .table-item p {
+    font-size: 0.8rem;
+  }
+
+  .platform-item__image {
+    width: 1.5rem;
+  }
+
+  .game-side-page-part__buttons button {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
