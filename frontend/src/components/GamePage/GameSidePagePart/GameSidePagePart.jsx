@@ -66,7 +66,7 @@ const GameSidePagePart = ({ game, platforms }) => {
                 </ul>
 
                 <div className="game-side-page-part__buttons">
-                    <button>Добавить в желаемое</button>
+                    {/* <button>Добавить в желаемое</button> */}
                     {!inLibrary && <button onClick={onClickBuy}>Купить</button>}
                 </div>
             </div>
