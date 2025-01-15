@@ -1,0 +1,35 @@
+.auth-warning-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+}
+
+.auth-warning-container h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.auth-warning-container p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-warning-link {
+  font-size: 1rem;
+  color: #ff5722;
+  text-decoration: none;
+  border: 1px solid #ff5722;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.auth-warning-link:hover {
+  background-color: #ff5722;
+  color: #fff;
+}

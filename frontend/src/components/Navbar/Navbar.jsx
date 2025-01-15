@@ -51,42 +51,50 @@ const Navbar = () => {
         transition={{ duration: 0.3 }}
       >
         <ul className="navbar-list">
-          <NavbarItem
-            text="Главная"
-            link={`/user/id/${user.user_id}`}
-            onClick={() => setIsOpen(false)}
-          />
-          <NavbarItem
-            text="Профиль"
-            link={`/user/id/${user.user_id}/profile`}
-            onClick={() => setIsOpen(false)}
-          />
-          <NavbarItem
-            text="Магазин"
-            link={`/user/id/${user.user_id}/store/page/1`}
-            onClick={() => setIsOpen(false)}
-          />
-          <NavbarItem
-            text="Библиотека"
-            link={`/user/id/${user.user_id}/library/page/1`}
-            onClick={() => setIsOpen(false)} />
-          <li className="navbar-item">
-            <Link
-              className="navbar-link"
-              to="/"
-              onClick={() => {
-                logoutUser();
-                setIsOpen(false);
-              }}
-            >
-              Выйти
-            </Link>
-            <div className="navbar-item-underline"></div>
-          </li>
+          {user ? (
+            <>
+              <NavbarItem
+                text="Главная"
+                link={`/user/id/${user.user_id}`}
+                onClick={() => setIsOpen(false)}
+              />
+              <NavbarItem
+                text="Профиль"
+                link={`/user/id/${user.user_id}/profile`}
+                onClick={() => setIsOpen(false)}
+              />
+              <li className="navbar-item">
+                <Link
+                  className="navbar-link"
+                  to="/"
+                  onClick={() => {
+                    logoutUser();
+                    setIsOpen(false);
+                  }}
+                >
+                  Выйти
+                </Link>
+                <div className="navbar-item-underline"></div>
+              </li>
+            </>
+          ) : (
+            <>
+              <NavbarItem
+                text="Войти"
+                link="/login"
+                onClick={() => setIsOpen(false)}
+              />
+              <NavbarItem
+                text="Регистрация"
+                link="/register"
+                onClick={() => setIsOpen(false)}
+              />
+            </>
+          )}
         </ul>
       </motion.nav>
     </>
   );
 };
 
-export default Navbar
+export default Navbar;

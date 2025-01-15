@@ -20,14 +20,26 @@
   --border-radius: 0.25rem;
 
   /* --------------- FONTS ------------- */
-  --font-size-base: 1rem; 
+  --font-size-base: 1rem;
   --font-size-large: 1.25rem;
-  --font-size-small: 0.875rem; 
+  --font-size-small: 0.875rem;
 
   /* --------------- Breakpoints ------------- */
   --breakpoint-big: 1084px;
   --breakpoint-medium: 659px;
   --breakpoint-small: 398px;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
@@ -40,6 +52,7 @@ body {
 main {
   padding: 3rem;
   padding-top: 8rem;
+  flex: 1;
 }
 
 .white {
@@ -107,16 +120,16 @@ input[type="file"] {
 }
 
 textarea {
-    resize: none;
+  resize: none;
 
-    padding: 0.5rem;
-    border-radius: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 
-    scrollbar-width: thin;
-    scrollbar-color: black transparent;
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
 
-    background-color: #242424;
-    color: whitesmoke;
+  background-color: #242424;
+  color: whitesmoke;
 }
 
 /* Адаптивность */
