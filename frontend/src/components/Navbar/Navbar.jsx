@@ -63,6 +63,15 @@ const Navbar = () => {
                 link={`/user/id/${user.user_id}/profile`}
                 onClick={() => setIsOpen(false)}
               />
+              <NavbarItem
+                text="Магазин"
+                link={`/user/id/${user.user_id}/store/page/1`}
+                onClick={() => setIsOpen(false)}
+              />
+              <NavbarItem
+                text="Библиотека"
+                link={`/user/id/${user.user_id}/library/page/1`}
+                onClick={() => setIsOpen(false)} />
               <li className="navbar-item">
                 <Link
                   className="navbar-link"
