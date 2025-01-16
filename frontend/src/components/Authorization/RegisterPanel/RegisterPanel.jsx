@@ -241,7 +241,7 @@ const RegisterPanel = () => {
                   : ""
               }
             />
-            {item.error && <span className="error-message">{item.error}</span>}
+            <div className="form-error">{item.error && <span className="error-message">{item.error}</span>}</div>
           </div>
         ))}
 
@@ -264,9 +264,9 @@ const RegisterPanel = () => {
               </option>
             ))}
           </datalist>
-          {countryError && (
+          <div className="form-error">{countryError && (
             <span className="error-message">{countryError}</span>
-          )}
+          )}</div>
         </div>
 
         <div className="form-item">
@@ -281,7 +281,7 @@ const RegisterPanel = () => {
               </span>
             </label>
           </div>
-          {checkboxError.length > 0 && <span className="error-message">{checkboxError}</span>}
+          <div className="form-error">{checkboxError.length > 0 && <span className="error-message">{checkboxError}</span>}</div>
         </div>
 
         <div className="form-buttons">

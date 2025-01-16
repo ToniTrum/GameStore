@@ -76,13 +76,13 @@ const ResetPasswordPanel = () => {
                 <div className="form-item">
                     <label className="form-label" htmlFor="password">Новый пароль</label>
                     <input className="form-input" onChange={handleChange} type="password" name="password" id="password" />
-                    {errors.password.length > 0 && <span className="error-message">{errors.password}</span>}
+                    <div className="form-error">{errors.password.length > 0 && <span className="error-message">{errors.password}</span>}</div>
                 </div>
 
                 <div className="form-item">
                     <label className="form-label" htmlFor="password2">Подтвердите пароль</label>
                     <input className="form-input" onChange={handleChange} type="password" name="password2" id="password2" />
-                    {errors.password2.length > 0 && <span className="error-message">{errors.password2}</span>}
+                    <div className="form-error">{errors.password2.length > 0 && <span className="error-message">{errors.password2}</span>}</div>
                 </div>
 
                 <div className="form-buttons">

@@ -130,7 +130,7 @@ const FeedbackEditPage = () => {
                         value={theme}
                         name="theme"
                         onChange={handleChange} />
-                    {errors.theme && <span className="error-message">{errors.theme}</span>}
+                    <div className="form-error">{errors.theme && <span className="error-message">{errors.theme}</span>}</div>
                 </div>
 
                 <div className="feedback-field">
@@ -141,7 +141,7 @@ const FeedbackEditPage = () => {
                         value={text}
                         name="text"
                         onChange={handleChange} />
-                    {errors.text && <span className="error-message">{errors.text}</span>}
+                    <div className="form-error">{errors.text && <span className="error-message">{errors.text}</span>}</div>
                 </div>
 
                 <label className="feedback-label">Файл</label>

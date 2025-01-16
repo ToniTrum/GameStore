@@ -38,7 +38,7 @@ const EmailFieldForResetPassword = () => {
                 <div className="form-item">
                     <label className="form-label" htmlFor="email">Электронная почта</label>
                     <input className="form-input" type="email" name="email" id="email" />
-                    {error.length > 0 && <span className="error-message">{error}</span>}
+                    <div className="form-error">{error.length > 0 && <span className="error-message">{error}</span>}</div>
                 </div>
 
                 <div className="form-buttons">

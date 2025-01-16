@@ -305,7 +305,7 @@ const ChangePanel = () => {
 									? birthdate
 									: ""
 								} />
-							{errors[item.name] !== "" && <span className="error">{errors[item.name]}</span>}
+							<div className="form-error">{errors[item.name] !== "" && <span className="error">{errors[item.name]}</span>}</div>
                         </div>
                     )
                 })}
@@ -329,9 +329,9 @@ const ChangePanel = () => {
 						</option>
 						))}
 					</datalist>
-					{errors.country.length > 0 && (
+					<div className="form-error">{errors.country.length > 0 && (
 						<span className="error-message">{errors.country}</span>
-					)}
+					)}</div>
 				</div>
 
                 <div className="form-buttons">

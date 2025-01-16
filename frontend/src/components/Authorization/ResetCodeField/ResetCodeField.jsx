@@ -56,7 +56,7 @@ const ResetCodeField = () => {
                         <input className="form-digit" pattern="[0-9]" maxLength={1} id="digit3" name="digit3" />
                         <input className="form-digit" pattern="[0-9]" maxLength={1} id="digit4" name="digit4" />
                     </div>
-                    {error.length > 0 && <span className="error-message">{error}</span>}
+                    <div className="form-error">{error.length > 0 && <span className="error-message">{error}</span>}</div>
                 </div>
 
                 <div className="form-buttons">
