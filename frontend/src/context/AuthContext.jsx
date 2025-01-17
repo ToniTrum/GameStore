@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
     const history = useNavigate();
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (email, password, url) => {
         const response = await fetch(`${API_URL}/users/token/`, {
             method: "POST",
             headers:{
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("authTokens", JSON.stringify(data))
 
             const userID = jwtDecode(data.access).user_id
-            history(`/user/id/${userID}`)
+            history(url)
         }
         else 
         {    

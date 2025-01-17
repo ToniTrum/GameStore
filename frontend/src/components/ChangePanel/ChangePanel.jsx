@@ -100,9 +100,9 @@ const ChangePanel = () => {
         if(response.status === 200)
         {
             if (formData.get("password"))
-                loginUser(formData.get("email"), formData.get("password"))
+                loginUser(formData.get("email"), formData.get("password"), `/user/id/${user.user_id}/profile`)
             else
-                loginUser(formData.get("email"), formData.get("old_password"))
+                loginUser(formData.get("email"), formData.get("old_password"), `/user/id/${user.user_id}/profile`)
             sweetAlert.fire({
                 title: "Данные успешно обновлены",
                 icon: "success",
