@@ -161,7 +161,7 @@ const ChangePanel = () => {
 	useEffect(() => {
 		if (countryList.length > 0) {
 			const selectedCountry = countryList.find(
-				(item) => item.id === user.country_id
+				(item) => item.numeric_code === user.country
 			)
 			setCountry(selectedCountry ? selectedCountry.name_ru : "")
 		}
