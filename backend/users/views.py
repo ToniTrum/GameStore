@@ -27,7 +27,6 @@ def update_user(request, user_id):
         user = User.objects.get(id=user_id)
         if check_password(request.data.get('password'), user.password):
             user.username = request.data.get('username')
-            user.email = request.data.get('email')            
             user.save()
 
             profile = Profile.objects.get(user=user)
@@ -46,6 +45,11 @@ def update_user(request, user_id):
             return Response({
                 'Детали': 'Неверный пароль'
             }, status=status.HTTP_400_BAD_REQUEST)
+    except User.unique_error_message:
+        return Response(
+            {"Детали": "Пользователь с таким именем уже существует"},
+            status=status.HTTP_401_BAD_REQUEST
+        )
     except Exception as e:
         return Response(
             {"Детали": f"Произошла ошибка: \n{str(e)}"},

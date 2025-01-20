@@ -54,7 +54,10 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(models.signals.post_delete, sender=Profile)
 def delete_file_on_delete(sender, instance, **kwargs):
     if instance.image and os.path.isfile(instance.image.path):
-        os.remove(instance.image.path)
+        default_avatar_relative_path = 'static\icons\default-avatar.png'
+        image_relative_path = os.path.relpath(instance.image.path, settings.BASE_DIR)
+        if image_relative_path != default_avatar_relative_path:
+            os.remove(instance.image.path)
 
 models.signals.post_save.connect(create_user_profile, sender=User)
 models.signals.post_save.connect(save_user_profile, sender=User)

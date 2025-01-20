@@ -16,7 +16,6 @@ const ChangePanel = () => {
     const [countryList, setCountryList] = useState([])
 
     const [username, setUsername] = useState(user.username)
-    const [email, setEmail] = useState(user.email)
     const [password, setPassword] = useState("")
     const [firstName, setFirstName] = useState(user.first_name)
     const [lastName, setLastName] = useState(user.last_name)
@@ -26,7 +25,6 @@ const ChangePanel = () => {
     const [avatar, setAvatar] = useState(`${API_URL}/${user.image}`)
 	const [errors, setErrors] = useState({
 		username: "",
-		email: "",
 		oldPassword: "",
 		firstName: "",
 		lastName: "",
@@ -47,13 +45,6 @@ const ChangePanel = () => {
             "type": "text",
             "stateFunction": setUsername,
             "text": username
-        },
-        {
-            "name": "email",
-            "label": "Электронная почта",
-            "type": "email",
-            "stateFunction": setEmail,
-            "text": email
         },
         {
             "name": "firstName",
@@ -83,7 +74,7 @@ const ChangePanel = () => {
 
         if(response.status === 200)
         {
-            loginUser(formData.get("email"), formData.get("password"), '/profile')
+            loginUser(user.email, formData.get("password"), '/profile')
             sweetAlert.fire({
                 title: "Данные успешно обновлены",
                 icon: "success",
@@ -94,10 +85,22 @@ const ChangePanel = () => {
                 showConfirmButton: false,
             })
         }
-		else if (response.status === 400) setErrors((prevErrors) => ({
-			...prevErrors,
-			"oldPassword": "Неверный пароль",
-		}))
+		else if (response.status === 400) 
+        {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                "oldPassword": "Неверный пароль",
+            }))
+            sweetAlert.fire({
+                title: "Неверный пароль",
+                icon: "error",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
         else
         {
             const errorData = await response.data
@@ -205,7 +208,6 @@ const ChangePanel = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (errors.username.length === 0 &&
-			errors.email.length === 0 &&
 			errors.oldPassword.length === 0 &&
 			errors.firstName.length === 0 &&
 			errors.lastName.length === 0 &&
@@ -214,7 +216,6 @@ const ChangePanel = () => {
             const formData = new FormData()
             if (image) formData.append("image", image)
             formData.append("username", username)
-            formData.append("email", email)
             formData.append("password", password)
             formData.append("first_name", firstName)
             formData.append("last_name", lastName)
@@ -259,8 +260,6 @@ const ChangePanel = () => {
                                 value={
 									item.name === "username"
 									? username
-									: item.name === "email"
-									? email
 									: item.name === "oldPassword"
 									? password
 									: item.name === "firstName"
