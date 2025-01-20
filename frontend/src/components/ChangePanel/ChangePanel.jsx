@@ -17,9 +17,7 @@ const ChangePanel = () => {
 
     const [username, setUsername] = useState(user.username)
     const [email, setEmail] = useState(user.email)
-    const [oldPassword, setOldPassword] = useState("")
     const [password, setPassword] = useState("")
-    const [password2, setPassword2] = useState("")
     const [firstName, setFirstName] = useState(user.first_name)
     const [lastName, setLastName] = useState(user.last_name)
     const [birthdate, setBirthdate] = useState(user.birthdate)
@@ -30,8 +28,6 @@ const ChangePanel = () => {
 		username: "",
 		email: "",
 		oldPassword: "",
-		password: "",
-		password2: "",
 		firstName: "",
 		lastName: "",
 		birthdate: "",
@@ -39,6 +35,12 @@ const ChangePanel = () => {
 	})
 
     const userDataForChanging = [
+        {
+            "name": "oldPassword",
+            "label": "Введите пароль для подтверждения",
+            "type": "password",
+            "stateFunction": setPassword
+        },
         {
             "name": "username",
             "label": "Имя пользователя",
@@ -52,24 +54,6 @@ const ChangePanel = () => {
             "type": "email",
             "stateFunction": setEmail,
             "text": email
-        },
-        {
-            "name": "oldPassword",
-            "label": "Старый пароль",
-            "type": "password",
-            "stateFunction": setOldPassword
-        },
-        {
-            "name": "password",
-            "label": "Новый пароль",
-            "type": "password",
-            "stateFunction": setPassword
-        },
-        {
-            "name": "password2",
-            "label": "Подтвердите пароль",
-            "type": "password",
-            "stateFunction": setPassword2
         },
         {
             "name": "firstName",
@@ -99,10 +83,7 @@ const ChangePanel = () => {
 
         if(response.status === 200)
         {
-            if (formData.get("password"))
-                loginUser(formData.get("email"), formData.get("password"), '/profile')
-            else
-                loginUser(formData.get("email"), formData.get("old_password"), '/profile')
+            loginUser(formData.get("email"), formData.get("password"), '/profile')
             sweetAlert.fire({
                 title: "Данные успешно обновлены",
                 icon: "success",
@@ -115,7 +96,7 @@ const ChangePanel = () => {
         }
 		else if (response.status === 400) setErrors((prevErrors) => ({
 			...prevErrors,
-			"password": "Неверный пароль",
+			"oldPassword": "Неверный пароль",
 		}))
         else
         {
@@ -174,7 +155,7 @@ const ChangePanel = () => {
 			(item) => item.name_ru.toLowerCase() === value.toLowerCase()
 		)
 		errors.country = isInList ? "" : "Страна не найдена в списке"
-	
+
 		if (isInList) {
 			setCountry(value);
 		}
@@ -193,18 +174,10 @@ const ChangePanel = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target
 		
-		if (name === "password" && value.length === 0) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				"password": "",
-			}))
-		}
-		else {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				[name]: validateFields([{ name, value }], password)[name] || "",
-			}))
-		}
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: validateFields([{ name, value }], password)[name] || "",
+        }))
 
 		const stateFunction = userDataForChanging.find(
 			(item) => item.name === name
@@ -234,8 +207,6 @@ const ChangePanel = () => {
         if (errors.username.length === 0 &&
 			errors.email.length === 0 &&
 			errors.oldPassword.length === 0 &&
-			errors.password.length === 0 &&
-			errors.password2.length === 0 &&
 			errors.firstName.length === 0 &&
 			errors.lastName.length === 0 &&
 			errors.birthdate.length === 0
@@ -244,7 +215,6 @@ const ChangePanel = () => {
             if (image) formData.append("image", image)
             formData.append("username", username)
             formData.append("email", email)
-            formData.append("old_password", oldPassword)
             formData.append("password", password)
             formData.append("first_name", firstName)
             formData.append("last_name", lastName)
@@ -292,11 +262,7 @@ const ChangePanel = () => {
 									: item.name === "email"
 									? email
 									: item.name === "oldPassword"
-									? oldPassword
-									: item.name === "password"
 									? password
-									: item.name === "password2"
-									? password2
 									: item.name === "firstName"
 									? firstName
 									: item.name === "lastName"

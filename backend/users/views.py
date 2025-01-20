@@ -25,24 +25,20 @@ class RegisterView(generics.CreateAPIView):
 def update_user(request, user_id):
     try:
         user = User.objects.get(id=user_id)
-        if check_password(request.data.get('old_password'), user.password):
+        if check_password(request.data.get('password'), user.password):
             user.username = request.data.get('username')
-            user.email = request.data.get('email')
-            if request.data.get('password'):
-                user.set_password(request.data.get('password'))
-            
+            user.email = request.data.get('email')            
             user.save()
 
             profile = Profile.objects.get(user=user)
-
             profile.first_name = request.data.get('first_name')
             profile.last_name = request.data.get('last_name')
             profile.birthdate = request.data.get('birthdate')
             profile.country = Country.objects.get(name_ru=request.data.get('country'))
             if request.FILES.get('image'):
                 profile.image = request.FILES['image']
-
             profile.save()
+            
             return Response({
                 'Детали': 'Данные обновлены'
             }, status=status.HTTP_200_OK)
