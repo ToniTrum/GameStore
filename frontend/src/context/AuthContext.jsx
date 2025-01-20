@@ -74,16 +74,7 @@ export const AuthProvider = ({ children }) => {
 
         if(response.status === 201)
         {
-            history("/login")
-            sweetAlert.fire({
-                title: "Успешная регистрация",
-                icon: "success",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
+            return 201;
         } 
         else 
         {
