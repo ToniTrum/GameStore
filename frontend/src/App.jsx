@@ -17,6 +17,7 @@ import HomePage from "./components/HomePage/HomePage";
 import Profile from "./components/Profile/Profile";
 import ChangePanel from "./components/ChangePanel/ChangePanel";
 import ConfirmPasswordPanel from "./components/ConfirmPasswordPanel/ConfirmPasswordPanel";
+import ChangeEmailField from "./components/ChangeEmailField/ChangeEmailField";
 import StorePage from "./components/StorePage/StorePage";
 import GamePage from "./components/GamePage/GamePage";
 import PaymentPage from "./components/PaymentPage/PaymentPage";
@@ -53,6 +54,7 @@ function App() {
               <Route path="profile" element={<Profile />} />
               <Route path="change" element={<ChangePanel />} />
               <Route path="confirm-password" element={<ConfirmPasswordPanel />} />
+              <Route path="change-email" element={<ChangeEmailField />} />
               <Route path="store/page/:pageNumber" element={<StorePage />} />
               <Route path="library/page/:pageNumber" element={<LibraryPage />} />
               <Route path="game/id/:game_id" element={<GamePage />} />

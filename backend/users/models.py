@@ -28,18 +28,18 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
-class ResetPasswordCode(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class ConfirmationCode(models.Model):
+    email = models.EmailField()
     code = models.CharField(max_length=4)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def send_code_to_email(self):
         send_mail(
-            "Сброс пароля",
-            f"Ваш код сброса пароля: {self.code}",
+            "Код подтверждения",
+            f"Ваш код подтверждения: {self.code}",
             settings.EMAIL_HOST_USER,
-            [self.user.email],
+            [self.email],
             fail_silently=False
         )
 

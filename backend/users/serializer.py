@@ -1,4 +1,4 @@
-from .models import User, ResetPasswordCode
+from .models import User, ConfirmationCode
 from currency.models import Country
 
 from django.contrib.auth.password_validation import validate_password
@@ -73,8 +73,8 @@ class RegisterSerializer(serializers.ModelSerializer):
         profile.save()
 
         return user
-    
-class ResetPasswordCodeSerializer(serializers.ModelSerializer):
+
+class ConfirmationCodeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = ResetPasswordCode
-        fields = ['user', 'code', 'created_at']
+        model = ConfirmationCode
+        fields = ['email', 'code', 'created_at']
