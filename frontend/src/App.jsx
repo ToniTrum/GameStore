@@ -16,6 +16,7 @@ import MainPage from "./components/MainPage/MainPage";
 import HomePage from "./components/HomePage/HomePage";
 import Profile from "./components/Profile/Profile";
 import ChangePanel from "./components/ChangePanel/ChangePanel";
+import ConfirmPasswordPanel from "./components/ConfirmPasswordPanel/ConfirmPasswordPanel";
 import StorePage from "./components/StorePage/StorePage";
 import GamePage from "./components/GamePage/GamePage";
 import PaymentPage from "./components/PaymentPage/PaymentPage";
@@ -51,23 +52,15 @@ function App() {
               <Route index element={<HomePage />} />
               <Route path="profile" element={<Profile />} />
               <Route path="change" element={<ChangePanel />} />
+              <Route path="confirm-password" element={<ConfirmPasswordPanel />} />
               <Route path="store/page/:pageNumber" element={<StorePage />} />
-              <Route
-                path="library/page/:pageNumber"
-                element={<LibraryPage />}
-              />
+              <Route path="library/page/:pageNumber" element={<LibraryPage />} />
               <Route path="game/id/:game_id" element={<GamePage />} />
               <Route path="payment" element={<PaymentPage />} />
               <Route path="feedback" element={<FeedbackPanel />} />
               <Route path="feedback/create" element={<FeedbackPage />} />
-              <Route
-                path="feedback/view/:feedback_id"
-                element={<FeedbackViewPage />}
-              />
-              <Route
-                path="feedback/edit/:feedback_id"
-                element={<FeedbackEditPage />}
-              />
+              <Route path="feedback/view/:feedback_id" element={<FeedbackViewPage />} />
+              <Route path="feedback/edit/:feedback_id" element={<FeedbackEditPage />} />
             </Route>
           </Route>
         </Routes>

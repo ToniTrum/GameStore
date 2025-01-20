@@ -21,6 +21,23 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
 
+    
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def check_user_password(request, user_id):
+    try:
+        user = User.objects.get(id=user_id)
+        password = request.data.get('password')
+        print(check_password(password, user.password))
+        if check_password(password, user.password):
+            return Response({"details": "Password is valid"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"details": "Password is invalid"}, status=status.HTTP_400_BAD_REQUEST)
+    except User.DoesNotExist:
+        return Response({"details": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_user(request, user_id):
