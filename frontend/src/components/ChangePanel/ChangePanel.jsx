@@ -101,6 +101,22 @@ const ChangePanel = () => {
                 showConfirmButton: false,
             })
         }
+        else if (response.status === 401) 
+        {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                "username": "Пользователь с таким именем уже существует",
+            }))
+            sweetAlert.fire({
+                title: "Пользователь с таким именем уже существуеть",
+                icon: "error",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
         else
         {
             const errorData = await response.data

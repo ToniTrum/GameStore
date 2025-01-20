@@ -1,7 +1,8 @@
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework_simplejwt.views import TokenObtainPairView
+from django.db.utils import IntegrityError
 
+from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -45,10 +46,10 @@ def update_user(request, user_id):
             return Response({
                 'Детали': 'Неверный пароль'
             }, status=status.HTTP_400_BAD_REQUEST)
-    except User.unique_error_message:
+    except IntegrityError:
         return Response(
             {"Детали": "Пользователь с таким именем уже существует"},
-            status=status.HTTP_401_BAD_REQUEST
+            status=status.HTTP_401_UNAUTHORIZED
         )
     except Exception as e:
         return Response(
