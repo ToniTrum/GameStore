@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 
-import { API_URL } from "../../main"
+import { API_URL } from "../../../main"
+
+import "../Authorization.css"
 
 const ChangeEmailField = () => {
     const navigate = useNavigate()
