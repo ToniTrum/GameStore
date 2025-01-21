@@ -7,6 +7,8 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+
+from datetime import timezone
 import random
 
 from .models import User, Profile, ConfirmationCode
@@ -101,7 +103,6 @@ def subscribe_user(request, user_id):
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_user(request, user_id):
-    print("Заголовок Authorization:", request.headers.get("Authorization"))
     try:
         user = User.objects.get(id=user_id)
 
@@ -111,7 +112,9 @@ def delete_user(request, user_id):
                 status=status.HTTP_403_FORBIDDEN
             )
 
-        user.delete()
+        user.deleted = True
+        user.deleted_at = timezone.now()
+        user.save()
         return Response({}, status=status.HTTP_204_NO_CONTENT)
     except User.DoesNotExist:
         return Response(
