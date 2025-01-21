@@ -28,18 +28,18 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-    
-class ResetPasswordCode(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class ConfirmationCode(models.Model):
+    email = models.EmailField()
     code = models.CharField(max_length=4)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def send_code_to_email(self):
         send_mail(
-            "Сброс пароля",
-            f"Ваш код сброса пароля: {self.code}",
+            "Код подтверждения",
+            f"Ваш код подтверждения: {self.code}",
             settings.EMAIL_HOST_USER,
-            [self.user.email],
+            [self.email],
             fail_silently=False
         )
 
@@ -54,7 +54,10 @@ def save_user_profile(sender, instance, **kwargs):
 @receiver(models.signals.post_delete, sender=Profile)
 def delete_file_on_delete(sender, instance, **kwargs):
     if instance.image and os.path.isfile(instance.image.path):
-        os.remove(instance.image.path)
+        default_avatar_relative_path = 'static\icons\default-avatar.png'
+        image_relative_path = os.path.relpath(instance.image.path, settings.BASE_DIR)
+        if image_relative_path != default_avatar_relative_path:
+            os.remove(instance.image.path)
 
 models.signals.post_save.connect(create_user_profile, sender=User)
 models.signals.post_save.connect(save_user_profile, sender=User)

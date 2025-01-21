@@ -1,48 +1,44 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 import { API_URL } from "../../../main"
 
 import "../Authorization.css"
 
-const EmailFieldForResetPassword = () => {
+const ConfirmPasswordPanel = () => {
+    const { id } = useParams()
     const navigate = useNavigate()
     const [error, setError] = useState('')
 
     const onClick = () => {
-        navigate("/login")
+        navigate(`/user/id/${id}/profile`)
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const email = event.target.email.value;
+        const password = event.target.password.value;
 
-        const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
+        const response = await fetch(`${API_URL}/users/check_password/${id}/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({email: email})
+            body: JSON.stringify({ password: password }),
         })
 
-        if (response.ok) navigate('/reset-password/code', {state: {
-            email, 
-            action: 'reset', 
-            prev: '/login',
-            next: '/login'
-        }})
-        else if (response.status === 404) setError('Пользователь с таким email не найден')
+        if (response.ok) navigate(`/user/id/${id}/change-email`, {state: {password: password}})
+        else if (response.status === 400) setError('Неверный пароль')
         else console.log(response)
     }
 
     return (
         <main>
             <form className="authorization-form" action='' method="post" onSubmit={handleSubmit}>
-                <h1 className="form-title">Смена пароля</h1>
+                <h1 className="form-title">Изменение электронной почты</h1>
 
                 <div className="form-item">
-                    <label className="form-label" htmlFor="email">Электронная почта</label>
-                    <input className="form-input" type="email" name="email" id="email" />
+                    <label className="form-label" htmlFor="email">Подтвердите пароль</label>
+                    <input className="form-input" type="password" name="password" id="password" />
                     <div className="form-error">{error.length > 0 && <span className="error-message">{error}</span>}</div>
                 </div>
 
@@ -62,4 +58,4 @@ const EmailFieldForResetPassword = () => {
     )
 }
 
-export default EmailFieldForResetPassword
+export default ConfirmPasswordPanel

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 import arrowDown from "../../assets/img/down-arrow.svg"
 import yesIcon from "../../assets/img/yes.svg"
@@ -10,6 +10,7 @@ import { API_URL } from "../../main"
 
 const FiltrationPanel = ({setGames, setTotalPages}) => {
     const { id, pageNumber } = useParams()
+    const navigate = useNavigate()
 
     const [isStored, setIsStored] = useState(false)
 
@@ -84,27 +85,32 @@ const FiltrationPanel = ({setGames, setTotalPages}) => {
         setIsStored(true)
     }, [])
 
+    const fetchGames = async () => {
+        const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
+        const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
+        const tagsQuery = selectedTags.map((tag) => `&tags=${tag}`).join("")
+        const developersQuery = selectedDevelopers.map((developer) => `&developers=${developer}`).join("")
+        const nameQuery = name ? `&name=${name}` : ""
+
+        const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}${platformsQuery}${genresQuery}${tagsQuery}${developersQuery}${nameQuery}`, {
+            method: "GET",
+            credentials: "include",
+        })
+        const data = await response.json()
+        setTotalPages(data.total_pages)
+        setGames(data.results)
+    }
+
     useEffect(() => {
         if (!isStored) return
-        
-        const fetchGames = async () => {
-            const platformsQuery = selectedPlatforms.map((platform) => `&platforms=${platform}`).join("")
-            const genresQuery = selectedGenres.map((genre) => `&genres=${genre}`).join("")
-            const tagsQuery = selectedTags.map((tag) => `&tags=${tag}`).join("")
-            const developersQuery = selectedDevelopers.map((developer) => `&developers=${developer}`).join("")
-            const nameQuery = name ? `&name=${name}` : ""
-
-            const response = await fetch(`${API_URL}/games/games/get/${id}/?page=${pageNumber}${platformsQuery}${genresQuery}${tagsQuery}${developersQuery}${nameQuery}`, {
-                method: "GET",
-                credentials: "include",
-            })
-            const data = await response.json()
-            setTotalPages(data.total_pages)
-            setGames(data.results)
-        }
-
+        navigate(`/user/id/${id}/store/page/1`)
         fetchGames()
-    }, [pageNumber, selectedPlatforms, selectedGenres, selectedTags, selectedDevelopers, name])
+    }, [selectedPlatforms, selectedGenres, selectedTags, selectedDevelopers, name])
+    
+    useEffect(() => {
+        if (!isStored) return
+        fetchGames()
+    }, [pageNumber])
 
     const onChange = (value) => {
         setName(value)

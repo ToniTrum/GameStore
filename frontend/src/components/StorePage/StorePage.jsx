@@ -37,14 +37,17 @@ const StorePage = () => {
             <FiltrationPanel setGames={setGames} setTotalPages={setTotalPages} />
 
             <div className="store__games">
-                {games.map((game) => (
+                {games && games.length > 0 ? games.map((game) => (
                     <GameCard 
                         key={game.id} 
                         game={game} 
                         currency={countryCurrency} 
                         symbol={userCountry.currency_symbol} 
                     /> 
-                ))}
+                ))
+                : (
+                    <h2 className="store__no-games">По такому запросу игр не найдено</h2>
+                )}
             </div>
 
             <PaginationButtons 

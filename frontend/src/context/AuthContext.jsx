@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
     const history = useNavigate();
 
-    const loginUser = async (email, password) => {
+    const loginUser = async (email, password, endpoint="/") => {
         const response = await fetch(`${API_URL}/users/token/`, {
             method: "POST",
             headers:{
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("authTokens", JSON.stringify(data))
 
             const userID = jwtDecode(data.access).user_id
-            history(`/user/id/${userID}`)
+            history(`user/id/${userID}${endpoint}`)
         }
         else 
         {    
@@ -74,16 +74,7 @@ export const AuthProvider = ({ children }) => {
 
         if(response.status === 201)
         {
-            history("/login")
-            sweetAlert.fire({
-                title: "Успешная регистрация",
-                icon: "success",
-                toast: true,
-                timer: 3000,
-                position: 'top-right',
-                timerProgressBar: true,
-                showConfirmButton: false,
-            })
+            return 201;
         } 
         else 
         {

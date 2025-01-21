@@ -1,19 +1,27 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 
 import { API_URL } from "../../../main"
+import useAxios from "../../../utils/useAxios"
+import AuthContext from "../../../context/AuthContext"
 
 import "../Authorization.css"
 import "./ResetCodeField.css"
 
 const ResetCodeField = () => {
+    const {loginUser} = useContext(AuthContext)
     const navigate = useNavigate()
+    const api = useAxios()
     const location = useLocation()
-    const email = location.state
+
+    const prev = location.state.prev
+    const email = location.state.email
+    const action = location.state.action
     const [error, setError] = useState('')
+    console.log(location.state)
 
     const onClick = () => {
-        navigate("/reset-password/email")
+        navigate(prev)
     }
 
     const handleSubmit = async (event) => {
@@ -25,7 +33,7 @@ const ResetCodeField = () => {
 
         if (digit1.length > 0 && digit2.length > 0 && digit3.length > 0 && digit4.length > 0) {
             const code = digit1 + digit2 + digit3 + digit4
-            const response = await fetch(`${API_URL}/users/check_reset_code/`, {
+            const response = await fetch(`${API_URL}/users/check_confirmation_code/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,8 +43,23 @@ const ResetCodeField = () => {
                     code: code
                 })
             })
+            console.log(email)
     
-            if (response.ok) navigate('/reset-password', {state: email})
+            if (response.ok) 
+            {
+                if (action === 'reset') navigate('/reset-password', {state: {
+                    email: email,
+                    next: location.state.next
+                }})
+                else if (action === 'change_email')
+                {
+                    const id = location.state.id
+                    const response = await api.put(`/users/change_email/${id}/`, {email: email})
+
+                    if (response.status === 200) loginUser(email, location.state.password, `/profile`)
+                    else console.log(response)
+                }
+            }
             else if (response.status === 400) setError('Неверный код')
             else console.log(response)
         }

@@ -12,7 +12,7 @@ import "./RegisterPanel.css";
 
 const RegisterPanel = () => {
   const navigate = useNavigate();
-  const { registerUser } = useContext(AuthContext);
+  const { loginUser, registerUser } = useContext(AuthContext);
 
   const [isShow, setIsShow] = useState(false);
   const [countryList, setCountryList] = useState([]);
@@ -135,18 +135,26 @@ const RegisterPanel = () => {
     if (!selectedCountry) {
       sendErrorMessage("Выберите страну из списка");
       return;
-    }
+    };
 
-    registerUser(
-      email,
-      username,
-      password,
-      password2,
-      firstName,
-      lastName,
-      selectedCountry.numeric_code,
-      birthdate
-    );
+    try {
+      const registerResponse = await registerUser(
+        email,
+        username,
+        password,
+        password2,
+        firstName,
+        lastName,
+        selectedCountry.numeric_code,
+        birthdate
+      );
+      console.log(registerResponse);
+      if (registerResponse === 201) {
+        await loginUser(email, password);
+      }
+    } catch (error) {
+        console.error("Ошибка при регистрации", error);
+    }
   };
 
   const registrationData = [

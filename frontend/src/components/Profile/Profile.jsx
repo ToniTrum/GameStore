@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import sweetAlert from "sweetalert2";
 
 import AuthContext from "../../context/AuthContext";
@@ -12,9 +12,29 @@ import useAxios from "../../utils/useAxios";
 import "./Profile.css";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const api = useAxios();
   const { userCountry, countryCurrency } = useCountryAndCurrency();
   const { user, logoutUser } = useContext(AuthContext);
+
+  const handleChangePassword = async () => {
+    const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email: user.email})
+    })
+
+    if (response.ok) 
+      navigate('/reset-password/code', {state: {
+        email: user.email, 
+        action: 'reset', 
+        prev: `/user/id/${user.user_id}/profile`,
+        next: `/user/id/${user.user_id}/profile`
+      }})
+    else console.log(response)
+  }
 
   const deleteUser = async () => {
     const response = await api.delete(`/users/delete/${user.user_id}/`);
@@ -72,8 +92,14 @@ const Profile = () => {
 
       <div className="change-buttons">
         <Link to={`/user/id/${user.user_id}/change`}>
-          <button className="edit-button">Изменить данные</button>
+          <button className="edit-button">Изменить данные профиля</button>
         </Link>
+        <Link to={`/user/id/${user.user_id}/confirm-password`}>
+          <button className="edit-button">Изменить электронную почту</button>
+        </Link>
+        <button className="edit-button" onClick={handleChangePassword}>
+          Изменить пароль
+        </button>
         <button className="delete-button" onClick={deleteUser}>
           Удалить аккаунт
         </button>

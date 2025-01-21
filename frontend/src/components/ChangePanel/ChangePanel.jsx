@@ -16,10 +16,7 @@ const ChangePanel = () => {
     const [countryList, setCountryList] = useState([])
 
     const [username, setUsername] = useState(user.username)
-    const [email, setEmail] = useState(user.email)
-    const [oldPassword, setOldPassword] = useState("")
     const [password, setPassword] = useState("")
-    const [password2, setPassword2] = useState("")
     const [firstName, setFirstName] = useState(user.first_name)
     const [lastName, setLastName] = useState(user.last_name)
     const [birthdate, setBirthdate] = useState(user.birthdate)
@@ -28,10 +25,7 @@ const ChangePanel = () => {
     const [avatar, setAvatar] = useState(`${API_URL}/${user.image}`)
 	const [errors, setErrors] = useState({
 		username: "",
-		email: "",
 		oldPassword: "",
-		password: "",
-		password2: "",
 		firstName: "",
 		lastName: "",
 		birthdate: "",
@@ -40,36 +34,17 @@ const ChangePanel = () => {
 
     const userDataForChanging = [
         {
+            "name": "oldPassword",
+            "label": "Введите пароль для подтверждения",
+            "type": "password",
+            "stateFunction": setPassword
+        },
+        {
             "name": "username",
             "label": "Имя пользователя",
             "type": "text",
             "stateFunction": setUsername,
             "text": username
-        },
-        {
-            "name": "email",
-            "label": "Электронная почта",
-            "type": "email",
-            "stateFunction": setEmail,
-            "text": email
-        },
-        {
-            "name": "oldPassword",
-            "label": "Старый пароль",
-            "type": "password",
-            "stateFunction": setOldPassword
-        },
-        {
-            "name": "password",
-            "label": "Новый пароль",
-            "type": "password",
-            "stateFunction": setPassword
-        },
-        {
-            "name": "password2",
-            "label": "Подтвердите пароль",
-            "type": "password",
-            "stateFunction": setPassword2
         },
         {
             "name": "firstName",
@@ -99,10 +74,7 @@ const ChangePanel = () => {
 
         if(response.status === 200)
         {
-            if (formData.get("password"))
-                loginUser(formData.get("email"), formData.get("password"))
-            else
-                loginUser(formData.get("email"), formData.get("old_password"))
+            loginUser(user.email, formData.get("password"), '/profile')
             sweetAlert.fire({
                 title: "Данные успешно обновлены",
                 icon: "success",
@@ -113,10 +85,38 @@ const ChangePanel = () => {
                 showConfirmButton: false,
             })
         }
-		else if (response.status === 400) setErrors((prevErrors) => ({
-			...prevErrors,
-			"password": "Неверный пароль",
-		}))
+		else if (response.status === 400) 
+        {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                "oldPassword": "Неверный пароль",
+            }))
+            sweetAlert.fire({
+                title: "Неверный пароль",
+                icon: "error",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
+        else if (response.status === 401) 
+        {
+            setErrors((prevErrors) => ({
+                ...prevErrors,
+                "username": "Пользователь с таким именем уже существует",
+            }))
+            sweetAlert.fire({
+                title: "Пользователь с таким именем уже существуеть",
+                icon: "error",
+                toast: true,
+                timer: 3000,
+                position: 'top-right',
+                timerProgressBar: true,
+                showConfirmButton: false,
+            })
+        }
         else
         {
             const errorData = await response.data
@@ -161,7 +161,7 @@ const ChangePanel = () => {
 	useEffect(() => {
 		if (countryList.length > 0) {
 			const selectedCountry = countryList.find(
-				(item) => item.id === user.country_id
+				(item) => item.numeric_code === user.country
 			)
 			setCountry(selectedCountry ? selectedCountry.name_ru : "")
 		}
@@ -174,7 +174,7 @@ const ChangePanel = () => {
 			(item) => item.name_ru.toLowerCase() === value.toLowerCase()
 		)
 		errors.country = isInList ? "" : "Страна не найдена в списке"
-	
+
 		if (isInList) {
 			setCountry(value);
 		}
@@ -193,18 +193,10 @@ const ChangePanel = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target
 		
-		if (name === "password" && value.length === 0) {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				"password": "",
-			}))
-		}
-		else {
-			setErrors((prevErrors) => ({
-				...prevErrors,
-				[name]: validateFields([{ name, value }], password)[name] || "",
-			}))
-		}
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: validateFields([{ name, value }], password)[name] || "",
+        }))
 
 		const stateFunction = userDataForChanging.find(
 			(item) => item.name === name
@@ -232,10 +224,7 @@ const ChangePanel = () => {
     const handleSubmit = async (event) => {
         event.preventDefault()
         if (errors.username.length === 0 &&
-			errors.email.length === 0 &&
 			errors.oldPassword.length === 0 &&
-			errors.password.length === 0 &&
-			errors.password2.length === 0 &&
 			errors.firstName.length === 0 &&
 			errors.lastName.length === 0 &&
 			errors.birthdate.length === 0
@@ -243,8 +232,6 @@ const ChangePanel = () => {
             const formData = new FormData()
             if (image) formData.append("image", image)
             formData.append("username", username)
-            formData.append("email", email)
-            formData.append("old_password", oldPassword)
             formData.append("password", password)
             formData.append("first_name", firstName)
             formData.append("last_name", lastName)
@@ -289,14 +276,8 @@ const ChangePanel = () => {
                                 value={
 									item.name === "username"
 									? username
-									: item.name === "email"
-									? email
 									: item.name === "oldPassword"
-									? oldPassword
-									: item.name === "password"
 									? password
-									: item.name === "password2"
-									? password2
 									: item.name === "firstName"
 									? firstName
 									: item.name === "lastName"
