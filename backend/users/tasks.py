@@ -1,6 +1,10 @@
 from celery import shared_task
+from datetime import timedelta
+
+from django.utils.timezone import now
 from django.core.mail import send_mail
 from django.conf import settings
+
 from .models import User
 from games.models import Game
 from library.models import Library
@@ -37,3 +41,9 @@ def send_subscription_emails():
             fail_silently=False,
             html_message=html_message
         )
+
+@shared_task
+def delete_old_users():
+    threshold_date = now() - timedelta(days=30)
+    users_to_delete = User.objects.filter(deleted_at__lte=threshold_date, deleted=True)
+    users_to_delete.delete()
