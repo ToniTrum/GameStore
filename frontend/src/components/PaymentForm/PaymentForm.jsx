@@ -18,21 +18,24 @@ const PaymentForm = ({ game }) => {
         event.preventDefault()
         const cardNumber = elements.getElement(CardNumberElement)
 
-        const {paymentMethod, error} = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardNumber
-        })
-        console.log(paymentMethod)
-
-        await api.post('/payments/save_stripe_info/', {
-            email: user.email,
-            payment_method_id: paymentMethod.id,
-            price: game.price_in_cents
-        }).then(response => {
-            console.log(response.data)
-        }).catch(error => {
-            console.log(error)
-        })
+        if (game.price_in_cents !== 0)
+        {
+            const {paymentMethod, error} = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardNumber
+            })
+            console.log(paymentMethod)
+    
+            await api.post('/payments/save_stripe_info/', {
+                email: user.email,
+                payment_method_id: paymentMethod.id,
+                price: game.price_in_cents
+            }).then(response => {
+                console.log(response.data)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
 
         await api.post(`library/library/add/${user.user_id}/${game.id}/`)
             .then(response => {
@@ -47,16 +50,18 @@ const PaymentForm = ({ game }) => {
 
     return (
         <form onSubmit={handleSubmit} className="stripe-form">
-            <div className="card-panel">
-                <h1>Введите данные карты</h1>
-                <div className="card-form-container">
-                    <CardFormElement CardComponent={CardNumberElement} label={"Номер карты"} />
-                    <div className="card-form-row">
-                        <CardFormElement CardComponent={CardExpiryElement} label={"Срок действия"} />
-                        <CardFormElement CardComponent={CardCvcElement} label={"CVC"} />
+            {game.price_in_cents !== 0 && (
+                <div className="card-panel">
+                    <h1>Введите данные карты</h1>
+                    <div className="card-form-container">
+                        <CardFormElement CardComponent={CardNumberElement} label={"Номер карты"} />
+                        <div className="card-form-row">
+                            <CardFormElement CardComponent={CardExpiryElement} label={"Срок действия"} />
+                            <CardFormElement CardComponent={CardCvcElement} label={"CVC"} />
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
 
             <button type="submit" className="submit-btn">
                 Оформить заказ
