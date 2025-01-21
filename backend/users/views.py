@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
+from django.utils import timezone
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework import generics, status
@@ -8,7 +9,6 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
-from datetime import timezone
 import random
 
 from .models import User, Profile, ConfirmationCode
@@ -46,8 +46,10 @@ def check_email(request):
     try:
         email = request.data.get('email')
         user = User.objects.get(email=email)
-        if user:
+        if user and not user.deleted:
             return Response({"details": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"details": "Email does not exist"}, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({"details": "Email does not exist"}, status=status.HTTP_200_OK)
     except Exception as e:
@@ -111,7 +113,7 @@ def delete_user(request, user_id):
                 {"detail": "Вы не можете удалить чужой аккаунт."},
                 status=status.HTTP_403_FORBIDDEN
             )
-
+        
         user.deleted = True
         user.deleted_at = timezone.now()
         user.save()
