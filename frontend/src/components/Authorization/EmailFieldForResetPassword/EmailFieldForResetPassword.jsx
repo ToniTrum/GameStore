@@ -25,7 +25,12 @@ const EmailFieldForResetPassword = () => {
             body: JSON.stringify({email: email})
         })
 
-        if (response.ok) navigate('/reset-password/code', {state: {email, action: 'reset', prev: '/login'}})
+        if (response.ok) navigate('/reset-password/code', {state: {
+            email, 
+            action: 'reset', 
+            prev: '/login',
+            next: '/login'
+        }})
         else if (response.status === 404) setError('Пользователь с таким email не найден')
         else console.log(response)
     }

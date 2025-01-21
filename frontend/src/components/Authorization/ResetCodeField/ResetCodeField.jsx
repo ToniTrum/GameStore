@@ -47,7 +47,10 @@ const ResetCodeField = () => {
     
             if (response.ok) 
             {
-                if (action === 'reset') navigate('/reset-password', {state: email})
+                if (action === 'reset') navigate('/reset-password', {state: {
+                    email: email,
+                    next: location.state.next
+                }})
                 else if (action === 'change_email')
                 {
                     const id = location.state.id

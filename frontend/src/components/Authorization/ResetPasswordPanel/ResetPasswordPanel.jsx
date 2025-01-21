@@ -8,7 +8,8 @@ import "../Authorization.css"
 const ResetPasswordPanel = () => {
     const navigate = useNavigate()
     const location = useLocation()
-    const email = location.state
+    const email = location.state.email
+    const next = location.state.next
 
     const [password, setPassword] = useState('')
     const [password2, setPassword2] = useState('')
@@ -63,7 +64,7 @@ const ResetPasswordPanel = () => {
                 })
             })
 
-            if (response.ok) navigate('/login')
+            if (response.ok) navigate(next)
             else console.log(response)
         }
     }
