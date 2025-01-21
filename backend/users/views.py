@@ -149,13 +149,14 @@ def check_confirmation_code(request):
     try:
         email = request.data.get('email')
         code = request.data.get('code')
+        print(email, code)
         reset_password_code = ConfirmationCode.objects.get(email=email)
         if reset_password_code.code == code:
-            return Response({"details": "Reset password code is valid"}, status=status.HTTP_200_OK)
+            return Response({"details": "Confirmation code is valid"}, status=status.HTTP_200_OK)
         else:
-            return Response({"details": "Reset password code is invalid"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"details": "Confirmation code is invalid"}, status=status.HTTP_400_BAD_REQUEST)
     except ConfirmationCode.DoesNotExist:
-        return Response({"details": "Reset password code not found"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"details": "Confirmation code not found"}, status=status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     

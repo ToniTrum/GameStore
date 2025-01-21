@@ -1,10 +1,12 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams, useLocation } from "react-router-dom"
 
 import { API_URL } from "../../main"
 
 const ChangeEmailField = () => {
     const navigate = useNavigate()
+    const location = useLocation()
+    const { id } = useParams()
 
     const [email, setEmail] = useState('')
     const [error, setError] = useState("")
@@ -54,7 +56,9 @@ const ChangeEmailField = () => {
                     })
                 })
 
-                if (response.ok) navigate('/reset-password/code', {state: email})
+                if (response.ok) navigate('/reset-password/code', {state: {
+                    email: email, action: 'change_email', id: id, password: location.state.password
+                }})
                 else console.log(response)
             }
             else 

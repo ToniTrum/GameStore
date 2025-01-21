@@ -24,7 +24,7 @@ const ConfirmPasswordPanel = () => {
             body: JSON.stringify({ password: password }),
         })
 
-        if (response.ok) navigate(`/user/id/${id}/change-email`)
+        if (response.ok) navigate(`/user/id/${id}/change-email`, {state: {password: password}})
         else if (response.status === 400) setError('Неверный пароль')
         else console.log(response)
     }
