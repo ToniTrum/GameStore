@@ -62,6 +62,7 @@ const LibraryPage = () => {
                         symbol={userCountry.currency_symbol} 
                     /> 
                 ))}
+                {games.length === 0 && <h2 className="store__no-games">В вашей библиотеке нет игр</h2>}
             </div>
 
             <PaginationButtons 

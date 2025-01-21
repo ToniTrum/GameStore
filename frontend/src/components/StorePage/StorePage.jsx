@@ -45,6 +45,7 @@ const StorePage = () => {
                         symbol={userCountry.currency_symbol} 
                     /> 
                 ))}
+                {games.length === 0 && <h2 className="store__no-games">По такому запросу игр не найдено</h2>}
             </div>
 
             <PaginationButtons 
