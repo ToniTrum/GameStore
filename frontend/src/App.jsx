@@ -39,10 +39,7 @@ function App() {
           <Route path="/" element={<StartRoute />} />
           <Route path="/login" element={<LoginPanel />} />
           <Route path="/register" element={<RegisterPanel />} />
-          <Route
-            path="/reset-password/email"
-            element={<EmailFieldForResetPassword />}
-          />
+          <Route path="/reset-password/email" element={<EmailFieldForResetPassword />} />
           <Route path="/reset-password/code" element={<ResetCodeField />} />
           <Route path="/reset-password" element={<ResetPasswordPanel />} />
           <Route path="/auth-warning" element={<AuthWarningPage />} />

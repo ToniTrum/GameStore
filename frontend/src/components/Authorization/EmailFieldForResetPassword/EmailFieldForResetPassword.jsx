@@ -17,7 +17,7 @@ const EmailFieldForResetPassword = () => {
         event.preventDefault()
         const email = event.target.email.value;
 
-        const response = await fetch(`${API_URL}/users/create_reset_code/`, {
+        const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ const EmailFieldForResetPassword = () => {
             body: JSON.stringify({email: email})
         })
 
-        if (response.ok) navigate('/reset-password/code', {state: email})
+        if (response.ok) navigate('/reset-password/code', {state: {email, action: 'reset'}})
         else if (response.status === 404) setError('Пользователь с таким email не найден')
         else console.log(response)
     }
