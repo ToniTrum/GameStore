@@ -14,13 +14,14 @@ const ResetCodeField = () => {
     const api = useAxios()
     const location = useLocation()
 
+    const prev = location.state.prev
     const email = location.state.email
     const action = location.state.action
     const [error, setError] = useState('')
     console.log(location.state)
 
     const onClick = () => {
-        navigate("/reset-password/email")
+        navigate(prev)
     }
 
     const handleSubmit = async (event) => {

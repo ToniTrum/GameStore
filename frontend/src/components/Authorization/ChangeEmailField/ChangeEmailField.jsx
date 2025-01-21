@@ -59,7 +59,11 @@ const ChangeEmailField = () => {
                 })
 
                 if (response.ok) navigate('/reset-password/code', {state: {
-                    email: email, action: 'change_email', id: id, password: location.state.password
+                    email: email, 
+                    action: 'change_email', 
+                    prev: `/user/id/${id}/profile`, 
+                    id: id, 
+                    password: location.state.password
                 }})
                 else console.log(response)
             }
