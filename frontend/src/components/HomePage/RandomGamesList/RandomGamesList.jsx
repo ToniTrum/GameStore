@@ -1,48 +1,51 @@
-import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
-import { API_URL } from "../../../main"
-import GameCard from "../../GameCard/GameCard"
+import { API_URL } from "../../../main";
+import GameCard from "../../GameCard/GameCard";
 
-import "./RandomGamesList.css"
+import "./RandomGamesList.css";
 
 const RandomGamesList = ({ currency, symbol }) => {
-    const { id } = useParams()
+  const { id } = useParams();
 
-    const [games, setGames] = useState([])
+  const [games, setGames] = useState([]);
 
-    useEffect(() => {
-        const fetchGames = async () => {
-            try 
-            {
-                const response = await fetch(`${API_URL}/games/random_games/${id}`, {method: 'GET'})
-                const data = await response.json()
-                setGames(data)
-            } 
-            catch (error) 
-            {
-                console.error(error)
-            }
-        }
+  useEffect(() => {
+    const fetchGames = async () => {
+      try {
+        const response = await fetch(`${API_URL}/games/random_games/${id}`, {
+          method: "GET",
+        });
+        const data = await response.json();
+        setGames(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        fetchGames()
-    }, [])
+    fetchGames();
+  }, []);
 
-    return (
-        <div className="random-games">
-            <h1 className="random-games__title">Откройте для себя новые границы</h1>
-
-            <div className="game-cards">
-                {games.map((game) => (
-                    <GameCard 
-                        key={game.id} 
-                        game={game} 
-                        currency={currency} 
-                        symbol={symbol} />
-                ))}
-            </div>
+  return (
+    <div className="random-games">
+      <h1 className="random-games__title">Откройте для себя новые границы</h1>
+      
+      <div className="random-games__container">
+        <div className="games__shadow"></div>
+        <div className="game-cards">
+          {games.map((game) => (
+            <GameCard
+              key={game.id}
+              game={game}
+              currency={currency}
+              symbol={symbol}
+            />
+          ))}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default RandomGamesList
+export default RandomGamesList;
