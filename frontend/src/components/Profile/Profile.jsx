@@ -17,6 +17,12 @@ const Profile = () => {
   const { userCountry, countryCurrency } = useCountryAndCurrency();
   const { user, logoutUser } = useContext(AuthContext);
 
+  const handleChangeEmail = () => {
+    navigate(`/user/id/${user.user_id}/confirm-password`, {
+      state: {next: `/user/id/${user.user_id}/change-email`}
+    })
+  }
+
   const handleChangePassword = async () => {
     const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
       method: 'POST',
@@ -37,33 +43,12 @@ const Profile = () => {
   }
 
   const deleteUser = async () => {
-    const response = await api.delete(`/users/delete/${user.user_id}/`);
+    const result = confirm("Вы действительно хотите удалить свой аккаунт?")
+    if (!result) return
 
-    if (response.status === 204) {
-      logoutUser();
-      sweetAlert.fire({
-        title: "Вы удалили свой аккаунт",
-        icon: "success",
-        toast: true,
-        timer: 3000,
-        position: "top-right",
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
-    } else {
-      const errorData = await response.json();
-      logoutUser();
-      sweetAlert.fire({
-        title: "Ошибка",
-        text: errorData.detail,
-        icon: "success",
-        toast: true,
-        timer: 6000,
-        position: "top-right",
-        timerProgressBar: true,
-        showConfirmButton: false,
-      });
-    }
+    navigate(`/user/id/${user.user_id}/confirm-password`, {
+      state: {next: `/reset-password/code`, action: "code", email: user.email}
+    })
   };
 
   return (
@@ -94,9 +79,9 @@ const Profile = () => {
         <Link to={`/user/id/${user.user_id}/change`}>
           <button className="edit-button">Изменить данные профиля</button>
         </Link>
-        <Link to={`/user/id/${user.user_id}/confirm-password`}>
-          <button className="edit-button">Изменить электронную почту</button>
-        </Link>
+        <button className="edit-button" onClick={handleChangeEmail}>
+          Изменить электронную почту
+        </button>
         <button className="edit-button" onClick={handleChangePassword}>
           Изменить пароль
         </button>
