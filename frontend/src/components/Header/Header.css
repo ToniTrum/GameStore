@@ -1,76 +1,81 @@
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    background-color: black;
-    position: fixed;
-    width: 100vw;
-    z-index: 10;
-    padding: 0 2rem;
+  background-color: black;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
+  padding: 0 2rem;
 }
 
 .header-title {
-    display: flex;
-    align-items: center;
-    font-family: "Sclate";
-    white-space: nowrap; /* Предотвращает перенос текста */
+  display: flex;
+  align-items: center;
+  font-family: "Sclate";
+  white-space: nowrap;
 }
 
 .header-logo {
-    width: 6rem;
-    margin-right: 1rem;
-    flex-shrink: 0; /* Сохраняет размер изображения */
+  width: 6rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
 }
 
 .header-text {
-    display: inline-block;
-    font-size: 2rem;
-    font-weight: bold;
-    font-style: italic;
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: bold;
+  font-style: italic;
 }
 
-/* Медиазапрос для экранов шириной до 1084px */
+.header-text-white {
+  color: white; /* Белый текст */
+}
+
+.header-text-red {
+  color: rgba(214, 10, 10, 0.87); /* Красный текст */
+}
+
 @media screen and (max-width: 1084px) {
-    .header-logo {
-        width: 5rem;
-    }
+  .header-logo {
+    width: 5rem;
+  }
 
-    .header-text {
-        font-size: 1.8rem;
-    }
+  .header-text {
+    font-size: 1.8rem;
+  }
 
-    header {
-        padding: 0 1.5rem;
-    }
+  header {
+    padding: 0 1.5rem;
+  }
 }
 
-/* Медиазапрос для экранов шириной до 659px */
 @media screen and (max-width: 659px) {
-    .header-logo {
-        width: 4rem;
-    }
+  .header-logo {
+    width: 4rem;
+  }
 
-    .header-text {
-        font-size: 1.5rem;
-    }
+  .header-text {
+    font-size: 1.5rem;
+  }
 
-    header {
-        padding: 0 1rem;
-    }
+  header {
+    padding: 0 1rem;
+  }
 }
 
-/* Медиазапрос для экранов шириной до 398px */
 @media screen and (max-width: 398px) {
-    .header-logo {
-        width: 3rem;
-    }
+  .header-logo {
+    width: 3rem;
+  }
 
-    .header-text {
-        font-size: 1.2rem;
-    }
+  .header-text {
+    font-size: 1.2rem;
+  }
 
-    header {
-        padding: 0 0.5rem;
-    }
+  header {
+    padding: 0 0.5rem;
+  }
 }

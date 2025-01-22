@@ -36,7 +36,19 @@
 }
 
 .footer-links li a:hover {
-  color: #ff5722;
+  color: var(--hover-color);
+}
+
+.subscribe-button {
+  all: unset; 
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.subscribe-button:hover {
+  color: var(--hover-color);
 }
 
 @media (max-width: 768px) {

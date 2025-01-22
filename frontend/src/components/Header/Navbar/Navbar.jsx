@@ -2,11 +2,11 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-import sideMenuButton from "../../assets/img/side-menu.svg";
-import xMarkButton from "../../assets/img/x-mark.svg";
+import sideMenuButton from "../../../assets/img/side-menu.svg";
+import xMarkButton from "../../../assets/img/x-mark.svg";
 
-import NavbarItem from "../NavbarItem/NavbarItem";
-import AuthContext from "../../context/AuthContext";
+import NavbarItem from "./NavbarItem/NavbarItem";
+import AuthContext from "../../../context/AuthContext";
 
 import "./Navbar.css";
 

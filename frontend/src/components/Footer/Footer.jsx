@@ -1,13 +1,16 @@
 import "./Footer.css";
 import { useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import PrivacyPolicyPanel from "../PrivacyPolicyPage/PrivacyPolicyPanel";
+import useAxios from "../../utils/useAxios";
 
 const Footer = () => {
   const [isShow, setIsShow] = useState(false);
   const { user } = useContext(AuthContext);
+  const [isSubscribed, setIsSubscribed] = useState(user?.subscribed || false);
   const navigate = useNavigate();
+  const api = useAxios();
 
   const handleOpenModal = () => {
     setIsShow((prev) => !prev);
@@ -18,6 +21,15 @@ const Footer = () => {
       navigate(`/user/id/${user.user_id}/feedback`);
     } else {
       navigate("/auth-warning");
+    }
+  };
+
+  const handleSubscribeClick = async () => {
+    try {
+      await api.put(`/users/subscribe/${user?.user_id}/`);
+      setIsSubscribed((prev) => !prev);
+    } catch (error) {
+      console.error("Failed to update subscription:", error);
     }
   };
 
@@ -40,6 +52,17 @@ const Footer = () => {
               <span className="link" onClick={handleSupportClick}>
                 Поддержка
               </span>
+            </li>
+
+            <li>
+              <button
+                className="subscribe-button"
+                onClick={handleSubscribeClick}
+              >
+                {isSubscribed
+                  ? "Отписаться от обновлений"
+                  : "Подписаться на обновления"}
+              </button>
             </li>
           </ul>
         </div>
