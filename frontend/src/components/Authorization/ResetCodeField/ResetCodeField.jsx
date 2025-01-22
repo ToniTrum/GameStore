@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useState, useContext, act } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 
 import { API_URL } from "../../../main"
@@ -58,6 +58,11 @@ const ResetCodeField = () => {
 
                     if (response.status === 200) loginUser(email, location.state.password, `/profile`)
                     else console.log(response)
+                }
+                else if (action == "delete")
+                {
+                    const id = location.state.id
+                    navigate(`/user/id/${id}/delete/`, {state: "ok"})
                 }
             }
             else if (response.status === 400) setError('Неверный код')

@@ -4,13 +4,14 @@ from currency.models import Country
 from django.contrib.auth.password_validation import validate_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed
 from datetime import date
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email']
+        fields = ['id', 'username', 'email', 'deleted', 'deleted_at']
 
 class TokenSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -31,6 +32,13 @@ class TokenSerializer(TokenObtainPairSerializer):
         token['subscribed'] = user.profile.subscribed
 
         return token
+    
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        if self.user.deleted:
+            raise AuthenticationFailed("User account is deactivated.", code='user_deleted')
+        
+        return data
     
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, validators=[validate_password])

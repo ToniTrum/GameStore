@@ -17,7 +17,7 @@ const EmailFieldForResetPassword = () => {
         event.preventDefault()
         const email = event.target.email.value;
 
-        const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
+        const responseEmail = await fetch(`${API_URL}/users/check_email/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -25,14 +25,27 @@ const EmailFieldForResetPassword = () => {
             body: JSON.stringify({email: email})
         })
 
-        if (response.ok) navigate('/reset-password/code', {state: {
-            email, 
-            action: 'reset', 
-            prev: '/login',
-            next: '/login'
-        }})
-        else if (response.status === 404) setError('Пользователь с таким email не найден')
-        else console.log(response)
+        if (responseEmail.status === 400)
+        {
+            const response = await fetch(`${API_URL}/users/create_confirmation_code/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({email: email})
+            })
+    
+            if (response.ok) navigate('/reset-password/code', {state: {
+                email, 
+                action: 'reset', 
+                prev: '/login',
+                next: '/login'
+            }})
+            else if (response.status === 404) setError('Пользователь с таким email не найден')
+            else console.log(response)
+        }
+        else if (responseEmail.status === 200) setError('Пользователь с таким email не найден')
+        else console.log(responseEmail) 
     }
 
     return (
