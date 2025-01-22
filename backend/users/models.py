@@ -10,6 +10,8 @@ from currency.models import Country
 class User(AbstractUser):
     username = models.CharField(max_length=64, unique=True)
     email = models.EmailField(unique=True)
+    deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
