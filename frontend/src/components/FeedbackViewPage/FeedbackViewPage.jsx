@@ -29,7 +29,7 @@ const FeedbackViewPage = () => {
     const onClickEdit = () => {
         navigate(`/user/id/${id}/feedback/edit/${feedback_id}/`)
     }
-
+    console.log(feedback)
     return (
         <section className="feedback-section">
             <form className="feedback-form">
@@ -60,6 +60,12 @@ const FeedbackViewPage = () => {
 
                 {feedback?.status === "Отправлено" && (
                     <button onClick={onClickEdit} className="feedback-button">Редактировать</button>
+                )}
+                {feedback?.status !== "Отправлено" && feedback?.comment !== null && feedback?.comment !== "" && (
+                    <>
+                    <label className="feedback-label">Комментарий от администратора</label>
+                    <textarea readOnly className="feedback-text" value={feedback?.comment || ""} />
+                    </>
                 )}
             </form>
         </section>
