@@ -9,7 +9,20 @@ const ImageWithFallback = ({ src, alt, className }) => {
 
     return (
         <div className={`image-container ${imageStatus} ${className}`}>
-            {imageStatus === "loading" && <div className="loading-animation"></div>}
+            {imageStatus === "loading" && (
+                <div className="loading-animation">
+                    {Array.from({ length: 8 }).map((_, index) => (
+                        <div 
+                            key={index} 
+                            style={{
+                                transform: `rotate(${360 / 8 * index}deg) translateX(150%) rotate(-${360 / 8 * index}deg)`,
+                                animation: `orbit 1.5s linear infinite, fade-in 0.19s ${index * 0.19}s forwards`,
+                                animationDelay: `${(index * 0.19)}s`,
+                            }}
+                            className="circle" />
+                    ))}
+                </div>
+            )}
             {imageStatus === "error" && <div className="error-placeholder">Нет изображения</div>}
             <img
                 src={src}
