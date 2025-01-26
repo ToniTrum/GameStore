@@ -48,10 +48,29 @@ def check_email(request):
         user = User.objects.get(email=email)
         if user and not user.deleted:
             return Response({"details": "Email already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        elif user.deleted:
+            return Response({"details": "User is deleted"}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({"details": "Email does not exist"}, status=status.HTTP_200_OK)
     except User.DoesNotExist:
         return Response({"details": "Email does not exist"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def check_username(request):
+    try:
+        username = request.data.get('username')
+        user = User.objects.get(username=username)
+        if user and not user.deleted:
+            return Response({"details": "Username already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        elif user.deleted:
+            return Response({"details": "User is deleted"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"details": "Username does not exist"}, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({"details": "Username does not exist"}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

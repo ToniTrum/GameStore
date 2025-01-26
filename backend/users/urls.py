@@ -8,6 +8,7 @@ urlpatterns = [
     path("register/", views.RegisterView.as_view(), name="register"),
     path("check_password/<int:user_id>/", views.check_user_password, name="check_password"),
     path("check_email/", views.check_email, name="check_email"),
+    path("check_username/", views.check_username, name="check_username"),
     path("update/<int:user_id>/", views.update_user, name="update"),
     path("subscribe/<int:user_id>/", views.subscribe_user, name="subscribe"),
     path("delete/<int:user_id>/", views.delete_user, name="delete"),
