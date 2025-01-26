@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import { API_URL } from "../../main";
+import AuthContext from "../../context/AuthContext";
 
 import ImageCarousel from "./ImageCarousel/ImageCarousel";
 import WrapListComponent from "./WrapListComponent/WrapListComponent";
@@ -11,9 +12,11 @@ import GameRequirementsPanel from "./GameRequirementsPanel/GameRequirementsPanel
 import "./GamePage.css";
 
 const GamePage = () => {
+  const { user } = useContext(AuthContext);
   const { game_id } = useParams();
 
   const [game, setGame] = useState({});
+  const [esrbRating, setESRBRating] = useState({})
   const [screenshots, setScreenshots] = useState([]);
   const [genres, setGenres] = useState([]);
   const [tags, setTags] = useState([]);
@@ -36,6 +39,27 @@ const GamePage = () => {
 
     fetchGame();
   }, []);
+
+  useEffect(() => {
+    const fetchESRBRating = async () => {
+      try {
+        if (game?.esrb_rating) {
+          const response = await fetch(`${API_URL}/games/esrb_rating/get/${game.esrb_rating}`, {method: 'GET'})
+          const data = await response.json()
+          setESRBRating(data)
+        }
+      }
+      catch (err) 
+      {
+        console.log(err)
+      }
+    }
+
+    if (game)
+    {
+      fetchESRBRating()
+    }
+}, [game])
 
   useEffect(() => {
     const fetchScreenshots = async () => {
@@ -191,31 +215,56 @@ const GamePage = () => {
     }
   }, [game]);
 
+  function calculateAge(birthDateString) {
+    const today = new Date();
+    const birthDate = new Date(birthDateString);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+      age--;
+    }
+
+    return age;
+  }
+  console.log(esrbRating)
   return (
     <section className="game-section">
-      <div className="game-container">
-        <div className="game-main-info">
-          <h1 className="game-title">{game.name}</h1>
-          <ImageCarousel images={screenshots} />
-          <GenreTagDeveloperTable
-            genres={genres}
-            tags={tags}
-            developers={developers}
-          />
+      {game?.esrb_rating && esrbRating?.minimum_age && 
+      calculateAge(user.birthdate) >= esrbRating.minimum_age ? (
+        <>
+        <div className="game-container">
+          <div className="game-main-info">
+            <h1 className="game-title">{game.name}</h1>
+            <ImageCarousel images={screenshots} />
+            <GenreTagDeveloperTable
+              genres={genres}
+              tags={tags}
+              developers={developers}
+            />
+          </div>
+          <GameSidePagePart game={game} platforms={platforms} esrbRating={esrbRating} />
         </div>
-        <GameSidePagePart game={game} platforms={platforms} />
-      </div>
-      <div
-        className="game-description"
-        dangerouslySetInnerHTML={{ __html: game.description }}
-      />
-
-      {requirements.length > 0 ? (
-        <GameRequirementsPanel
-          requirements={requirements}
-          platforms={platforms}
+        <div
+          className="game-description"
+          dangerouslySetInnerHTML={{ __html: game.description }}
         />
-      ) : null}
+
+        {requirements.length > 0 ? (
+          <GameRequirementsPanel
+            requirements={requirements}
+            platforms={platforms}
+          />
+        ) : null}
+      </>
+      ) : (
+        <div className="game-rating">
+          <h1>Это игра для людей с возрастом от {esrbRating.minimum_age} лет</h1>
+        </div>
+      )}
     </section>
   );
 };
