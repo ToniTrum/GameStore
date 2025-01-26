@@ -103,7 +103,7 @@ const FeedbackEditPage = () => {
 
             try {
                 await api.put(`/feedback/feedback/update/${feedback_id}/`, formData)
-                navigate(`/user/id/${id}/feedback/`)
+                navigate(`/user/id/${id}/feedback/page/1`)
             }
             catch (error) {
                 console.log(error)

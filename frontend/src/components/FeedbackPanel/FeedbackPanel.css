@@ -15,8 +15,19 @@
     font-weight: bold;
 }
 
-.feedback-panel-section button {
+.feedback-panel-section__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.feedback-panel-section__buttons button {
     width: 11.5rem;
+}
+
+.feedback-panel-section__buttons select {
+    height: 100%;
 }
 
 .feedback-panel-section ul {
@@ -25,11 +36,6 @@
     gap: 1rem;
 
     padding: 1rem;
-    overflow-x: hidden;
-    max-height: 300px;
-
-    scrollbar-width: thin;
-    scrollbar-color: #242424 transparent;
 }
 
 .feedback {
@@ -69,12 +75,12 @@
 }
 
 .feedback-buttons {
-    width: 23%;
-    display: flex;
-    flex-direction: row;
+    width: 35%;
+
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
     align-items: center;
-    justify-content: start;
-    gap: 1.5rem;
+    gap: 0.5rem;
 }
 
 .feedback-buttons p {

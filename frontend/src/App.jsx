@@ -60,7 +60,7 @@ function App() {
               <Route path="library/page/:pageNumber" element={<LibraryPage />} />
               <Route path="game/id/:game_id" element={<GamePage />} />
               <Route path="payment" element={<PaymentPage />} />
-              <Route path="feedback" element={<FeedbackPanel />} />
+              <Route path="feedback/page/:pageNumber" element={<FeedbackPanel />} />
               <Route path="feedback/create" element={<FeedbackPage />} />
               <Route path="feedback/view/:feedback_id" element={<FeedbackViewPage />} />
               <Route path="feedback/edit/:feedback_id" element={<FeedbackEditPage />} />

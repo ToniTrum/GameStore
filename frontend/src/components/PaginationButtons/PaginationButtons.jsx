@@ -57,7 +57,7 @@ const EndButtons = ({ changePage, pageNumber, totalPages }) => {
         <PaginationButton
           changePage={changePage}
           pageNumber={pageNumber}
-          page={totalPages - 1 + index}
+          page={totalPages - 2 + index}
           key={index}
         />
       ))}

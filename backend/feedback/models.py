@@ -19,11 +19,12 @@ class Feedback(models.Model):
     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="Отправлено")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.theme
-    
+
 @receiver(pre_delete, sender=Feedback)
 def delete_feedback_file(sender, instance, **kwargs):
     if instance.file:
