@@ -18,7 +18,7 @@ const Footer = () => {
 
   const handleSupportClick = () => {
     if (user !== null) {
-      navigate(`/user/id/${user.user_id}/feedback`);
+      navigate(`/user/id/${user.user_id}/feedback/page/1`);
     } else {
       navigate("/auth-warning");
     }

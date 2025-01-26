@@ -5,28 +5,31 @@ import dayjs from "dayjs";
 import trashIcon from "../../assets/img/trash.svg";
 import documentIcon from "../../assets/img/document.svg";
 import useAxios from "../../utils/useAxios";
+import PaginationButtons from "../PaginationButtons/PaginationButtons";
 
 import "./FeedbackPanel.css";
 
 const FeedbackPanel = () => {
     const api = useAxios()
     const navigate = useNavigate()
-    const { id } = useParams()
+    const { id, pageNumber } = useParams()
 
     const [feedbacks, setFeedbacks] = useState([])
+    const [totalPages, setTotalPages] = useState(0)
 
     useEffect(() => {
         const fetchFeedbacks = async () => {
             try {
-                const response = await api.get(`/feedback/feedback/get/${id}/`)
-                setFeedbacks(response.data)
+                const response = await api.get(`/feedback/feedback/get/${id}/?page=${pageNumber}`)
+                setFeedbacks(response.data.results)
+                setTotalPages(response.data.total_pages)
             } catch (error) {
                 console.error(error)
             }
         }
 
         fetchFeedbacks()
-    }, [])
+    }, [pageNumber])
 
     const onClick = () => {
         navigate(`/user/id/${id}/feedback/create`)
@@ -36,9 +39,18 @@ const FeedbackPanel = () => {
         setFeedbacks((prev) => prev.filter((feedback) => feedback.id !== id))
     }
 
+    const changePage = (page) => {
+        page = parseInt(page)
+        if (page > 0 && page <= totalPages) {
+            navigate(`/user/id/${id}/feedback/page/${page}`)
+            scrollToTop()
+        }
+    }
+
     return (
         <section className="feedback-panel-section">
             <h2>Ваши заявления</h2>
+            <button onClick={onClick}>Добавить заявление</button>
 
             <ul>
                 {feedbacks.map((feedback, index) => (
@@ -49,7 +61,10 @@ const FeedbackPanel = () => {
                 )}
             </ul>
 
-            <button onClick={onClick}>Добавить заявление</button>
+            <PaginationButtons 
+                changePage={changePage}
+                pageNumber={pageNumber}
+                totalPages={totalPages} />
         </section>
     )
 }
@@ -91,7 +106,9 @@ const Feedback = ({ feedback, onDelete }) => {
             <div className="feedback-buttons">
                 <p>{feedback.status}</p>
                 <img onClick={onClickView} src={documentIcon} alt="view" />
-                <img onClick={onClickDelete} src={trashIcon} alt="delete" />
+                {feedback.status === "Отправлено" && (
+                    <img onClick={onClickDelete} src={trashIcon} alt="delete" />
+                )}
             </div>
         </li>
     )

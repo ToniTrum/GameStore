@@ -83,7 +83,7 @@ const FeedbackPage = () => {
 
             try {
                 await api.post(`/feedback/feedback/create/${id}/`, formData)
-                navigate(`/user/id/${id}/feedback/`)
+                navigate(`/user/id/${id}/feedback/page/1`)
             }
             catch (error) {
                 console.log(error)

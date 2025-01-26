@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status, generics
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
@@ -14,13 +15,28 @@ class FeedbackView(generics.ListAPIView):
     serializer_class = FeedbackSerializer
     permission_classes = [IsAdminUser]
 
+class CommonPagination(PageNumberPagination):
+    page_size = 10
+
+    def get_paginated_response(self, data):
+        return Response({
+            'total_count': self.page.paginator.count,
+            'total_pages': self.page.paginator.num_pages,
+            'current_page': self.page.number,
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+            'results': data,
+        })
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_feedback(request, user_id):
     user = User.objects.get(id=user_id)
     feedback = Feedback.objects.filter(user=user)
     serializer = FeedbackSerializer(feedback, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    paginator = CommonPagination()
+    page = paginator.paginate_queryset(serializer.data, request)
+    return paginator.get_paginated_response(page)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -66,6 +82,8 @@ def update_feedback(request, feedback_id):
 def delete_feedback(request, feedback_id):
     try:
         feedback = Feedback.objects.get(id=feedback_id)
+        if feedback.status != "Отправлено":
+            return Response({"message": "Feedback can't be deleted"}, status=status.HTTP_400_BAD_REQUEST)
         feedback.delete()
         return Response({"message": "Feedback deleted"}, status=status.HTTP_200_OK)
     except Exception as e:
