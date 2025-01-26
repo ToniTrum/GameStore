@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from .models import Feedback
 from .serializer import FeedbackSerializer
+from .filters import FeedbackFilter
 
 from users.models import User
 
@@ -32,11 +33,15 @@ class CommonPagination(PageNumberPagination):
 @permission_classes([IsAuthenticated])
 def get_feedback(request, user_id):
     user = User.objects.get(id=user_id)
-    feedback = Feedback.objects.filter(user=user)
-    serializer = FeedbackSerializer(feedback, many=True)
+    feedback = Feedback.objects.filter(user=user).order_by("-updated_at")
+    filter_set = FeedbackFilter(request.GET, queryset=feedback)
+    if not filter_set.is_valid():
+        return Response(filter_set.errors, status=400)
+    
     paginator = CommonPagination()
-    page = paginator.paginate_queryset(serializer.data, request)
-    return paginator.get_paginated_response(page)
+    page = paginator.paginate_queryset(filter_set.qs, request)
+    serializer = FeedbackSerializer(page, many=True)
+    return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

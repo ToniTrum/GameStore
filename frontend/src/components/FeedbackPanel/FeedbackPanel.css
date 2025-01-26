@@ -15,8 +15,19 @@
     font-weight: bold;
 }
 
-.feedback-panel-section button {
+.feedback-panel-section__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 1rem;
+}
+
+.feedback-panel-section__buttons button {
     width: 11.5rem;
+}
+
+.feedback-panel-section__buttons select {
+    height: 100%;
 }
 
 .feedback-panel-section ul {

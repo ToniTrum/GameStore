@@ -16,11 +16,14 @@ const FeedbackPanel = () => {
 
     const [feedbacks, setFeedbacks] = useState([])
     const [totalPages, setTotalPages] = useState(0)
+    const [selectedStatus, setSelectedStatus] = useState("Все")
 
     useEffect(() => {
         const fetchFeedbacks = async () => {
             try {
-                const response = await api.get(`/feedback/feedback/get/${id}/?page=${pageNumber}`)
+                let status = ""
+                if (selectedStatus !== "Все") status = `&status=${selectedStatus}`
+                const response = await api.get(`/feedback/feedback/get/${id}/?page=${pageNumber}${status}`)
                 setFeedbacks(response.data.results)
                 setTotalPages(response.data.total_pages)
             } catch (error) {
@@ -29,7 +32,7 @@ const FeedbackPanel = () => {
         }
 
         fetchFeedbacks()
-    }, [pageNumber])
+    }, [pageNumber, selectedStatus])
 
     const onClick = () => {
         navigate(`/user/id/${id}/feedback/create`)
@@ -37,6 +40,13 @@ const FeedbackPanel = () => {
 
     const handleDelete = (id) => {
         setFeedbacks((prev) => prev.filter((feedback) => feedback.id !== id))
+    }
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        })
     }
 
     const changePage = (page) => {
@@ -50,13 +60,27 @@ const FeedbackPanel = () => {
     return (
         <section className="feedback-panel-section">
             <h2>Ваши заявления</h2>
-            <button onClick={onClick}>Добавить заявление</button>
+
+            <div className="feedback-panel-section__buttons">
+                <button onClick={onClick}>Добавить заявление</button>
+                <select onChange={(e) => {
+                    setSelectedStatus(e.target.value)
+                    navigate(`/user/id/${id}/feedback/page/1`)
+                }}
+                    defaultValue={"Все"}>
+                    <option value="Все">Все</option>
+                    <option value="Отправлено">Отправлено</option>
+                    <option value="На рассмотрении">На рассмотрении</option>
+                    <option value="Принято">Принято</option>
+                    <option value="Отклонено">Отклонено</option>
+                </select>
+            </div>
 
             <ul>
-                {feedbacks.map((feedback, index) => (
+                {feedbacks && feedbacks.map((feedback, index) => (
                     <Feedback key={index} feedback={feedback} onDelete={handleDelete} />
                 ))}
-                {feedbacks.length === 0 && (
+                {feedbacks?.length === 0 && (
                     <p>Заявлений пока нет</p>
                 )}
             </ul>
