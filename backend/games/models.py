@@ -13,6 +13,7 @@ class ESRBRating(models.Model):
     name_en = models.CharField(max_length=32)
     name_ru = models.CharField(max_length=32)
     image = models.ImageField(upload_to='static/icons')
+    minimum_age = models.PositiveIntegerField()
 
     def __str__(self):
         return self.name_en

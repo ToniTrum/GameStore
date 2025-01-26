@@ -7,7 +7,7 @@ class PlatformAdmin(admin.ModelAdmin):
 
 @admin.register(ESRBRating)
 class ESRBRatingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name_en', 'name_ru', 'image')
+    list_display = ('id', 'name_en', 'name_ru', 'image', 'minimum_age')
 
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
