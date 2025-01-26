@@ -9,6 +9,7 @@ import StartRoute from "./utils/StartRoute";
 import Header from "./components/Header/Header";
 import RegisterPanel from "./components/Authorization/RegisterPanel/RegisterPanel";
 import LoginPanel from "./components/Authorization/LoginPanel/LoginPanel";
+import RecoverPanel from "./components/Authorization/RecoverPanel/RecoverPanel";
 import EmailFieldForResetPassword from "./components/Authorization/EmailFieldForResetPassword/EmailFieldForResetPassword";
 import ResetCodeField from "./components/Authorization/ResetCodeField/ResetCodeField";
 import ResetPasswordPanel from "./components/Authorization/ResetPasswordPanel/ResetPasswordPanel";
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<StartRoute />} />
           <Route path="/login" element={<LoginPanel />} />
           <Route path="/register" element={<RegisterPanel />} />
+          <Route path="/recover" element={<RecoverPanel />} />
           <Route path="/reset-password/email" element={<EmailFieldForResetPassword />} />
           <Route path="/reset-password/code" element={<ResetCodeField />} />
           <Route path="/reset-password" element={<ResetPasswordPanel />} />
