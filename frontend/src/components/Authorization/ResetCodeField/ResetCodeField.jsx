@@ -9,7 +9,7 @@ import "../Authorization.css"
 import "./ResetCodeField.css"
 
 const ResetCodeField = () => {
-    const {loginUser} = useContext(AuthContext)
+    const {loginUser, registerUser} = useContext(AuthContext)
     const navigate = useNavigate()
     const api = useAxios()
     const location = useLocation()
@@ -63,6 +63,22 @@ const ResetCodeField = () => {
                 {
                     const id = location.state.id
                     navigate(`/user/id/${id}/delete/`, {state: "ok"})
+                }
+                else if (action == "register")
+                {
+                    const registerResponse = await registerUser(
+                        location.state.email,
+                        location.state.username,
+                        location.state.password,
+                        location.state.password2,
+                        location.state.firstName,
+                        location.state.lastName,
+                        location.state.country,
+                        location.state.birthdate
+                    )
+
+                    if (registerResponse === 201) loginUser(email, location.state.password)
+                    else console.log(registerResponse)
                 }
             }
             else if (response.status === 400) setError('Неверный код')

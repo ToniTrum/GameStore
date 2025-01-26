@@ -5,14 +5,12 @@ import sweetAlert from "sweetalert2";
 
 import PrivacyPolicyPanel from "../../PrivacyPolicyPage/PrivacyPolicyPanel";
 import { API_URL } from "../../../main";
-import AuthContext from "../../../context/AuthContext";
 
 import "../Authorization.css";
 import "./RegisterPanel.css";
 
 const RegisterPanel = () => {
   const navigate = useNavigate();
-  const { loginUser, registerUser } = useContext(AuthContext);
 
   const [isShow, setIsShow] = useState(false);
   const [countryList, setCountryList] = useState([]);
@@ -138,19 +136,55 @@ const RegisterPanel = () => {
     };
 
     try {
-      const registerResponse = await registerUser(
-        email,
-        username,
-        password,
-        password2,
-        firstName,
-        lastName,
-        selectedCountry.numeric_code,
-        birthdate
-      );
-      console.log(registerResponse);
-      if (registerResponse === 201) {
-        await loginUser(email, password);
+      const responseEmail = await fetch(`${API_URL}/users/check_email/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email }),
+      });
+
+      if (responseEmail.status === 200) 
+      {
+        const responseName = await fetch(`${API_URL}/users/check_username/`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username }),
+        });
+
+        if (responseName.status === 200)
+        {
+          const registerResponse = await fetch(`${API_URL}/users/create_confirmation_code/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: email,
+            })
+          })
+          if (registerResponse.ok) {
+            navigate('/reset-password/code', {state: {
+              action: 'register',
+              prev: '/register',
+              email: email,
+              username: username,
+              password: password,
+              password2: password2,
+              firstName: firstName,
+              lastName: lastName,
+              country: selectedCountry.numeric_code,
+              birthdate: birthdate
+            }});
+          }
+          else console.log(registerResponse);
+        }
+        else 
+        {
+          setErrors({ username: "Это имя пользователя уже занято" });
+          sendErrorMessage("Это имя пользователя уже занято");
+        }
+      }
+      else 
+      {
+        setErrors({ email: "Этот email уже зарегистрирован" });
+        sendErrorMessage("Этот email уже зарегистрирован");
       }
     } catch (error) {
         console.error("Ошибка при регистрации", error);
