@@ -20,10 +20,11 @@ class Feedback(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.theme
-    
+
 @receiver(pre_delete, sender=Feedback)
 def delete_feedback_file(sender, instance, **kwargs):
     if instance.file:
