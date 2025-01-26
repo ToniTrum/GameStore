@@ -11,6 +11,7 @@ urlpatterns = [
     path("update/<int:user_id>/", views.update_user, name="update"),
     path("subscribe/<int:user_id>/", views.subscribe_user, name="subscribe"),
     path("delete/<int:user_id>/", views.delete_user, name="delete"),
+    path("recover/", views.recover_user, name="recover"),
 
     path("create_confirmation_code/", views.create_confirmation_code, name="create_confirmation_code"),
     path("check_confirmation_code/", views.check_confirmation_code, name="check_confirmation_code"),

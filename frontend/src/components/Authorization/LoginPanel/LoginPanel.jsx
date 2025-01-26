@@ -54,6 +54,12 @@ const LoginPanel = () => {
         <div className="form-buttons">
           <button
             type="button"
+            onClick={() => onClick("/recover")}
+          >
+            Восстановить аккаунт
+          </button>
+          <button
+            type="button"
             onClick={() => onClick("/reset-password/email")}
           >
             Забыли пароль?

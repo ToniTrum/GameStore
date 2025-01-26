@@ -129,6 +129,24 @@ def delete_user(request, user_id):
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 
+@api_view(["PUT"])
+@permission_classes([AllowAny])
+def recover_user(request):
+    try:
+        recover = request.data.get('recover')
+        try:
+            user = User.objects.get(email=recover)
+        except User.DoesNotExist:
+            user = User.objects.get(username=recover)
+        user.deleted = False
+        user.deleted_at = None
+        user.save()
+        return Response({f"details": "User recovered"}, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        return Response({"details": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 
 @api_view(["POST"])

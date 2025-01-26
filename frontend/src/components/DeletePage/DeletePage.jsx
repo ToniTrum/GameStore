@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import AuthContext from "../../context/AuthContext"
 import useAxios from "../../utils/useAxios"
-import { API_URL } from "../../main"
 
 import './DeletePage.css'
 
