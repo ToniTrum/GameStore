@@ -9,7 +9,7 @@ class PlatformSerializer(serializers.ModelSerializer):
 class ESRBRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ESRBRating
-        fields = ['id', 'name_en', 'name_ru', 'image']
+        fields = ['id', 'name_en', 'name_ru', 'image', 'minimum_age']
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:

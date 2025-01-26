@@ -5,33 +5,11 @@ import {API_URL} from "../../../main"
 
 import "./GameSidePagePart.css"
 
-const GameSidePagePart = ({ game, platforms }) => {
+const GameSidePagePart = ({ game, platforms, esrbRating }) => {
     const { id } = useParams()
     const navigate = useNavigate()
 
-    const [esrbRating, setESRBRating] = useState({})
     const [inLibrary, setInLibrary] = useState(false)
-
-    useEffect(() => {
-        const fetchESRBRating = async () => {
-            try {
-                if (game?.esrb_rating) {
-                    const response = await fetch(`${API_URL}/games/esrb_rating/get/${game.esrb_rating}`, {method: 'GET'})
-                    const data = await response.json()
-                    setESRBRating(data)
-                }
-            }
-            catch (err) 
-            {
-                console.log(err)
-            }
-        }
-
-        if (game)
-        {
-            fetchESRBRating()
-        }
-    }, [game])
 
     useEffect(() => {
         const fetchCheck = async () => {
