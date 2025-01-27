@@ -52,3 +52,24 @@ class ESRBRatingTests(TestCase):
         self.assertEqual(response.data['name_ru'], "С 17 лет")
         self.assertEqual(response.data['image'], "/static/icons/ESRB-Mature.png")
         self.assertEqual(response.data['minimum_age'], 17)
+
+class GenreTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.genre_1 = Genre.objects.create(id=1, name="Action")
+        self.genre_2 = Genre.objects.create(id=2, name="Adventure")
+
+    def test_genre_model_str(self):
+        self.assertEqual(str(self.genre_1), "Action")
+        self.assertEqual(str(self.genre_2), "Adventure")
+        
+    def test_genre_view_genre(self):
+        response = self.client.get(reverse('genre'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+
+    def test_genre_view_get_genre(self):
+        response = self.client.get(reverse('get_genre', args=[self.genre_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], "Action")
