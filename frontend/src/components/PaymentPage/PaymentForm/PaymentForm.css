@@ -78,11 +78,21 @@
   }
 
   .card-errors {
-    font-size: 0.9rem;
+    font-size: .6rem;
+    min-height: 1.2rem;
   }
 }
 
 @media (max-width: 537px) {
+  .stripe-form {
+    all: unset;
+    display: block;
+  }
+
+  .card-panel {
+    gap: 0.5rem;
+    width: 90%;
+  }
 
   .card-form-row {
     grid-template-columns: 1fr;
