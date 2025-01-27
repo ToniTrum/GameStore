@@ -70,6 +70,18 @@
   background-color: #242424;
 }
 
+.form-error {
+  color: var(--primary-color);
+  min-height: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+}
+
+.form-error.visible {
+  opacity: 1;
+  max-height: 2rem;
+}
+
 @media (max-width: 457px) {
   .feedback-section {
     padding: 1.5rem;
@@ -110,9 +122,9 @@
 
   .feedback-button-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     gap: 1rem;
-    padding-top: 1rem;
+    width: 100%;
   }
 
   .feedback-button {
@@ -120,7 +132,7 @@
   }
 
   .warning-massage {
-    font-size: 1rem;
+    font-size: 2px;
     text-align: justify;
   }
 }

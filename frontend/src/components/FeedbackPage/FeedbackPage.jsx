@@ -53,7 +53,9 @@ const FeedbackPage = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(`Validating: ${name} -> ${value}`); // Лог для проверки
     const error = validateFeedback(name, value);
+    console.log(`Error for ${name}: ${error}`); // Лог для проверки ошибки
     setErrors((prev) => ({ ...prev, [name]: error }));
 
     const stateFunction = feedbackData.find(
@@ -109,7 +111,7 @@ const FeedbackPage = () => {
             name="theme"
             value={theme}
           />
-          <div className="form-error">
+          <div className={`form-error ${errors.theme ? "visible" : ""}`}>
             {errors.theme && (
               <span className="error-message">{errors.theme}</span>
             )}
@@ -125,7 +127,7 @@ const FeedbackPage = () => {
             name="text"
             value={text}
           />
-          <div className="form-error">
+          <div className={`form-error ${errors.text ? "visible" : ""}`}>
             {errors.text && (
               <span className="error-message">{errors.text}</span>
             )}
