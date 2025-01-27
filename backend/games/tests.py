@@ -314,3 +314,69 @@ class GameTests(TestCase):
         response = self.client.get(reverse('check_game_in_library', args=[self.user.id, self.game_1.id]))    
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['in_library'], True)
+
+class RequirementTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.platform_1 = Platform.objects.create(id=1, name="Test Platform 1", icon="static/icons/windows-icon.png")
+        self.platform_2 = Platform.objects.create(id=2, name="Test Platform 2", icon="static/icons/windows-icon.png")
+
+        self.genre_1 = Genre.objects.create(id=1, name="Test Genre 1")
+        self.genre_2 = Genre.objects.create(id=2, name="Test Genre 2")
+
+        self.tag_1 = Tag.objects.create(id=1, name="Test Tag 1")
+        self.tag_2 = Tag.objects.create(id=2, name="Test Tag 2")
+
+        self.developer_1 = Developer.objects.create(id=1, name="Test Developer 1")
+        self.developer_2 = Developer.objects.create(id=2, name="Test Developer 2")
+
+        self.screenshot_1 = Screenshot.objects.create(id=1, image="static/icons/windows-icon.png")
+        self.screenshot_2 = Screenshot.objects.create(id=2, image="static/icons/windows-icon.png")
+
+        self.game_1 = Game.objects.create(
+            id=1,
+            name="Test Game 1",
+            description="Test Description 1",
+            release_date="2022-01-01",
+            esrb_rating=ESRBRating.objects.create(id=1, name_en="Mature Rating", name_ru="С 17 лет", image="static/icons/ESRB-Mature.png", minimum_age=17)
+        )
+        self.game_1.platforms.set([self.platform_1, self.platform_2])
+        self.game_1.genres.set([self.genre_1, self.genre_2])
+        self.game_1.tags.set([self.tag_1, self.tag_2])
+        self.game_1.developers.set([self.developer_1, self.developer_2])
+        self.game_1.screenshots.set([self.screenshot_1, self.screenshot_2])
+
+        self.game_2 = Game.objects.create(
+            id=2,
+            name="Test Game 2",
+            description="Test Description 2",
+            release_date="2022-01-01",
+            esrb_rating=ESRBRating.objects.create(id=2, name_en="Mature Rating", name_ru="С 17 лет", image="static/icons/ESRB-Mature.png", minimum_age=17)
+        )
+        self.game_2.platforms.set([self.platform_1, self.platform_2])
+        self.game_2.genres.set([self.genre_1, self.genre_2])
+        self.game_2.tags.set([self.tag_1, self.tag_2])
+        self.game_2.developers.set([self.developer_1, self.developer_2])
+        self.game_2.screenshots.set([self.screenshot_1, self.screenshot_2])
+
+        self.requirement_1 = Requirement.objects.create(minimum="Minimum", recommended="Recommended", game=self.game_1, platform=self.platform_1)
+        self.requirement_2 = Requirement.objects.create(minimum="Minimum", recommended="Recommended", game=self.game_1, platform=self.platform_2)
+        self.requirement_3 = Requirement.objects.create(minimum="Minimum", recommended="Recommended", game=self.game_2, platform=self.platform_1)
+        self.requirement_4 = Requirement.objects.create(minimum="Minimum", recommended="Recommended", game=self.game_2, platform=self.platform_2)
+
+    def test_requirement_model_str(self):
+        self.assertEqual(str(self.requirement_1), f"{self.game_1}: {self.platform_1}")
+        self.assertEqual(str(self.requirement_2), f"{self.game_1}: {self.platform_2}")
+        self.assertEqual(str(self.requirement_3), f"{self.game_2}: {self.platform_1}")
+        self.assertEqual(str(self.requirement_4), f"{self.game_2}: {self.platform_2}")
+
+    def test_requirement_view_requirement(self):
+        response = self.client.get(reverse('requirement'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 4)
+
+    def test_requirement_view_get_requirement(self):
+        response = self.client.get(reverse('get_requirement', args=[self.game_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
