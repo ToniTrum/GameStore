@@ -5,8 +5,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Library, Wishlist, Basket
-from .serializer import LibrarySerializer, WishlistSerializer, BasketSerializer
+from .models import Library
+from .serializer import LibrarySerializer
 
 from users.models import User
 from games.models import Game
@@ -45,13 +45,9 @@ def get_user_library(request, user_id):
 def add_to_library(request, user_id, game_id):
     user = User.objects.get(id=user_id)
     game = Game.objects.get(id=game_id)
+
+    if Library.objects.filter(user=user, game=game).exists():
+        return Response({"error": "This game is already in the library"}, status=status.HTTP_400_BAD_REQUEST)
+
     Library.objects.create(user=user, game=game)
     return Response({"message": "Game added to library"}, status=status.HTTP_201_CREATED)
-
-class WishlistView(generics.ListAPIView):
-    queryset = Wishlist.objects.all()
-    serializer_class = WishlistSerializer
-
-class BasketView(generics.ListAPIView):
-    queryset = Basket.objects.all()
-    serializer_class = BasketSerializer
