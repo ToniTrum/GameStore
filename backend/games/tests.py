@@ -28,3 +28,27 @@ class PlatformTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Test Platform 1")
         self.assertEqual(response.data['icon'], "/static/icons/windows-icon.png")
+
+class ESRBRatingTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.esrb_rating_1 = ESRBRating.objects.create(id=1, name_en="Mature Rating", name_ru="С 17 лет", image="static/icons/ESRB-Mature.png", minimum_age=17)
+        self.esrb_rating_2 = ESRBRating.objects.create(id=2, name_en="Only Adults", name_ru="Только для взрослых", image="static/icons/ESRB-Adults-Only-18.png", minimum_age=18)
+
+    def test_esrb_rating_model_str(self):
+        self.assertEqual(str(self.esrb_rating_1), "Mature Rating")
+        self.assertEqual(str(self.esrb_rating_2), "Only Adults")
+        
+    def test_esrb_rating_view_esrb_rating(self):
+        response = self.client.get(reverse('esrb_rating'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+
+    def test_esrb_rating_view_get_esrb_rating(self):
+        response = self.client.get(reverse('get_esrb_rating', args=[self.esrb_rating_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name_en'], "Mature Rating")
+        self.assertEqual(response.data['name_ru'], "С 17 лет")
+        self.assertEqual(response.data['image'], "/static/icons/ESRB-Mature.png")
+        self.assertEqual(response.data['minimum_age'], 17)
