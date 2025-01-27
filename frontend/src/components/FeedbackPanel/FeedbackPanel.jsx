@@ -10,130 +10,136 @@ import PaginationButtons from "../PaginationButtons/PaginationButtons";
 import "./FeedbackPanel.css";
 
 const FeedbackPanel = () => {
-    const api = useAxios()
-    const navigate = useNavigate()
-    const { id, pageNumber } = useParams()
+  const api = useAxios();
+  const navigate = useNavigate();
+  const { id, pageNumber } = useParams();
 
-    const [feedbacks, setFeedbacks] = useState([])
-    const [totalPages, setTotalPages] = useState(0)
-    const [selectedStatus, setSelectedStatus] = useState("Все")
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [selectedStatus, setSelectedStatus] = useState("Все");
 
-    useEffect(() => {
-        const fetchFeedbacks = async () => {
-            try {
-                let status = ""
-                if (selectedStatus !== "Все") status = `&status=${selectedStatus}`
-                const response = await api.get(`/feedback/feedback/get/${id}/?page=${pageNumber}${status}`)
-                setFeedbacks(response.data.results)
-                setTotalPages(response.data.total_pages)
-            } catch (error) {
-                console.error(error)
-            }
-        }
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        let status = "";
+        if (selectedStatus !== "Все") status = `&status=${selectedStatus}`;
+        const response = await api.get(
+          `/feedback/feedback/get/${id}/?page=${pageNumber}&page_size=5${status}`
+        );
+        setFeedbacks(response.data.results);
+        setTotalPages(response.data.total_pages);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        fetchFeedbacks()
-    }, [pageNumber, selectedStatus])
+    fetchFeedbacks();
+  }, [pageNumber, selectedStatus]);
 
-    const onClick = () => {
-        navigate(`/user/id/${id}/feedback/create`)
+  const onClick = () => {
+    navigate(`/user/id/${id}/feedback/create`);
+  };
+
+  const handleDelete = (id) => {
+    setFeedbacks((prev) => prev.filter((feedback) => feedback.id !== id));
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const changePage = (page) => {
+    page = parseInt(page);
+    if (page > 0 && page <= totalPages) {
+      navigate(`/user/id/${id}/feedback/page/${page}`);
+      scrollToTop();
     }
+  };
 
-    const handleDelete = (id) => {
-        setFeedbacks((prev) => prev.filter((feedback) => feedback.id !== id))
-    }
+  return (
+    <section className="feedback-panel-section">
+      <h2>Ваши заявления</h2>
 
-    const scrollToTop = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        })
-    }
+      <div className="feedback-panel-section__buttons">
+        <button onClick={onClick}>Добавить заявление</button>
+        <select
+          onChange={(e) => {
+            setSelectedStatus(e.target.value);
+            navigate(`/user/id/${id}/feedback/page/1`);
+          }}
+          defaultValue={"Все"}
+        >
+          <option value="Все">Все</option>
+          <option value="Отправлено">Отправлено</option>
+          <option value="На рассмотрении">На рассмотрении</option>
+          <option value="Принято">Принято</option>
+          <option value="Отклонено">Отклонено</option>
+        </select>
+      </div>
 
-    const changePage = (page) => {
-        page = parseInt(page)
-        if (page > 0 && page <= totalPages) {
-            navigate(`/user/id/${id}/feedback/page/${page}`)
-            scrollToTop()
-        }
-    }
+      <ul>
+        {feedbacks &&
+          feedbacks.map((feedback, index) => (
+            <Feedback key={index} feedback={feedback} onDelete={handleDelete} />
+          ))}
+        {feedbacks?.length === 0 && <p>Заявлений пока нет</p>}
+      </ul>
 
-    return (
-        <section className="feedback-panel-section">
-            <h2>Ваши заявления</h2>
+      <PaginationButtons
+        changePage={changePage}
+        pageNumber={pageNumber}
+        totalPages={totalPages}
+      />
+    </section>
+  );
+};
 
-            <div className="feedback-panel-section__buttons">
-                <button onClick={onClick}>Добавить заявление</button>
-                <select onChange={(e) => {
-                    setSelectedStatus(e.target.value)
-                    navigate(`/user/id/${id}/feedback/page/1`)
-                }}
-                    defaultValue={"Все"}>
-                    <option value="Все">Все</option>
-                    <option value="Отправлено">Отправлено</option>
-                    <option value="На рассмотрении">На рассмотрении</option>
-                    <option value="Принято">Принято</option>
-                    <option value="Отклонено">Отклонено</option>
-                </select>
-            </div>
-
-            <ul>
-                {feedbacks && feedbacks.map((feedback, index) => (
-                    <Feedback key={index} feedback={feedback} onDelete={handleDelete} />
-                ))}
-                {feedbacks?.length === 0 && (
-                    <p>Заявлений пока нет</p>
-                )}
-            </ul>
-
-            <PaginationButtons 
-                changePage={changePage}
-                pageNumber={pageNumber}
-                totalPages={totalPages} />
-        </section>
-    )
-}
-
-export default FeedbackPanel
+export default FeedbackPanel;
 
 const Feedback = ({ feedback, onDelete }) => {
-    const api = useAxios()
-    const navigate = useNavigate()
-    const { id } = useParams()
+  const api = useAxios();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-    const date = dayjs(feedback.created_at).format("DD.MM.YYYY, HH:mm")
+  const date = dayjs(feedback.created_at).format("DD.MM.YYYY, HH:mm");
 
-    const onClickView = () => {
-        navigate(`/user/id/${id}/feedback/view/${feedback.id}`)
-    }
+  const onClickView = () => {
+    navigate(`/user/id/${id}/feedback/view/${feedback.id}`);
+  };
 
-    const onClickDelete = () => {
-        const deleteFeedback = async () => {
-            try {
-                await api.delete(`/feedback/feedback/delete/${feedback.id}/`)
-                onDelete(feedback.id)
-            } catch (error) {
-                console.error(error)
-            }
-        }
+  const onClickDelete = () => {
+    const deleteFeedback = async () => {
+      try {
+        await api.delete(`/feedback/feedback/delete/${feedback.id}/`);
+        onDelete(feedback.id);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        const result = confirm("Вы действительно хотите удалить заявление?")
-        if (result) deleteFeedback()
-    }
+    const result = confirm("Вы действительно хотите удалить заявление?");
+    if (result) deleteFeedback();
+  };
 
-    return (
-        <li className="feedback">
-            <div className="feedback-info">
-                <p className="feedback-info__theme">{feedback.theme}</p>
-                <p>{date}</p>
-            </div>
-            
-            <div className="feedback-buttons">
-                <p>{feedback.status}</p>
-                <img onClick={onClickView} src={documentIcon} alt="view" />
-                {feedback.status === "Отправлено" && (
-                    <img onClick={onClickDelete} src={trashIcon} alt="delete" />
-                )}
-            </div>
-        </li>
-    )
-}
+  return (
+    <li className="feedback">
+      <div className="feedback-info">
+        <p className="feedback-info__theme">{feedback.theme}</p>
+        <p className="feedback-info__date">{date}</p>
+      </div>
+
+      <div className="feedback-buttons">
+        <p>{feedback.status}</p>
+        <div className="feedback-buttons-icons">
+          <img onClick={onClickView} src={documentIcon} alt="view" />
+          {feedback.status === "Отправлено" && (
+            <img onClick={onClickDelete} src={trashIcon} alt="delete" />
+          )}
+        </div>
+      </div>
+    </li>
+  );
+};
