@@ -57,12 +57,12 @@ class GenreTests(TestCase):
     def setUp(self):
         self.client = APIClient()
 
-        self.genre_1 = Genre.objects.create(id=1, name="Action")
-        self.genre_2 = Genre.objects.create(id=2, name="Adventure")
+        self.genre_1 = Genre.objects.create(id=1, name="Test Genre 1")
+        self.genre_2 = Genre.objects.create(id=2, name="Test Genre 2")
 
     def test_genre_model_str(self):
-        self.assertEqual(str(self.genre_1), "Action")
-        self.assertEqual(str(self.genre_2), "Adventure")
+        self.assertEqual(str(self.genre_1), "Test Genre 1")
+        self.assertEqual(str(self.genre_2), "Test Genre 2")
         
     def test_genre_view_genre(self):
         response = self.client.get(reverse('genre'))
@@ -72,7 +72,7 @@ class GenreTests(TestCase):
     def test_genre_view_get_genre(self):
         response = self.client.get(reverse('get_genre', args=[self.genre_1.id]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], "Action")
+        self.assertEqual(response.data['name'], "Test Genre 1")
 
 class TagTests(TestCase):
     def setUp(self):
@@ -94,3 +94,24 @@ class TagTests(TestCase):
         response = self.client.get(reverse('get_tag', args=[self.tag_1.id]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Test Tag 1")
+
+class DeveloperTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.developer_1 = Developer.objects.create(id=1, name="Test Developer 1")
+        self.developer_2 = Developer.objects.create(id=2, name="Test Developer 2")
+
+    def test_developer_model_str(self):
+        self.assertEqual(str(self.developer_1), "Test Developer 1")
+        self.assertEqual(str(self.developer_2), "Test Developer 2")
+        
+    def test_developer_view_developer(self):
+        response = self.client.get(reverse('developer'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+
+    def test_developer_view_get_developer(self):
+        response = self.client.get(reverse('get_developer', args=[self.developer_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], "Test Developer 1")
