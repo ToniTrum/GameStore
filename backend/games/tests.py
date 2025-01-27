@@ -73,3 +73,24 @@ class GenreTests(TestCase):
         response = self.client.get(reverse('get_genre', args=[self.genre_1.id]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Action")
+
+class TagTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.tag_1 = Tag.objects.create(id=1, name="Test Tag 1")
+        self.tag_2 = Tag.objects.create(id=2, name="Test Tag 2")
+
+    def test_tag_model_str(self):
+        self.assertEqual(str(self.tag_1), "Test Tag 1")
+        self.assertEqual(str(self.tag_2), "Test Tag 2")
+        
+    def test_tag_view_tag(self):
+        response = self.client.get(reverse('tag'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+
+    def test_tag_view_get_tag(self):
+        response = self.client.get(reverse('get_tag', args=[self.tag_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], "Test Tag 1")
