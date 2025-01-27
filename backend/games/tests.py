@@ -165,7 +165,6 @@ class GameTests(TestCase):
         self.country = Country.objects.create(name_ru="Россия", currency=self.currency, currency_symbol="₽", numeric_code=643)
         self.user = User.objects.create_user(username='user', password='userpass', email="user@mail.ru")
 
-
         self.game_1 = Game.objects.create(
             id=1,
             name="Test Game 1",
