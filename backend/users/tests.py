@@ -266,3 +266,61 @@ class UserProfileTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         self.assertEqual(response.data['details'], "User not found")
 
+class ConfirmationCodeTests(APITestCase):
+    def setUp(self):
+        self.currency = CurrencyRate.objects.create(currency_code='RUB', rate=1.0000)
+        self.country = Country.objects.create(name_ru='Россия', numeric_code=643, currency=self.currency, currency_symbol='₽')
+
+        self.user = User.objects.create_user(username='testuser', email='testuser@example.com', password='testpassword')
+        self.client.force_authenticate(user=self.user)
+
+    def test_confirmation_code_view_create_confirmation_code(self):
+        url = reverse('create_confirmation_code')
+        response = self.client.post(url, data={'email': self.user.email}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['details'], "Reset password code sent")
+
+    def test_confirmation_code_view_check_confirmation_code(self):
+        confirm_code = ConfirmationCode.objects.create(email=self.user.email, code='1234')
+        url = reverse('check_confirmation_code')
+        response = self.client.post(url, data={'email': self.user.email, 'code': confirm_code.code}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['details'], "Confirmation code is valid")
+
+    def test_confirmation_code_view_check_confirmation_code_invalid_code(self):
+        confirm_code = ConfirmationCode.objects.create(email=self.user.email, code='1234')
+        url = reverse('check_confirmation_code')
+        response = self.client.post(url, data={'email': self.user.email, 'code': '12345'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(response.data['details'], "Confirmation code is invalid")
+
+    def test_confirmation_code_view_check_confirmation_code_invalid_email(self):
+        confirm_code = ConfirmationCode.objects.create(email=self.user.email, code='1234')
+        url = reverse('check_confirmation_code')
+        response = self.client.post(url, data={'email': 'free@ya.ru', 'code': confirm_code.code}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.data['details'], "Confirmation code not found")
+
+    def test_confirmation_code_view_reset_password(self):
+        confirm_code = ConfirmationCode.objects.create(email=self.user.email, code='1234')
+        url = reverse('reset_password')
+        response = self.client.put(url, data={'email': self.user.email, 'password': 'newpassword'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['details'], "Password changed")
+
+    def test_confirmation_code_view_reset_password_invalid_email(self):
+        confirm_code = ConfirmationCode.objects.create(email=self.user.email, code='1234')
+        url = reverse('reset_password')
+        response = self.client.put(url, data={'email': 'free@ya.ru', 'password': 'newpassword'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def test_confirmation_code_view_change_email(self):
+        url = reverse('change_email', kwargs={'user_id': self.user.id})
+        response = self.client.put(url, data={'email': 'newemail@ya.ru'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['details'], "Email changed")
+
+    def test_confirmation_code_view_change_email_invalid_user(self):
+        url = reverse('change_email', kwargs={'user_id': 999})
+        response = self.client.put(url, data={'email': 'free@ya.ru'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
