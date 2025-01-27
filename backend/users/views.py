@@ -136,7 +136,7 @@ def delete_user(request, user_id):
         user.deleted = True
         user.deleted_at = timezone.now()
         user.save()
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail": "User deleted"}, status=status.HTTP_204_NO_CONTENT)
     except User.DoesNotExist:
         return Response(
             {"detail": "Пользователь не найден."},
