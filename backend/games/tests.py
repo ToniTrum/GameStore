@@ -115,3 +115,24 @@ class DeveloperTests(TestCase):
         response = self.client.get(reverse('get_developer', args=[self.developer_1.id]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], "Test Developer 1")
+
+class ScreenShotTests(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+
+        self.screenshot_1 = Screenshot.objects.create(id=1, image="http://test.com/test.png")
+        self.screenshot_2 = Screenshot.objects.create(id=2, image="http://test2.com/test.png")
+
+    def test_screenshot_model_str(self):
+        self.assertEqual(str(self.screenshot_1), "http://test.com/test.png")
+        self.assertEqual(str(self.screenshot_2), "http://test2.com/test.png")
+        
+    def test_screenshot_view_screenshot(self):
+        response = self.client.get(reverse('screenshot'))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 2)
+
+    def test_screenshot_view_get_screenshot(self):
+        response = self.client.get(reverse('get_screenshot', args=[self.screenshot_1.id]))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['image'], "http://test.com/test.png")
