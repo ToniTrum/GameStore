@@ -14,7 +14,7 @@
 
   width: 100%;
 
-  background-color: black;
+  background-color: var(--section-color);
   border-radius: 1rem;
 }
 

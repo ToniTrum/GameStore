@@ -11,7 +11,7 @@ main {
 
   width: 700px;
   padding: 4rem;
-  background-color: black;
+  background-color: var(--section-color);
   border-radius: 5%;
 }
 

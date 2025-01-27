@@ -5,7 +5,8 @@
 
 :root {
   --primary-color: rgba(214, 10, 10, 0.87);
-  --background-color: #242424;
+  --background-color: hwb(0 14% 86%);
+  --section-color: #121212;
   --text-color: rgb(255, 255, 255);
   --border-color: #bdbdbd;
   --hover-color: rgba(214, 10, 10, 0.87);

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 import trashIcon from "../../assets/img/trash.svg";
 import documentIcon from "../../assets/img/document.svg";
 import useAxios from "../../utils/useAxios";
@@ -104,6 +107,8 @@ const Feedback = ({ feedback, onDelete }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const MySwal = withReactContent(Swal);
+
   const date = dayjs(feedback.created_at).format("DD.MM.YYYY, HH:mm");
 
   const onClickView = () => {
@@ -111,17 +116,36 @@ const Feedback = ({ feedback, onDelete }) => {
   };
 
   const onClickDelete = () => {
-    const deleteFeedback = async () => {
-      try {
-        await api.delete(`/feedback/feedback/delete/${feedback.id}/`);
-        onDelete(feedback.id);
-      } catch (error) {
-        console.error(error);
+    MySwal.fire({
+      title: <strong>Вы уверены?</strong>,
+      html: (
+        <p>
+          Это действие <strong>нельзя отменить</strong>. Вы действительно хотите
+          удалить заявление?
+        </p>
+      ),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Да, удалить",
+      cancelButtonText: "Отмена",
+      reverseButtons: true,
+      customClass: {
+        popup: "custom-popup",
+        confirmButton: "custom-confirm-button",
+        cancelButton: "custom-cancel-button",
+      },
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await api.delete(`/feedback/feedback/delete/${feedback.id}/`);
+          onDelete(feedback.id);
+          Swal.fire("Удалено!", "Ваше заявление успешно удалено.", "success");
+        } catch (error) {
+          console.error(error);
+          Swal.fire("Ошибка!", "Не удалось удалить заявление.", "error");
+        }
       }
-    };
-
-    const result = confirm("Вы действительно хотите удалить заявление?");
-    if (result) deleteFeedback();
+    });
   };
 
   return (

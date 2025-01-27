@@ -19,16 +19,17 @@
 
 .navbar-item-underline {
     height: 0.2rem;
-    width: 0%;
-    background-color: rgb(214, 10, 10);
-    transition: all 0.3s ease-in;
-}
+    width: 0%; /* Начальное состояние линии - 0% ширины */
+    background: linear-gradient(to right, rgba(214, 10, 10, 0) 0%, rgba(214, 10, 10, 1) 50%, rgba(214, 10, 10, 0) 100%);
+    transition: all 0.3s ease-in-out;
+    border-radius: 1rem; /* Закругляем концы линии */
+  }
 
 .navbar-item:hover .navbar-item-underline {
     width: 80%;
 }
 
 .navbar-item:hover .navbar-link {
-    color: rgb(214, 10, 10);
+    color: var(--primary-color);
     font-weight: 500;
-}
+  }

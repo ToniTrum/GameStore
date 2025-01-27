@@ -1,21 +1,50 @@
 .store {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
 
-    background-color: black;
-    width: 100%;
+  background-color: var(--section-color);
+  width: 100%;
 
-    border-radius: 2rem;
+  border-radius: 2rem;
+  padding: 2rem; /* Добавляем отступы */
+  box-sizing: border-box; /* Учитываем padding */
 }
 
 .store__games {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
 
-    padding: 0.5rem;
+  padding: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .store {
+    padding: 1.5rem; /* Уменьшаем отступы */
+    gap: 2rem; /* Уменьшаем расстояние между секциями */
+  }
+
+  .store__games {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    ); /* Уменьшаем минимальную ширину элементов */
+    gap: 1rem; /* Уменьшаем расстояние между карточками */
+  }
+}
+
+@media (max-width: 480px) {
+  .store {
+    padding: 1rem; /* Ещё меньше отступов */
+    gap: 1.5rem; /* Ещё меньше расстояния между секциями */
+  }
+
+  .store__games {
+    grid-template-columns: 1fr; /* Одна карточка на строку */
+    gap: 0.5rem; /* Минимальное расстояние между карточками */
+  }
 }

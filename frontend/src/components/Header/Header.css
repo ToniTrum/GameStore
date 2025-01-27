@@ -3,11 +3,23 @@ header {
   justify-content: space-between;
   align-items: center;
 
-  background-color: black;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    /* Верхняя часть хедера */ rgba(0, 0, 0, 0.2),
+    /* Средняя часть */ rgba(0, 0, 0, 0) /* Прозрачный низ */
+  );
+  backdrop-filter: blur(10px); /* Размытие фона */
+  -webkit-backdrop-filter: blur(10px); /* Поддержка для Safari */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+
   position: fixed;
-  width: 100vw;
+  left: 0; /* Обязательно добавляем */
+  top: 0;
+  width: 100vw; /* Обеспечиваем полную ширину экрана */
   z-index: 10;
   padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .header-title {

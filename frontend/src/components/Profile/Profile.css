@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 2rem;
 
-  background-color: black;
+  background-color: var(--section-color);
   color: var(--color-text);
   border: 1px solid var(--color-border);
   border-radius: 2rem;
@@ -62,25 +62,39 @@
   color: var(--color-text);
 }
 
+.change-buttons a {
+  text-decoration: none; /* Убираем подчеркивание */
+  color: inherit; /* Наследуем цвет от кнопки */
+}
+
 .change-buttons button {
   flex: 1 1 calc(50% - 1rem);
   padding: 0.8rem 1rem;
+  border: 2px solid var(--color-border); /* Увеличиваем толщину границы */
   border-radius: 0.5rem;
-  border: 2px solid var(--color-border);
-  transition: border-color 0.3s;
+  background-color: var(--color-primary); /* Добавляем цвет фона */
+  color: var(--color-text); /* Цвет текста */
+  font-weight: bold; /* Делаем текст жирным */
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Добавляем плавные переходы */
   margin: 0 10px;
 }
 
 .change-buttons .delete-button {
-  border-color: red;
+  border-color: red; /* Красный бордер для удаления */
+  background-color: rgba(255, 0, 0, 0.1); /* Светло-красный фон */
+  color: darkred; /* Красный текст */
 }
 
 .change-buttons button:hover {
-  border-color: var(--color-border-hover);
+  border-color: var(--color-border-hover); /* Цвет бордера при наведении */
+  background-color: var(--color-secondary); /* Цвет фона при наведении */
+  color: var(--color-primary); /* Цвет текста при наведении */
 }
 
 .change-buttons .delete-button:hover {
   border-color: darkred;
+  background-color: rgba(255, 0, 0, 0.2); /* Более насыщенный красный фон */
+  color: red; /* Яркий красный текст */
 }
 
 /* Медиазапросы */

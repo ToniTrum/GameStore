@@ -1,5 +1,5 @@
 .feedback-section {
-  background-color: black;
+  background-color: var(--section-color);
   width: 100%;
 
   border-radius: 2rem;
@@ -59,7 +59,7 @@
 
   padding: 1rem;
   border-radius: 1rem;
-  background-color: #242424;
+  background-color: var(--section-color);
 }
 
 .form-error {
