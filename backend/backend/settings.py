@@ -177,6 +177,4 @@ STRIPE_SECRET_KEY = "sk_test_51QaWj8L7bbq6rfGOwunD4RzqLJWWXduu0pnaKzlyfBFH5dM01U
 # Celery
 CELERY_BROKER_URL = "redis://localhost:6379"
 CELERY_RESULT_BACKEND = "redis://localhost:6379"
-# CELERY_ACCEPT_CONTENT = ["json"]
-# CELERY_TASK_SERIALIZER = "json"
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"

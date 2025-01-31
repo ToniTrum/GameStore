@@ -107,15 +107,16 @@ input[type="file"] {
 @media (max-width: 480px) {
   .change-panel {
     width: 100%;
+    padding: 0;
   }
 
   .authorization-form {
     padding: 0.5rem;
   }
 
-  .form-item {
+  /* .form-item {
     gap: 0.3rem;
-  }
+  } */
 
   .form-label {
     font-size: 0.875rem;

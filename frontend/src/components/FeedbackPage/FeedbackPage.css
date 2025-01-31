@@ -73,14 +73,14 @@
 .form-error {
   color: var(--primary-color);
   min-height: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+  /* opacity: 0; */
+  /* transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out; */
 }
 
-.form-error.visible {
+/* .form-error.visible {
   opacity: 1;
   max-height: 2rem;
-}
+} */
 
 .custom-popup {
   border-radius: 10px;

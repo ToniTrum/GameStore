@@ -191,7 +191,7 @@ def check_confirmation_code(request):
     try:
         email = request.data.get('email')
         code = request.data.get('code')
-        print(email, code)
+
         reset_password_code = ConfirmationCode.objects.get(email=email)
         if reset_password_code.code == code:
             return Response({"details": "Confirmation code is valid"}, status=status.HTTP_200_OK)
@@ -213,7 +213,7 @@ def reset_password(request):
         user.set_password(request.data.get('password'))
         user.save()
         reset_password_code.delete()
-        return Response({f"details": "Password changed"}, status=status.HTTP_200_OK)
+        return Response({"details": "Password changed"}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
@@ -224,6 +224,6 @@ def change_email(request, user_id):
         user = User.objects.get(id=user_id)
         user.email = request.data.get('email')
         user.save()
-        return Response({f"details": "Email changed"}, status=status.HTTP_200_OK)
+        return Response({"details": "Email changed"}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({"details": f"error: \n{str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

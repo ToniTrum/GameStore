@@ -54,7 +54,7 @@ const Footer = () => {
               </span>
             </li>
 
-            <li>
+            {/* <li>
               <button
                 className="subscribe-button"
                 onClick={handleSubscribeClick}
@@ -63,7 +63,7 @@ const Footer = () => {
                   ? "Отписаться от обновлений"
                   : "Подписаться на обновления"}
               </button>
-            </li>
+            </li> */}
           </ul>
         </div>
       </footer>
